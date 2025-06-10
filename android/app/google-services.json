@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "480099989582",
+    "project_id": "felipe-84913",
+    "storage_bucket": "felipe-84913.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480099989582:android:005aecce9906888d42eb1f",
+        "android_client_info": {
+          "package_name": "com.mycompany.felipepersonal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7QEZIRWPoOJQav2uk0nbcn1xP95o5fVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
