@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCvQ-qpfZumMtRPlKfR4bpUgNZgnpyXA58</string>
+	<string>AIzaSyDUG_wtcLffsWM75yu6kVFeQ6CibWdMnDM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>480099989582</string>
+	<string>163169091908</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.mycompany.felipepersonal</string>
 	<key>PROJECT_ID</key>
-	<string>felipe-84913</string>
+	<string>felipe-personal-3b85a</string>
 	<key>STORAGE_BUCKET</key>
-	<string>felipe-84913.firebasestorage.app</string>
+	<string>felipe-personal-3b85a.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:480099989582:ios:5aef554662d1da2242eb1f</string>
+	<string>1:163169091908:ios:1c3330358c2f0fe0d11711</string>
 </dict>
 </plist>

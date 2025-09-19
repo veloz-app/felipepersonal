@@ -1,5 +1,4 @@
 import 'package:provider/provider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,6 +9,7 @@ import 'auth/firebase_auth/auth_util.dart';
 import 'backend/firebase/firebase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'index.dart';
 
 void main() async {
@@ -18,6 +18,8 @@ void main() async {
   usePathUrlStrategy();
 
   await initFirebase();
+
+  await FlutterFlowTheme.initialize();
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -37,16 +39,8 @@ class MyApp extends StatefulWidget {
       context.findAncestorStateOfType<_MyAppState>()!;
 }
 
-class MyAppScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
-}
-
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
@@ -63,7 +57,6 @@ class _MyAppState extends State<MyApp> {
       _router.routerDelegate.currentConfiguration.matches
           .map((e) => getRoute(e))
           .toList();
-
   late Stream<BaseAuthUser> userStream;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
@@ -94,6 +87,7 @@ class _MyAppState extends State<MyApp> {
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
+        FlutterFlowTheme.saveThemeMode(mode);
       });
 
   @override
@@ -101,7 +95,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Felipe Personal',
-      scrollBehavior: MyAppScrollBehavior(),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -110,7 +103,9 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(
         brightness: Brightness.light,
-        useMaterial3: false,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
       ),
       themeMode: _themeMode,
       routerConfig: _router,
@@ -136,7 +131,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'Pagina_Inicial';
+  String _currentPageName = 'homepage';
   late Widget? _currentPage;
 
   @override
@@ -149,11 +144,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'Pagina_Inicial': PaginaInicialWidget(),
-      'Dicas': DicasWidget(),
-      'Mensagem': MensagemWidget(),
-      'Perfil': PerfilWidget(),
-      'Metas': MetasWidget(),
+      'alternativeTraining': AlternativeTrainingWidget(),
+      'homepage': HomepageWidget(),
+      'sethings': SethingsWidget(),
+      'tips': TipsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -166,49 +160,41 @@ class _NavBarPageState extends State<NavBarPage> {
           _currentPage = null;
           _currentPageName = tabs.keys.toList()[i];
         }),
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        selectedItemColor: Color(0xFF8F304A),
+        backgroundColor: Color(0xFFE9E9E9),
+        selectedItemColor: FlutterFlowTheme.of(context).primary,
         unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
-              size: 24.0,
+            icon: FaIcon(
+              FontAwesomeIcons.dumbbell,
+              size: 23.0,
             ),
             label: 'Home',
             tooltip: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.lightbulb,
-              size: 24.0,
+              Icons.home,
+              size: 28.0,
             ),
             label: 'Home',
             tooltip: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.message_rounded,
-              size: 24.0,
+              Icons.settings,
+              size: 28.0,
             ),
             label: 'Home',
             tooltip: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
-              size: 24.0,
-            ),
-            label: 'Home',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              FFIcons.kiconeMeta,
-              size: 24.0,
+              Icons.tips_and_updates_rounded,
+              size: 28.0,
             ),
             label: 'Home',
             tooltip: '',

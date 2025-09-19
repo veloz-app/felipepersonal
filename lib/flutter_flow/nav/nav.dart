@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -77,25 +76,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : AnimationWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : LoginWidget(),
-        ),
-        FFRoute(
-          name: IntroWidget.routeName,
-          path: IntroWidget.routePath,
-          builder: (context, params) => IntroWidget(),
-        ),
-        FFRoute(
-          name: PaginaInicialWidget.routeName,
-          path: PaginaInicialWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Pagina_Inicial')
-              : PaginaInicialWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : AnimationWidget(),
         ),
         FFRoute(
           name: LoginWidget.routeName,
@@ -103,60 +90,74 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => LoginWidget(),
         ),
         FFRoute(
-          name: DicasWidget.routeName,
-          path: DicasWidget.routePath,
-          builder: (context, params) =>
-              params.isEmpty ? NavBarPage(initialPage: 'Dicas') : DicasWidget(),
+          name: AnimationWidget.routeName,
+          path: AnimationWidget.routePath,
+          builder: (context, params) => AnimationWidget(),
         ),
         FFRoute(
-          name: MensagemWidget.routeName,
-          path: MensagemWidget.routePath,
+          name: HomepageWidget.routeName,
+          path: HomepageWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Mensagem')
-              : MensagemWidget(),
+              ? NavBarPage(initialPage: 'homepage')
+              : HomepageWidget(),
         ),
         FFRoute(
-          name: PerfilWidget.routeName,
-          path: PerfilWidget.routePath,
+          name: AlternativeTrainingWidget.routeName,
+          path: AlternativeTrainingWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Perfil')
-              : PerfilWidget(),
+              ? NavBarPage(initialPage: 'alternativeTraining')
+              : AlternativeTrainingWidget(),
         ),
         FFRoute(
-          name: SelecaoMensagemWidget.routeName,
-          path: SelecaoMensagemWidget.routePath,
-          builder: (context, params) => SelecaoMensagemWidget(),
+          name: SethingsWidget.routeName,
+          path: SethingsWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'sethings')
+              : SethingsWidget(),
         ),
         FFRoute(
-          name: MetasWidget.routeName,
-          path: MetasWidget.routePath,
+          name: PostAlternativeTrainingWidget.routeName,
+          path: PostAlternativeTrainingWidget.routePath,
+          builder: (context, params) => PostAlternativeTrainingWidget(),
+        ),
+        FFRoute(
+          name: CreateAccountWidget.routeName,
+          path: CreateAccountWidget.routePath,
+          builder: (context, params) => CreateAccountWidget(),
+        ),
+        FFRoute(
+          name: TipsWidget.routeName,
+          path: TipsWidget.routePath,
           builder: (context, params) =>
-              params.isEmpty ? NavBarPage(initialPage: 'Metas') : MetasWidget(),
+              params.isEmpty ? NavBarPage(initialPage: 'tips') : TipsWidget(),
         ),
         FFRoute(
-          name: PaginaADMWidget.routeName,
-          path: PaginaADMWidget.routePath,
-          builder: (context, params) => PaginaADMWidget(),
-        ),
-        FFRoute(
-          name: PaginaADMcontaAlunoWidget.routeName,
-          path: PaginaADMcontaAlunoWidget.routePath,
-          builder: (context, params) => PaginaADMcontaAlunoWidget(),
-        ),
-        FFRoute(
-          name: CriarContaAlunoWidget.routeName,
-          path: CriarContaAlunoWidget.routePath,
-          builder: (context, params) => CriarContaAlunoWidget(),
-        ),
-        FFRoute(
-          name: AlimentacaoWidget.routeName,
-          path: AlimentacaoWidget.routePath,
-          builder: (context, params) => AlimentacaoWidget(),
-        ),
-        FFRoute(
-          name: VideoParaAlunoWidget.routeName,
-          path: VideoParaAlunoWidget.routePath,
-          builder: (context, params) => VideoParaAlunoWidget(),
+          name: EditAlternativeTrainingWidget.routeName,
+          path: EditAlternativeTrainingWidget.routePath,
+          builder: (context, params) => EditAlternativeTrainingWidget(
+            editTitleAlternativeTraining: params.getParam(
+              'editTitleAlternativeTraining',
+              ParamType.String,
+            ),
+            editSubtitleAlternativeTraining: params.getParam(
+              'editSubtitleAlternativeTraining',
+              ParamType.String,
+            ),
+            editDetailsAlternativeTraining: params.getParam(
+              'editDetailsAlternativeTraining',
+              ParamType.String,
+            ),
+            editVideoAlternativeTraining: params.getParam(
+              'editVideoAlternativeTraining',
+              ParamType.String,
+            ),
+            referenceAlternativeTraining: params.getParam(
+              'referenceAlternativeTraining',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['alternativeTraining'],
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -328,7 +329,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/login';
+            return '/animation';
           }
           return null;
         },
@@ -342,15 +343,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/splash.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

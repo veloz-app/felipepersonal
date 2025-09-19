@@ -35,26 +35,6 @@ class UserRecord extends FirestoreRecord {
   String get uid => _uid ?? '';
   bool hasUid() => _uid != null;
 
-  // "isAluno" field.
-  bool? _isAluno;
-  bool get isAluno => _isAluno ?? false;
-  bool hasIsAluno() => _isAluno != null;
-
-  // "IsAdm" field.
-  bool? _isAdm;
-  bool get isAdm => _isAdm ?? false;
-  bool hasIsAdm() => _isAdm != null;
-
-  // "Sobrenome" field.
-  String? _sobrenome;
-  String get sobrenome => _sobrenome ?? '';
-  bool hasSobrenome() => _sobrenome != null;
-
-  // "Sexo" field.
-  String? _sexo;
-  String get sexo => _sexo ?? '';
-  bool hasSexo() => _sexo != null;
-
   // "created_time" field.
   DateTime? _createdTime;
   DateTime? get createdTime => _createdTime;
@@ -65,29 +45,25 @@ class UserRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
-  // "idade" field.
-  int? _idade;
-  int get idade => _idade ?? 0;
-  bool hasIdade() => _idade != null;
+  // "userAdm" field.
+  String? _userAdm;
+  String get userAdm => _userAdm ?? '';
+  bool hasUserAdm() => _userAdm != null;
 
-  // "data_de_nascimento" field.
-  String? _dataDeNascimento;
-  String get dataDeNascimento => _dataDeNascimento ?? '';
-  bool hasDataDeNascimento() => _dataDeNascimento != null;
+  // "notificationCount" field.
+  int? _notificationCount;
+  int get notificationCount => _notificationCount ?? 0;
+  bool hasNotificationCount() => _notificationCount != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
     _uid = snapshotData['uid'] as String?;
-    _isAluno = snapshotData['isAluno'] as bool?;
-    _isAdm = snapshotData['IsAdm'] as bool?;
-    _sobrenome = snapshotData['Sobrenome'] as String?;
-    _sexo = snapshotData['Sexo'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
-    _idade = castToType<int>(snapshotData['idade']);
-    _dataDeNascimento = snapshotData['data_de_nascimento'] as String?;
+    _userAdm = snapshotData['userAdm'] as String?;
+    _notificationCount = castToType<int>(snapshotData['notificationCount']);
   }
 
   static CollectionReference get collection =>
@@ -128,14 +104,10 @@ Map<String, dynamic> createUserRecordData({
   String? displayName,
   String? photoUrl,
   String? uid,
-  bool? isAluno,
-  bool? isAdm,
-  String? sobrenome,
-  String? sexo,
   DateTime? createdTime,
   String? phoneNumber,
-  int? idade,
-  String? dataDeNascimento,
+  String? userAdm,
+  int? notificationCount,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -143,14 +115,10 @@ Map<String, dynamic> createUserRecordData({
       'display_name': displayName,
       'photo_url': photoUrl,
       'uid': uid,
-      'isAluno': isAluno,
-      'IsAdm': isAdm,
-      'Sobrenome': sobrenome,
-      'Sexo': sexo,
       'created_time': createdTime,
       'phone_number': phoneNumber,
-      'idade': idade,
-      'data_de_nascimento': dataDeNascimento,
+      'userAdm': userAdm,
+      'notificationCount': notificationCount,
     }.withoutNulls,
   );
 
@@ -166,14 +134,10 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.uid == e2?.uid &&
-        e1?.isAluno == e2?.isAluno &&
-        e1?.isAdm == e2?.isAdm &&
-        e1?.sobrenome == e2?.sobrenome &&
-        e1?.sexo == e2?.sexo &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.idade == e2?.idade &&
-        e1?.dataDeNascimento == e2?.dataDeNascimento;
+        e1?.userAdm == e2?.userAdm &&
+        e1?.notificationCount == e2?.notificationCount;
   }
 
   @override
@@ -182,14 +146,10 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.displayName,
         e?.photoUrl,
         e?.uid,
-        e?.isAluno,
-        e?.isAdm,
-        e?.sobrenome,
-        e?.sexo,
         e?.createdTime,
         e?.phoneNumber,
-        e?.idade,
-        e?.dataDeNascimento
+        e?.userAdm,
+        e?.notificationCount
       ]);
 
   @override

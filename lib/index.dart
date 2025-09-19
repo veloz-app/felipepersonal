@@ -1,19 +1,13 @@
 // Export pages
-export '/pages/intro/intro_widget.dart' show IntroWidget;
-export '/pages/pagina_inicial/pagina_inicial_widget.dart'
-    show PaginaInicialWidget;
-export '/pages/login/login_widget.dart' show LoginWidget;
-export '/pages/dicas/dicas_widget.dart' show DicasWidget;
-export '/pages/mensagem/mensagem_widget.dart' show MensagemWidget;
-export '/pages/perfil/perfil_widget.dart' show PerfilWidget;
-export '/pages/selecao_mensagem/selecao_mensagem_widget.dart'
-    show SelecaoMensagemWidget;
-export '/pages/metas/metas_widget.dart' show MetasWidget;
-export '/pages/pagina_a_d_m/pagina_a_d_m_widget.dart' show PaginaADMWidget;
-export '/pages/pagina_a_d_mconta_aluno/pagina_a_d_mconta_aluno_widget.dart'
-    show PaginaADMcontaAlunoWidget;
-export '/pages/criar_conta_aluno/criar_conta_aluno_widget.dart'
-    show CriarContaAlunoWidget;
-export '/pages/alimentacao/alimentacao_widget.dart' show AlimentacaoWidget;
-export '/pages/video_para_aluno/video_para_aluno_widget.dart'
-    show VideoParaAlunoWidget;
+export '/login/login_widget.dart' show LoginWidget;
+export '/animation/animation_widget.dart' show AnimationWidget;
+export '/homepage/homepage_widget.dart' show HomepageWidget;
+export '/alternative_training/alternative_training_widget.dart'
+    show AlternativeTrainingWidget;
+export '/sethings/sethings_widget.dart' show SethingsWidget;
+export '/post_alternative_training/post_alternative_training_widget.dart'
+    show PostAlternativeTrainingWidget;
+export '/create_account/create_account_widget.dart' show CreateAccountWidget;
+export '/tips/tips_widget.dart' show TipsWidget;
+export '/edit_alternative_training/edit_alternative_training_widget.dart'
+    show EditAlternativeTrainingWidget;
