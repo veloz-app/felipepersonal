@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:provider/provider.dart';
 import 'alternative_training_model.dart';
 export 'alternative_training_model.dart';
 
@@ -47,8 +46,6 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -176,7 +173,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                       AlternativeTrainingRecord>(
                     pagingController: _model.setListViewController(
                       AlternativeTrainingRecord.collection
-                          .orderBy('timeStamp_training'),
+                          .orderBy('timeStamp_training', descending: true),
                     ),
                     padding: EdgeInsets.zero,
                     reverse: false,
@@ -555,14 +552,14 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Container(
-                                      width: 313.0,
-                                      height: 556.0,
+                                      width: 290.0,
+                                      height: 520.0,
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
                                       child: Container(
-                                        width: 313.0,
+                                        width: 290.0,
                                         child: Stack(
                                           alignment:
                                               AlignmentDirectional(0.0, 0.0),
@@ -571,7 +568,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                               path:
                                                   'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/V%C3%ADdeo%201.mp4?alt=media&token=15a746f3-9f3a-4137-8673-ae9876edae3b',
                                               videoType: VideoType.network,
-                                              width: 313.0,
+                                              width: 290.0,
                                               height: double.infinity,
                                               autoPlay: false,
                                               looping: true,
@@ -605,12 +602,91 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                   0.95, 0.65),
                                               child: ToggleIcon(
                                                 onPressed: () async {
-                                                  safeSetState(() =>
-                                                      FFAppState().likeState =
-                                                          !FFAppState()
-                                                              .likeState);
+                                                  final likedByElement =
+                                                      currentUserReference;
+                                                  final likedByUpdate =
+                                                      listViewAlternativeTrainingRecord
+                                                              .likedBy
+                                                              .contains(
+                                                                  likedByElement)
+                                                          ? FieldValue
+                                                              .arrayRemove([
+                                                              likedByElement
+                                                            ])
+                                                          : FieldValue
+                                                              .arrayUnion([
+                                                              likedByElement
+                                                            ]);
+                                                  await listViewAlternativeTrainingRecord
+                                                      .reference
+                                                      .update({
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'liked_by':
+                                                            likedByUpdate,
+                                                      },
+                                                    ),
+                                                  });
+                                                  if (listViewAlternativeTrainingRecord
+                                                          .likedBy
+                                                          .contains(
+                                                              currentUserReference) ==
+                                                      true) {
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'likeCountVideo':
+                                                              FieldValue
+                                                                  .increment(
+                                                                      -1),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'liked_by': FieldValue
+                                                              .delete(),
+                                                        },
+                                                      ),
+                                                    });
+                                                  } else {
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'likeCountVideo':
+                                                              FieldValue
+                                                                  .increment(1),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'liked_by': FieldValue
+                                                              .arrayUnion([
+                                                            currentUserReference
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
+                                                  }
                                                 },
-                                                value: FFAppState().likeState,
+                                                value:
+                                                    listViewAlternativeTrainingRecord
+                                                        .likedBy
+                                                        .contains(
+                                                            currentUserReference),
                                                 onIcon: FaIcon(
                                                   FontAwesomeIcons
                                                       .solidThumbsUp,
@@ -633,12 +709,91 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                   0.94, 0.9),
                                               child: ToggleIcon(
                                                 onPressed: () async {
-                                                  safeSetState(() =>
-                                                      FFAppState().loveState =
-                                                          !FFAppState()
-                                                              .loveState);
+                                                  final lovedByElement =
+                                                      currentUserReference;
+                                                  final lovedByUpdate =
+                                                      listViewAlternativeTrainingRecord
+                                                              .lovedBy
+                                                              .contains(
+                                                                  lovedByElement)
+                                                          ? FieldValue
+                                                              .arrayRemove([
+                                                              lovedByElement
+                                                            ])
+                                                          : FieldValue
+                                                              .arrayUnion([
+                                                              lovedByElement
+                                                            ]);
+                                                  await listViewAlternativeTrainingRecord
+                                                      .reference
+                                                      .update({
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'loved_by':
+                                                            lovedByUpdate,
+                                                      },
+                                                    ),
+                                                  });
+                                                  if (listViewAlternativeTrainingRecord
+                                                          .lovedBy
+                                                          .contains(
+                                                              currentUserReference) ==
+                                                      true) {
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'loveCountVideo':
+                                                              FieldValue
+                                                                  .increment(
+                                                                      -1),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'loved_by': FieldValue
+                                                              .delete(),
+                                                        },
+                                                      ),
+                                                    });
+                                                  } else {
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'loveCountVideo':
+                                                              FieldValue
+                                                                  .increment(1),
+                                                        },
+                                                      ),
+                                                    });
+
+                                                    await listViewAlternativeTrainingRecord
+                                                        .reference
+                                                        .update({
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'loved_by': FieldValue
+                                                              .arrayUnion([
+                                                            currentUserReference
+                                                          ]),
+                                                        },
+                                                      ),
+                                                    });
+                                                  }
                                                 },
-                                                value: FFAppState().loveState,
+                                                value:
+                                                    listViewAlternativeTrainingRecord
+                                                        .lovedBy
+                                                        .contains(
+                                                            currentUserReference),
                                                 onIcon: Icon(
                                                   Icons.favorite_sharp,
                                                   color: Colors.white,
@@ -653,35 +808,22 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                 ),
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.83, 0.94),
-                                              child: Text(
-                                                listViewAlternativeTrainingRecord
-                                                    .love
-                                                    .toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .montserrat(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .tertiary,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
+                                            if (listViewAlternativeTrainingRecord
+                                                    .loveCountVideo >=
+                                                1)
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.83, 0.94),
+                                                child: Text(
+                                                  listViewAlternativeTrainingRecord
+                                                      .loveCountVideo
+                                                      .toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts
+                                                            .montserrat(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -693,37 +835,41 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                ),
                                               ),
-                                            ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.84, 0.74),
-                                              child: Text(
-                                                listViewAlternativeTrainingRecord
-                                                    .like
-                                                    .toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .montserrat(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .tertiary,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
+                                            if (listViewAlternativeTrainingRecord
+                                                    .likeCountVideo >=
+                                                1)
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.84, 0.74),
+                                                child: Text(
+                                                  listViewAlternativeTrainingRecord
+                                                      .likeCountVideo
+                                                      .toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font: GoogleFonts
+                                                            .montserrat(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -735,8 +881,25 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                ),
                                               ),
-                                            ),
                                           ],
                                         ),
                                       ),

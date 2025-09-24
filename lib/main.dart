@@ -145,9 +145,10 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'alternativeTraining': AlternativeTrainingWidget(),
-      'homepage': HomepageWidget(),
       'sethings': SethingsWidget(),
+      'homepage': HomepageWidget(),
       'tips': TipsWidget(),
+      'objectives': ObjectivesWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -169,16 +170,8 @@ class _NavBarPageState extends State<NavBarPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.dumbbell,
+              FontAwesomeIcons.play,
               size: 23.0,
-            ),
-            label: 'Home',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 28.0,
             ),
             label: 'Home',
             tooltip: '',
@@ -193,7 +186,23 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
+              Icons.home,
+              size: 28.0,
+            ),
+            label: 'Home',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
               Icons.tips_and_updates_rounded,
+              size: 28.0,
+            ),
+            label: 'Home',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.dumbbell,
               size: 28.0,
             ),
             label: 'Home',

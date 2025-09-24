@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -13,22 +14,68 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _likeStateVideoAlternative =
+          prefs.getBool('ff_likeStateVideoAlternative') ??
+              _likeStateVideoAlternative;
+    });
+    _safeInit(() {
+      _loveStateVideoAlternative =
+          prefs.getBool('ff_loveStateVideoAlternative') ??
+              _loveStateVideoAlternative;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
 
-  bool _likeState = false;
-  bool get likeState => _likeState;
-  set likeState(bool value) {
-    _likeState = value;
+  late SharedPreferences prefs;
+
+  bool _likeStateVideoAlternative = false;
+  bool get likeStateVideoAlternative => _likeStateVideoAlternative;
+  set likeStateVideoAlternative(bool value) {
+    _likeStateVideoAlternative = value;
+    prefs.setBool('ff_likeStateVideoAlternative', value);
   }
 
-  bool _loveState = false;
-  bool get loveState => _loveState;
-  set loveState(bool value) {
-    _loveState = value;
+  bool _loveStateVideoAlternative = false;
+  bool get loveStateVideoAlternative => _loveStateVideoAlternative;
+  set loveStateVideoAlternative(bool value) {
+    _loveStateVideoAlternative = value;
+    prefs.setBool('ff_loveStateVideoAlternative', value);
   }
+
+  bool _isExpanded = false;
+  bool get isExpanded => _isExpanded;
+  set isExpanded(bool value) {
+    _isExpanded = value;
+  }
+
+  int _expandedIndex = -1;
+  int get expandedIndex => _expandedIndex;
+  set expandedIndex(int value) {
+    _expandedIndex = value;
+  }
+
+  double _atualProgress = 0.0;
+  double get atualProgress => _atualProgress;
+  set atualProgress(double value) {
+    _atualProgress = value;
+  }
+}
+
+void _safeInit(Function() initializeField) {
+  try {
+    initializeField();
+  } catch (_) {}
+}
+
+Future _safeInitAsync(Function() initializeField) async {
+  try {
+    await initializeField();
+  } catch (_) {}
 }

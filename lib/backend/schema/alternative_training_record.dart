@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -30,21 +31,6 @@ class AlternativeTrainingRecord extends FirestoreRecord {
   String get moreDetails => _moreDetails ?? '';
   bool hasMoreDetails() => _moreDetails != null;
 
-  // "newVideo" field.
-  bool? _newVideo;
-  bool get newVideo => _newVideo ?? false;
-  bool hasNewVideo() => _newVideo != null;
-
-  // "like" field.
-  int? _like;
-  int get like => _like ?? 0;
-  bool hasLike() => _like != null;
-
-  // "love" field.
-  int? _love;
-  int get love => _love ?? 0;
-  bool hasLove() => _love != null;
-
   // "idAlternative" field.
   String? _idAlternative;
   String get idAlternative => _idAlternative ?? '';
@@ -60,16 +46,37 @@ class AlternativeTrainingRecord extends FirestoreRecord {
   String get videoUrl => _videoUrl ?? '';
   bool hasVideoUrl() => _videoUrl != null;
 
+  // "likeCountVideo" field.
+  int? _likeCountVideo;
+  int get likeCountVideo => _likeCountVideo ?? 0;
+  bool hasLikeCountVideo() => _likeCountVideo != null;
+
+  // "loveCountVideo" field.
+  int? _loveCountVideo;
+  int get loveCountVideo => _loveCountVideo ?? 0;
+  bool hasLoveCountVideo() => _loveCountVideo != null;
+
+  // "liked_by" field.
+  List<DocumentReference>? _likedBy;
+  List<DocumentReference> get likedBy => _likedBy ?? const [];
+  bool hasLikedBy() => _likedBy != null;
+
+  // "loved_by" field.
+  List<DocumentReference>? _lovedBy;
+  List<DocumentReference> get lovedBy => _lovedBy ?? const [];
+  bool hasLovedBy() => _lovedBy != null;
+
   void _initializeFields() {
     _displayNameTraining = snapshotData['display_name_training'] as String?;
     _description = snapshotData['description'] as String?;
     _moreDetails = snapshotData['moreDetails'] as String?;
-    _newVideo = snapshotData['newVideo'] as bool?;
-    _like = castToType<int>(snapshotData['like']);
-    _love = castToType<int>(snapshotData['love']);
     _idAlternative = snapshotData['idAlternative'] as String?;
     _timeStampTraining = snapshotData['timeStamp_training'] as DateTime?;
     _videoUrl = snapshotData['video_url'] as String?;
+    _likeCountVideo = castToType<int>(snapshotData['likeCountVideo']);
+    _loveCountVideo = castToType<int>(snapshotData['loveCountVideo']);
+    _likedBy = getDataList(snapshotData['liked_by']);
+    _lovedBy = getDataList(snapshotData['loved_by']);
   }
 
   static CollectionReference get collection =>
@@ -111,24 +118,22 @@ Map<String, dynamic> createAlternativeTrainingRecordData({
   String? displayNameTraining,
   String? description,
   String? moreDetails,
-  bool? newVideo,
-  int? like,
-  int? love,
   String? idAlternative,
   DateTime? timeStampTraining,
   String? videoUrl,
+  int? likeCountVideo,
+  int? loveCountVideo,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'display_name_training': displayNameTraining,
       'description': description,
       'moreDetails': moreDetails,
-      'newVideo': newVideo,
-      'like': like,
-      'love': love,
       'idAlternative': idAlternative,
       'timeStamp_training': timeStampTraining,
       'video_url': videoUrl,
+      'likeCountVideo': likeCountVideo,
+      'loveCountVideo': loveCountVideo,
     }.withoutNulls,
   );
 
@@ -141,15 +146,17 @@ class AlternativeTrainingRecordDocumentEquality
 
   @override
   bool equals(AlternativeTrainingRecord? e1, AlternativeTrainingRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.displayNameTraining == e2?.displayNameTraining &&
         e1?.description == e2?.description &&
         e1?.moreDetails == e2?.moreDetails &&
-        e1?.newVideo == e2?.newVideo &&
-        e1?.like == e2?.like &&
-        e1?.love == e2?.love &&
         e1?.idAlternative == e2?.idAlternative &&
         e1?.timeStampTraining == e2?.timeStampTraining &&
-        e1?.videoUrl == e2?.videoUrl;
+        e1?.videoUrl == e2?.videoUrl &&
+        e1?.likeCountVideo == e2?.likeCountVideo &&
+        e1?.loveCountVideo == e2?.loveCountVideo &&
+        listEquality.equals(e1?.likedBy, e2?.likedBy) &&
+        listEquality.equals(e1?.lovedBy, e2?.lovedBy);
   }
 
   @override
@@ -157,12 +164,13 @@ class AlternativeTrainingRecordDocumentEquality
         e?.displayNameTraining,
         e?.description,
         e?.moreDetails,
-        e?.newVideo,
-        e?.like,
-        e?.love,
         e?.idAlternative,
         e?.timeStampTraining,
-        e?.videoUrl
+        e?.videoUrl,
+        e?.likeCountVideo,
+        e?.loveCountVideo,
+        e?.likedBy,
+        e?.lovedBy
       ]);
 
   @override

@@ -231,8 +231,9 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                             child: StreamBuilder<List<NotificationRecord>>(
                               stream: queryNotificationRecord(
                                 queryBuilder: (notificationRecord) =>
-                                    notificationRecord
-                                        .orderBy('timeStamp_notification'),
+                                    notificationRecord.orderBy(
+                                        'timeStamp_notification',
+                                        descending: true),
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -277,7 +278,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                         ));
                                         if (listViewNotificationRecord
                                                 .notificationType ==
-                                            ' publicou um vídeo alternativo') {
+                                            'publicou um vídeo alternativo') {
                                           context.pushNamed(
                                               AlternativeTrainingWidget
                                                   .routeName);
@@ -288,26 +289,54 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                                   .isEndDrawerOpen) {
                                             Navigator.pop(context);
                                           }
-                                        } else {
-                                          return;
-                                        }
 
-                                        if (valueOrDefault(
-                                                currentUserDocument
-                                                    ?.notificationCount,
-                                                0) >=
-                                            1) {
-                                          await currentUserReference!.update({
-                                            ...mapToFirestore(
-                                              {
-                                                'notificationCount':
-                                                    FieldValue.increment(-(1)),
-                                              },
-                                            ),
-                                          });
-                                          return;
+                                          if (valueOrDefault(
+                                                  currentUserDocument
+                                                      ?.notificationCount,
+                                                  0) >=
+                                              1) {
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'notificationCount':
+                                                      FieldValue.increment(
+                                                          -(1)),
+                                                },
+                                              ),
+                                            });
+                                            return;
+                                          } else {
+                                            return;
+                                          }
                                         } else {
-                                          return;
+                                          context
+                                              .pushNamed(TipsWidget.routeName);
+
+                                          if (scaffoldKey
+                                                  .currentState!.isDrawerOpen ||
+                                              scaffoldKey.currentState!
+                                                  .isEndDrawerOpen) {
+                                            Navigator.pop(context);
+                                          }
+
+                                          if (valueOrDefault(
+                                                  currentUserDocument
+                                                      ?.notificationCount,
+                                                  0) >=
+                                              1) {
+                                            await currentUserReference!.update({
+                                              ...mapToFirestore(
+                                                {
+                                                  'notificationCount':
+                                                      FieldValue.increment(
+                                                          -(1)),
+                                                },
+                                              ),
+                                            });
+                                            return;
+                                          } else {
+                                            return;
+                                          }
                                         }
                                       },
                                       child: Card(

@@ -158,6 +158,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               collectionNamePath: ['alternativeTraining'],
             ),
           ),
+        ),
+        FFRoute(
+          name: ObjectivesWidget.routeName,
+          path: ObjectivesWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'objectives')
+              : ObjectivesWidget(),
+        ),
+        FFRoute(
+          name: ObjetivesADMWidget.routeName,
+          path: ObjetivesADMWidget.routePath,
+          builder: (context, params) => ObjetivesADMWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

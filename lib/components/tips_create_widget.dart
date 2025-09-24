@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -5,7 +6,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'tips_create_model.dart';
 export 'tips_create_model.dart';
@@ -79,7 +79,7 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Editar dicas',
+                    'Criar uma dica',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w500,
@@ -94,15 +94,6 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                           fontStyle:
                               FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(13.0, 0.0, 0.0, 0.0),
-                    child: FaIcon(
-                      FontAwesomeIcons.solidEdit,
-                      color: FlutterFlowTheme.of(context).secondary,
-                      size: 27.0,
-                    ),
                   ),
                 ],
               ),
@@ -357,82 +348,145 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
-                          child: FFButtonWidget(
-                            onPressed: !((_model.titleTipCreateTextController
-                                                .text !=
-                                            '') &&
-                                    (_model.tipCreateTextController.text !=
-                                            ''))
-                                ? null
-                                : () async {
-                                    await TipsRecord.collection
-                                        .doc()
-                                        .set(createTipsRecordData(
-                                          displayNameTypes: _model
-                                              .titleTipCreateTextController
-                                              .text,
-                                          tipDetail: _model
-                                              .tipCreateTextController.text,
-                                          idTips: '',
-                                          likeCount: 0,
-                                          loveCount: 0,
-                                        ));
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          '',
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                        ),
-                                        duration: Duration(milliseconds: 1650),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
+                          child: StreamBuilder<UserRecord>(
+                            stream:
+                                UserRecord.getDocument(currentUserReference!),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
                                       ),
-                                    );
-                                    await Future.delayed(
-                                      Duration(
-                                        milliseconds: 1600,
-                                      ),
-                                    );
-                                    Navigator.pop(context);
-
-                                    context.pushNamed(TipsWidget.routeName);
-                                  },
-                            text: 'Postar dica',
-                            options: FFButtonOptions(
-                              width: double.infinity,
-                              height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).secondary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
                                     ),
-                                    color: Colors.white,
-                                    fontSize: 17.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
                                   ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(8.0),
-                              disabledColor: Color(0x6AC79B66),
-                              disabledTextColor:
-                                  FlutterFlowTheme.of(context).primary,
-                            ),
+                                );
+                              }
+
+                              final buttonUserRecord = snapshot.data!;
+
+                              return FFButtonWidget(
+                                onPressed: !((_model.titleTipCreateTextController
+                                                    .text !=
+                                                '') &&
+                                        (_model.tipCreateTextController
+                                                    .text !=
+                                                ''))
+                                    ? null
+                                    : () async {
+                                        await TipsRecord.collection.doc().set({
+                                          ...createTipsRecordData(
+                                            displayNameTypes: _model
+                                                .titleTipCreateTextController
+                                                .text,
+                                            tipDetail: _model
+                                                .tipCreateTextController.text,
+                                            idTips: '',
+                                            likeCount: 0,
+                                            loveCount: 0,
+                                          ),
+                                          ...mapToFirestore(
+                                            {
+                                              'time_stampTips':
+                                                  FieldValue.serverTimestamp(),
+                                            },
+                                          ),
+                                        });
+
+                                        await NotificationRecord.collection
+                                            .doc()
+                                            .set({
+                                          ...createNotificationRecordData(
+                                            notificationType:
+                                                'publicou uma dica',
+                                            idNotification: '',
+                                            statusNotification: false,
+                                            imageCoverUrl:
+                                                'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FIcone%20notifica%C3%A7%C3%A3o.png?alt=media&token=c1d29a66-4e2d-4ef9-a64c-375907c222bc',
+                                          ),
+                                          ...mapToFirestore(
+                                            {
+                                              'timeStamp_notification':
+                                                  FieldValue.serverTimestamp(),
+                                            },
+                                          ),
+                                        });
+
+                                        await buttonUserRecord.reference
+                                            .update({
+                                          ...mapToFirestore(
+                                            {
+                                              'notificationCount':
+                                                  FieldValue.increment(1),
+                                            },
+                                          ),
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              '',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 1500),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                        await Future.delayed(
+                                          Duration(
+                                            milliseconds: 1600,
+                                          ),
+                                        );
+                                        Navigator.pop(context);
+
+                                        context.pushNamed(TipsWidget.routeName);
+                                      },
+                                text: 'Postar dica',
+                                options: FFButtonOptions(
+                                  width: double.infinity,
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        font: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        fontSize: 17.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
+                                  elevation: 0.0,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  disabledColor: Color(0x6AC79B66),
+                                  disabledTextColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

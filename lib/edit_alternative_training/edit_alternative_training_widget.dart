@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'edit_alternative_training_model.dart';
@@ -725,9 +726,9 @@ class _EditAlternativeTrainingWidgetState
                             await widget.referenceAlternativeTraining!
                                 .update(createAlternativeTrainingRecordData(
                               displayNameTraining:
-                                  widget.editTitleAlternativeTraining,
+                                  _model.titleVideoEditTextController.text,
                               description:
-                                  widget.editSubtitleAlternativeTraining,
+                                  _model.detailVideoEditTextController.text,
                               moreDetails:
                                   widget.editDetailsAlternativeTraining,
                               videoUrl: _model
@@ -739,8 +740,31 @@ class _EditAlternativeTrainingWidgetState
                               imageCoverUrl: _model
                                   .uploadedFileUrl_uploadImageCOverNotificationEdit,
                             ));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Alterado com sucesso',
+                                  style: TextStyle(
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 1500),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).primary,
+                              ),
+                            );
+                            await Future.delayed(
+                              Duration(
+                                milliseconds: 1500,
+                              ),
+                            );
+
+                            context
+                                .pushNamed(AlternativeTrainingWidget.routeName);
                           },
-                          text: 'Postar conteúdo',
+                          text: 'Confirmar alteração',
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 40.0,

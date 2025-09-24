@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'post_alternative_training_widget.dart'
@@ -38,6 +39,9 @@ class PostAlternativeTrainingModel
   FFUploadedFile uploadedLocalFile_uploadImageCOverNotification =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl_uploadImageCOverNotification = '';
+
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  AlternativeTrainingRecord? referenceVideo;
 
   @override
   void initState(BuildContext context) {}

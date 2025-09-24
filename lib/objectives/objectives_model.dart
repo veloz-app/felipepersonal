@@ -1,21 +1,16 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'alternative_training_widget.dart' show AlternativeTrainingWidget;
+import 'objectives_widget.dart' show ObjectivesWidget;
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class AlternativeTrainingModel
-    extends FlutterFlowModel<AlternativeTrainingWidget> {
-  ///  Local state fields for this page.
-
-  String? userLikeDoc;
-
+class ObjectivesModel extends FlutterFlowModel<ObjectivesWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for ListView widget.
 
-  PagingController<DocumentSnapshot?, AlternativeTrainingRecord>?
+  PagingController<DocumentSnapshot?, UserObjectivesRecord>?
       listViewPagingController;
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
@@ -30,7 +25,7 @@ class AlternativeTrainingModel
   }
 
   /// Additional helper methods.
-  PagingController<DocumentSnapshot?, AlternativeTrainingRecord>
+  PagingController<DocumentSnapshot?, UserObjectivesRecord>
       setListViewController(
     Query query, {
     DocumentReference<Object?>? parent,
@@ -43,22 +38,22 @@ class AlternativeTrainingModel
     return listViewPagingController!;
   }
 
-  PagingController<DocumentSnapshot?, AlternativeTrainingRecord>
+  PagingController<DocumentSnapshot?, UserObjectivesRecord>
       _createListViewController(
     Query query,
     DocumentReference<Object?>? parent,
   ) {
     final controller =
-        PagingController<DocumentSnapshot?, AlternativeTrainingRecord>(
+        PagingController<DocumentSnapshot?, UserObjectivesRecord>(
             firstPageKey: null);
     return controller
       ..addPageRequestListener(
-        (nextPageMarker) => queryAlternativeTrainingRecordPage(
+        (nextPageMarker) => queryUserObjectivesRecordPage(
           queryBuilder: (_) => listViewPagingQuery ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,
           controller: controller,
-          pageSize: 4,
+          pageSize: 3,
           isStream: true,
         ),
       );

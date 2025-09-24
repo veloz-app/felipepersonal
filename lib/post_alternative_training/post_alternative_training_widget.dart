@@ -731,9 +731,10 @@ class _PostAlternativeTrainingWidgetState
                                   _model.confirmImageCoverUpdate = false;
                                   safeSetState(() {});
 
-                                  await AlternativeTrainingRecord.collection
-                                      .doc()
-                                      .set({
+                                  var alternativeTrainingRecordReference =
+                                      AlternativeTrainingRecord.collection
+                                          .doc();
+                                  await alternativeTrainingRecordReference.set({
                                     ...createAlternativeTrainingRecordData(
                                       displayNameTraining: _model
                                           .titleVideoCreateTextController.text,
@@ -742,12 +743,11 @@ class _PostAlternativeTrainingWidgetState
                                           .text,
                                       moreDetails: _model
                                           .detailVideoCreateTextController.text,
-                                      newVideo: true,
-                                      like: 0,
-                                      love: 0,
                                       idAlternative: '',
                                       videoUrl: _model
                                           .uploadedFileUrl_uploadAlternativeVideo,
+                                      likeCountVideo: 0,
+                                      loveCountVideo: 0,
                                     ),
                                     ...mapToFirestore(
                                       {
@@ -756,6 +756,29 @@ class _PostAlternativeTrainingWidgetState
                                       },
                                     ),
                                   });
+                                  _model.referenceVideo =
+                                      AlternativeTrainingRecord
+                                          .getDocumentFromData({
+                                    ...createAlternativeTrainingRecordData(
+                                      displayNameTraining: _model
+                                          .titleVideoCreateTextController.text,
+                                      description: _model
+                                          .subtitleVideoCreateTextController
+                                          .text,
+                                      moreDetails: _model
+                                          .detailVideoCreateTextController.text,
+                                      idAlternative: '',
+                                      videoUrl: _model
+                                          .uploadedFileUrl_uploadAlternativeVideo,
+                                      likeCountVideo: 0,
+                                      loveCountVideo: 0,
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'timeStamp_training': DateTime.now(),
+                                      },
+                                    ),
+                                  }, alternativeTrainingRecordReference);
 
                                   await buttonUserRecord.reference.update({
                                     ...mapToFirestore(
@@ -784,8 +807,6 @@ class _PostAlternativeTrainingWidgetState
                                       },
                                     ),
                                   });
-
-                                  safeSetState(() {});
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -796,19 +817,21 @@ class _PostAlternativeTrainingWidgetState
                                           fontSize: 14.0,
                                         ),
                                       ),
-                                      duration: Duration(milliseconds: 1600),
+                                      duration: Duration(milliseconds: 1500),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context).primary,
                                     ),
                                   );
                                   await Future.delayed(
                                     Duration(
-                                      milliseconds: 1500,
+                                      milliseconds: 1600,
                                     ),
                                   );
 
                                   context.pushNamed(
                                       AlternativeTrainingWidget.routeName);
+
+                                  safeSetState(() {});
                                 },
                           text: 'Postar conteúdo',
                           options: FFButtonOptions(
