@@ -53,7 +53,6 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -72,7 +71,9 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
             },
           ),
           title: Text(
-            'Treino alternativo',
+            FFLocalizations.of(context).getText(
+              'ryd5vvtx' /* Treino alternativo */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w500,
@@ -91,7 +92,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
             Visibility(
               visible: valueOrDefault(currentUserDocument?.userAdm, '') == '1',
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 37.0, 18.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 21.0, 18.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => InkWell(
                     splashColor: Colors.transparent,
@@ -103,7 +104,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                           .pushNamed(PostAlternativeTrainingWidget.routeName);
                     },
                     child: Container(
-                      width: 101.09,
+                      width: 122.47,
                       height: 85.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
@@ -115,10 +116,12 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                         padding: EdgeInsets.all(4.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                              'Postar',
+                              FFLocalizations.of(context).getText(
+                                '58nq880l' /* Postar */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -131,6 +134,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                           .fontStyle,
                                     ),
                                     color: Colors.white,
+                                    fontSize: 13.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -167,7 +171,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                   width: double.infinity,
                   height: double.infinity,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
                   child: PagedListView<DocumentSnapshot<Object?>?,
                       AlternativeTrainingRecord>(
@@ -210,8 +214,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                             .listViewPagingController!.itemList![listViewIndex];
                         return Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                           elevation: 0.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -245,7 +248,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                               ),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .primaryText,
                                               fontSize: 20.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w600,
@@ -334,7 +337,10 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                 ).then((value) =>
                                                     safeSetState(() {}));
                                               },
-                                              text: 'Mais detalhes',
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                '96hh478u' /* Mais detalhes */,
+                                              ),
                                               icon: Icon(
                                                 Icons.chevron_right_sharp,
                                                 size: 15.0,
@@ -406,7 +412,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                           FontAwesomeIcons.edit,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primary,
+                                                              .tertiary,
                                                           size: 24.0,
                                                         ),
                                                         onPressed: () async {
@@ -461,7 +467,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                               .trash,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primary,
+                                                              .tertiary,
                                                           size: 24.0,
                                                         ),
                                                         onPressed: () async {
@@ -699,7 +705,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                   FontAwesomeIcons.thumbsUp,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryBackground,
+                                                      .info,
                                                   size: 22.0,
                                                 ),
                                               ),
@@ -803,7 +809,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                   Icons.favorite_border,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryBackground,
+                                                      .info,
                                                   size: 24.0,
                                                 ),
                                               ),
@@ -838,7 +844,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .tertiary,
+                                                                .info,
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -884,7 +890,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .tertiary,
+                                                                .info,
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:

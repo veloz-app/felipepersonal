@@ -9,6 +9,7 @@ import 'auth/firebase_auth/auth_util.dart';
 import 'backend/firebase/firebase_config.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/internationalization.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'index.dart';
 
@@ -20,6 +21,8 @@ void main() async {
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
+
+  await FFLocalizations.initialize();
 
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
@@ -40,6 +43,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Locale? _locale = FFLocalizations.getStoredLocale();
+
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
   late AppStateNotifier _appStateNotifier;
@@ -85,6 +90,11 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
+  void setLocale(String language) {
+    safeSetState(() => _locale = createLocale(language));
+    FFLocalizations.storeLocale(language);
+  }
+
   void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
         FlutterFlowTheme.saveThemeMode(mode);
@@ -96,11 +106,19 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Felipe Personal',
       localizationsDelegates: [
+        FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        FallbackMaterialLocalizationDelegate(),
+        FallbackCupertinoLocalizationDelegate(),
       ],
-      supportedLocales: const [Locale('en', '')],
+      locale: _locale,
+      supportedLocales: const [
+        Locale('pt'),
+        Locale('en'),
+        Locale('es'),
+      ],
       theme: ThemeData(
         brightness: Brightness.light,
       ),
@@ -144,8 +162,8 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'alternativeTraining': AlternativeTrainingWidget(),
       'sethings': SethingsWidget(),
+      'alternativeTraining': AlternativeTrainingWidget(),
       'homepage': HomepageWidget(),
       'tips': TipsWidget(),
       'objectives': ObjectivesWidget(),
@@ -161,27 +179,31 @@ class _NavBarPageState extends State<NavBarPage> {
           _currentPage = null;
           _currentPageName = tabs.keys.toList()[i];
         }),
-        backgroundColor: Color(0xFFE9E9E9),
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         selectedItemColor: FlutterFlowTheme.of(context).primary,
-        unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
+        unselectedItemColor: FlutterFlowTheme.of(context).alternate,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.play,
-              size: 23.0,
-            ),
-            label: 'Home',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(
               Icons.settings,
               size: 28.0,
             ),
-            label: 'Home',
+            label: FFLocalizations.of(context).getText(
+              'yoyximw1' /* Home */,
+            ),
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.play,
+              size: 23.0,
+            ),
+            label: FFLocalizations.of(context).getText(
+              'qyf2l4gr' /* Home */,
+            ),
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -189,7 +211,9 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.home,
               size: 28.0,
             ),
-            label: 'Home',
+            label: FFLocalizations.of(context).getText(
+              'rpldig0x' /* Home */,
+            ),
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -197,7 +221,9 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.tips_and_updates_rounded,
               size: 28.0,
             ),
-            label: 'Home',
+            label: FFLocalizations.of(context).getText(
+              'dxy075n0' /* Home */,
+            ),
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -205,7 +231,9 @@ class _NavBarPageState extends State<NavBarPage> {
               FontAwesomeIcons.dumbbell,
               size: 28.0,
             ),
-            label: 'Home',
+            label: FFLocalizations.of(context).getText(
+              '3o86079r' /* Home */,
+            ),
             tooltip: '',
           )
         ],

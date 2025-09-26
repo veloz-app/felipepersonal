@@ -35,7 +35,7 @@ class _AnimationWidgetState extends State<AnimationWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(
         Duration(
-          milliseconds: 1000,
+          milliseconds: 2000,
         ),
       );
 

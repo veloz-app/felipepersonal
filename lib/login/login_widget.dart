@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/forget_password_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -93,7 +94,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 21.0),
                               child: Text(
-                                'Conecte-se',
+                                FFLocalizations.of(context).getText(
+                                  'kpw7tnhs' /* Conecte-se */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -130,7 +133,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 autofocus: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  isDense: false,
+                                  isDense: true,
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -153,7 +156,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                  hintText: 'E-mail',
+                                  hintText: FFLocalizations.of(context).getText(
+                                    '9ug1062h' /* E-mail */,
+                                  ),
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
@@ -208,8 +213,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   fillColor: Color(0x25FFFFFF),
                                   suffixIcon: Icon(
                                     Icons.email_outlined,
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
+                                    color: FlutterFlowTheme.of(context).info,
                                     size: 17.0,
                                   ),
                                 ),
@@ -259,7 +263,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   autofocus: false,
                                   obscureText: !_model.passwordLoginVisibility,
                                   decoration: InputDecoration(
-                                    isDense: false,
+                                    isDense: true,
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -284,7 +288,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   .labelMedium
                                                   .fontStyle,
                                         ),
-                                    hintText: 'Senha',
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      'e7k0kuxt' /* Senha */,
+                                    ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -351,8 +358,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         _model.passwordLoginVisibility
                                             ? Icons.visibility_outlined
                                             : Icons.visibility_off_outlined,
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiary,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
                                         size: 16.0,
                                       ),
                                     ),
@@ -379,6 +386,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
+                                  keyboardType: TextInputType.visiblePassword,
                                   cursorColor:
                                       FlutterFlowTheme.of(context).primaryText,
                                   enableInteractiveSelection: true,
@@ -417,7 +425,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             HomepageWidget.routeName,
                                             context.mounted);
                                       },
-                                text: 'Entrar',
+                                text: FFLocalizations.of(context).getText(
+                                  'ryh4lbkd' /* Entrar */,
+                                ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 40.0,
@@ -456,7 +466,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 14.0, 0.0, 13.0),
+                                  0.0, 20.0, 0.0, 13.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -467,7 +477,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       .pushNamed(CreateAccountWidget.routeName);
                                 },
                                 child: Text(
-                                  'Criar conta agora',
+                                  FFLocalizations.of(context).getText(
+                                    '6e9clhqa' /* Criar conta agora */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -492,25 +504,61 @@ class _LoginWidgetState extends State<LoginWidget> {
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 9.0, 0.0, 11.0),
-                              child: Text(
-                                'Esqueceu a senha?',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.montserrat(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          FocusScope.of(context).unfocus();
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
+                                        },
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: Container(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.55,
+                                            child: ForgetPasswordWidget(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                child: Text(
+                                  FFLocalizations.of(context).getText(
+                                    'l7am8sqg' /* Esqueceu a senha? */,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w300,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        fontSize: 12.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w300,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: Colors.white,
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
+                                ),
                               ),
                             ),
                           ],

@@ -61,7 +61,7 @@ class _PostAlternativeTrainingWidgetState
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -80,7 +80,9 @@ class _PostAlternativeTrainingWidgetState
             },
           ),
           title: Text(
-            'Postar vídeo de treino alternativo',
+            FFLocalizations.of(context).getText(
+              'a04qbdm0' /* Postar vídeo de treino alterna... */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w500,
@@ -102,9 +104,7 @@ class _PostAlternativeTrainingWidgetState
         body: SafeArea(
           top: true,
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
+            decoration: BoxDecoration(),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(50.0, 0.0, 50.0, 0.0),
               child: Column(
@@ -144,33 +144,36 @@ class _PostAlternativeTrainingWidgetState
                                       .labelMedium
                                       .fontStyle,
                                 ),
-                        hintText: 'Título',
-                        hintStyle:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  font: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 12.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
+                        hintText: FFLocalizations.of(context).getText(
+                          'm1npgrfp' /* Título */,
+                        ),
+                        hintStyle: FlutterFlowTheme.of(context)
+                            .labelMedium
+                            .override(
+                              font: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 12.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontStyle,
+                            ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: FlutterFlowTheme.of(context).primaryText,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: FlutterFlowTheme.of(context).tertiary,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(8.0),
@@ -250,33 +253,36 @@ class _PostAlternativeTrainingWidgetState
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                          hintText: 'Subtítulo',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
+                          hintText: FFLocalizations.of(context).getText(
+                            'lnrfbydu' /* Subtítulo */,
+                          ),
+                          hintStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                font: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
+                                ),
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 12.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).primaryText,
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).tertiary,
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -358,33 +364,36 @@ class _PostAlternativeTrainingWidgetState
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                          hintText: 'Detalhes',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
-                                  ),
+                          hintText: FFLocalizations.of(context).getText(
+                            'pk3ugkyv' /* Detalhes */,
+                          ),
+                          hintStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                font: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
+                                ),
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 12.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).primaryText,
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).tertiary,
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -519,7 +528,11 @@ class _PostAlternativeTrainingWidgetState
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: Text(
-                                    'Adicionar\num vídeo',
+                                    FFLocalizations.of(context).getText(
+                                      '9965jdsf' /* Adicionar
+um vídeo */
+                                      ,
+                                    ),
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -531,8 +544,8 @@ class _PostAlternativeTrainingWidgetState
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
                                           fontSize: 12.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
@@ -564,7 +577,9 @@ class _PostAlternativeTrainingWidgetState
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 6.0),
                               child: Text(
-                                'Capa do vídeo',
+                                FFLocalizations.of(context).getText(
+                                  '84cz7ofc' /* Capa do vídeo */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -813,8 +828,9 @@ class _PostAlternativeTrainingWidgetState
                                         'Video postado com sucesso',
                                         style: TextStyle(
                                           color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          fontSize: 14.0,
+                                              .secondary,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.0,
                                         ),
                                       ),
                                       duration: Duration(milliseconds: 1500),
@@ -833,7 +849,9 @@ class _PostAlternativeTrainingWidgetState
 
                                   safeSetState(() {});
                                 },
-                          text: 'Postar conteúdo',
+                          text: FFLocalizations.of(context).getText(
+                            'bxhrgrjl' /* Postar conteúdo */,
+                          ),
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 40.0,

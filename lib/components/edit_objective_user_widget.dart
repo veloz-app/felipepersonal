@@ -1,38 +1,37 @@
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'edit_objective_a_d_m_model.dart';
-export 'edit_objective_a_d_m_model.dart';
+import 'edit_objective_user_model.dart';
+export 'edit_objective_user_model.dart';
 
-class EditObjectiveADMWidget extends StatefulWidget {
-  const EditObjectiveADMWidget({
+class EditObjectiveUserWidget extends StatefulWidget {
+  const EditObjectiveUserWidget({
     super.key,
-    required this.nameObjectiveADM,
-    required this.typeObjectiveADM,
-    required this.detailsObjetiveADM,
-    required this.imageObjectiveDisplay,
-    required this.docObjectiveADM,
+    required this.finalObjectiveUser,
+    required this.dateObjectiveUser,
+    required this.detailsObjectiveUser,
+    required this.paramRefObjectiveUser,
+    required this.paramRefObjectiveName,
   });
 
-  final String? nameObjectiveADM;
-  final String? typeObjectiveADM;
-  final String? detailsObjetiveADM;
-  final String? imageObjectiveDisplay;
-  final DocumentReference? docObjectiveADM;
+  final double? finalObjectiveUser;
+  final int? dateObjectiveUser;
+  final String? detailsObjectiveUser;
+  final DocumentReference? paramRefObjectiveUser;
+  final DocumentReference? paramRefObjectiveName;
 
   @override
-  State<EditObjectiveADMWidget> createState() => _EditObjectiveADMWidgetState();
+  State<EditObjectiveUserWidget> createState() =>
+      _EditObjectiveUserWidgetState();
 }
 
-class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
-  late EditObjectiveADMModel _model;
+class _EditObjectiveUserWidgetState extends State<EditObjectiveUserWidget> {
+  late EditObjectiveUserModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -43,19 +42,21 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EditObjectiveADMModel());
+    _model = createModel(context, () => EditObjectiveUserModel());
 
-    _model.objetiveNameADMTextController ??=
-        TextEditingController(text: widget.nameObjectiveADM);
-    _model.objetiveNameADMFocusNode ??= FocusNode();
+    _model.objectiveCreateUserFocusNode ??= FocusNode();
 
-    _model.tipeObjectiveADMTextController ??=
-        TextEditingController(text: widget.typeObjectiveADM);
-    _model.tipeObjectiveADMFocusNode ??= FocusNode();
+    _model.editObjectiveFinalTextController ??=
+        TextEditingController(text: widget.finalObjectiveUser?.toString());
+    _model.editObjectiveFinalFocusNode ??= FocusNode();
 
-    _model.objectiveDetailsADMTextController ??=
-        TextEditingController(text: widget.detailsObjetiveADM);
-    _model.objectiveDetailsADMFocusNode ??= FocusNode();
+    _model.editObjectiveDateUserTextController ??=
+        TextEditingController(text: widget.dateObjectiveUser?.toString());
+    _model.editObjectiveDateUserFocusNode ??= FocusNode();
+
+    _model.editDetailsObjectiveUserTextController ??=
+        TextEditingController(text: widget.detailsObjectiveUser);
+    _model.editDetailsObjectiveUserFocusNode ??= FocusNode();
   }
 
   @override
@@ -100,7 +101,7 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                 children: [
                   Text(
                     FFLocalizations.of(context).getText(
-                      '9udyd3jl' /* Editar objetivo ADM */,
+                      'vadctqy2' /* Editar objetivo */,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.montserrat(
@@ -123,7 +124,7 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
                 child: Container(
                   width: 413.5,
-                  height: 352.79,
+                  height: 344.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
@@ -136,117 +137,164 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          width: double.infinity,
-                          child: TextFormField(
-                            controller: _model.objetiveNameADMTextController,
-                            focusNode: _model.objetiveNameADMFocusNode,
-                            onChanged: (_) => EasyDebounce.debounce(
-                              '_model.objetiveNameADMTextController',
-                              Duration(milliseconds: 100),
-                              () => safeSetState(() {}),
-                            ),
-                            autofocus: false,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 13.0, 0.0, 0.0),
+                          child: StreamBuilder<ObjectivesRecord>(
+                            stream: ObjectivesRecord.getDocument(
+                                widget.paramRefObjectiveName!),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
                                   ),
-                              hintText: FFLocalizations.of(context).getText(
-                                'qgwkwj53' /* Nome Objetivo */,
-                              ),
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
+                                );
+                              }
+
+                              final objectiveCreateUserObjectivesRecord =
+                                  snapshot.data!;
+
+                              return Container(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  controller: _model
+                                          .objectiveCreateUserTextController ??=
+                                      TextEditingController(
+                                    text: objectiveCreateUserObjectivesRecord
+                                        .nameObjective,
+                                  ),
+                                  focusNode:
+                                      _model.objectiveCreateUserFocusNode,
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    '_model.objectiveCreateUserTextController',
+                                    Duration(milliseconds: 100),
+                                    () => safeSetState(() {}),
+                                  ),
+                                  autofocus: false,
+                                  readOnly: true,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          font: GoogleFonts.montserrat(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      'icfckl9p' /* Tipo de objetivo */,
                                     ),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
+                                    hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
-                                        .fontStyle,
+                                        .override(
+                                          font: GoogleFonts.montserrat(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 12.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .fontStyle,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x2357636C),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.transparent,
                                   ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color:
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.montserrat(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                  minLines: 1,
+                                  cursorColor:
                                       FlutterFlowTheme.of(context).primaryText,
-                                  width: 1.0,
+                                  enableInteractiveSelection: true,
+                                  validator: _model
+                                      .objectiveCreateUserTextControllerValidator
+                                      .asValidator(context),
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              filled: true,
-                              fillColor: Colors.transparent,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.montserrat(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                            minLines: 1,
-                            cursorColor:
-                                FlutterFlowTheme.of(context).primaryText,
-                            enableInteractiveSelection: false,
-                            validator: _model
-                                .objetiveNameADMTextControllerValidator
-                                .asValidator(context),
+                              );
+                            },
                           ),
                         ),
                         Padding(
@@ -255,10 +303,11 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                           child: Container(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.tipeObjectiveADMTextController,
-                              focusNode: _model.tipeObjectiveADMFocusNode,
+                              controller:
+                                  _model.editObjectiveFinalTextController,
+                              focusNode: _model.editObjectiveFinalFocusNode,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.tipeObjectiveADMTextController',
+                                '_model.editObjectiveFinalTextController',
                                 Duration(milliseconds: 100),
                                 () => safeSetState(() {}),
                               ),
@@ -286,7 +335,7 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                                           .fontStyle,
                                     ),
                                 hintText: FFLocalizations.of(context).getText(
-                                  'olg5jnf5' /* Tipo de objetivo */,
+                                  'xyp9kryv' /* Objetivo Final */,
                                 ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
@@ -360,9 +409,9 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                               minLines: 1,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
-                              enableInteractiveSelection: false,
+                              enableInteractiveSelection: true,
                               validator: _model
-                                  .tipeObjectiveADMTextControllerValidator
+                                  .editObjectiveFinalTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -374,10 +423,10 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                             width: double.infinity,
                             child: TextFormField(
                               controller:
-                                  _model.objectiveDetailsADMTextController,
-                              focusNode: _model.objectiveDetailsADMFocusNode,
+                                  _model.editObjectiveDateUserTextController,
+                              focusNode: _model.editObjectiveDateUserFocusNode,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.objectiveDetailsADMTextController',
+                                '_model.editObjectiveDateUserTextController',
                                 Duration(milliseconds: 100),
                                 () => safeSetState(() {}),
                               ),
@@ -405,7 +454,7 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                                           .fontStyle,
                                     ),
                                 hintText: FFLocalizations.of(context).getText(
-                                  'ev1o0n8t' /* Detalhes */,
+                                  'a5wg6rki' /* Em quanto tempo */,
                                 ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
@@ -476,142 +525,156 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                              maxLines: 2,
-                              minLines: 2,
+                              minLines: 1,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
-                              enableInteractiveSelection: false,
+                              enableInteractiveSelection: true,
                               validator: _model
-                                  .objectiveDetailsADMTextControllerValidator
+                                  .editObjectiveDateUserTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 12.0, 0.0, 0.0),
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            elevation: 2.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                final selectedMedia =
-                                    await selectMediaWithSourceBottomSheet(
-                                  context: context,
-                                  maxWidth: 700.00,
-                                  maxHeight: 700.00,
-                                  imageQuality: 28,
-                                  allowPhoto: true,
-                                );
-                                if (selectedMedia != null &&
-                                    selectedMedia.every((m) =>
-                                        validateFileFormat(
-                                            m.storagePath, context))) {
-                                  safeSetState(() => _model
-                                          .isDataUploading_uploadImageObjectiveADMEdit =
-                                      true);
-                                  var selectedUploadedFiles =
-                                      <FFUploadedFile>[];
-
-                                  var downloadUrls = <String>[];
-                                  try {
-                                    selectedUploadedFiles = selectedMedia
-                                        .map((m) => FFUploadedFile(
-                                              name:
-                                                  m.storagePath.split('/').last,
-                                              bytes: m.bytes,
-                                              height: m.dimensions?.height,
-                                              width: m.dimensions?.width,
-                                              blurHash: m.blurHash,
-                                            ))
-                                        .toList();
-
-                                    downloadUrls = (await Future.wait(
-                                      selectedMedia.map(
-                                        (m) async => await uploadData(
-                                            m.storagePath, m.bytes),
-                                      ),
-                                    ))
-                                        .where((u) => u != null)
-                                        .map((u) => u!)
-                                        .toList();
-                                  } finally {
-                                    _model.isDataUploading_uploadImageObjectiveADMEdit =
-                                        false;
-                                  }
-                                  if (selectedUploadedFiles.length ==
-                                          selectedMedia.length &&
-                                      downloadUrls.length ==
-                                          selectedMedia.length) {
-                                    safeSetState(() {
-                                      _model.uploadedLocalFile_uploadImageObjectiveADMEdit =
-                                          selectedUploadedFiles.first;
-                                      _model.uploadedFileUrl_uploadImageObjectiveADMEdit =
-                                          downloadUrls.first;
-                                    });
-                                  } else {
-                                    safeSetState(() {});
-                                    return;
-                                  }
-                                }
-
-                                _model.videoUpalodADMConfirm = true;
-                                safeSetState(() {});
-                                                            },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(0.0),
-                                  bottomRight: Radius.circular(0.0),
-                                  topLeft: Radius.circular(0.0),
-                                  topRight: Radius.circular(0.0),
-                                ),
-                                child: Image.network(
-                                  valueOrDefault<String>(
-                                    _model.uploadedFileUrl_uploadImageObjectiveADMEdit !=
-                                                ''
-                                        ? _model
-                                            .uploadedFileUrl_uploadImageObjectiveADMEdit
-                                        : 'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FuploadobjectiveADM.png?alt=media&token=60678bc2-14fa-47e2-8fbc-9ba12376693b',
-                                    'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FuploadobjectiveADM.png?alt=media&token=60678bc2-14fa-47e2-8fbc-9ba12376693b',
-                                  ),
-                                  width: double.infinity,
-                                  height: 71.1,
-                                  fit: BoxFit.cover,
-                                ),
+                              0.0, 13.0, 0.0, 0.0),
+                          child: Container(
+                            width: double.infinity,
+                            child: TextFormField(
+                              controller:
+                                  _model.editDetailsObjectiveUserTextController,
+                              focusNode:
+                                  _model.editDetailsObjectiveUserFocusNode,
+                              onChanged: (_) => EasyDebounce.debounce(
+                                '_model.editDetailsObjectiveUserTextController',
+                                Duration(milliseconds: 100),
+                                () => safeSetState(() {}),
                               ),
+                              autofocus: false,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      font: GoogleFonts.montserrat(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                hintText: FFLocalizations.of(context).getText(
+                                  'qkxlpfw0' /* Detalhes  (opcional) */,
+                                ),
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      font: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontSize: 12.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                filled: true,
+                                fillColor: Colors.transparent,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.montserrat(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                              maxLines: 3,
+                              minLines: 3,
+                              cursorColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              enableInteractiveSelection: true,
+                              validator: _model
+                                  .editDetailsObjectiveUserTextControllerValidator
+                                  .asValidator(context),
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 13.0, 0.0, 0.0),
+                              0.0, 10.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              await widget.docObjectiveADM!
-                                  .update(createObjectivesRecordData(
-                                nameObjective:
-                                    _model.objetiveNameADMTextController.text,
-                                typeObjective:
-                                    _model.tipeObjectiveADMTextController.text,
-                                description: _model
-                                    .objectiveDetailsADMTextController.text,
-                                imageDisplay: _model
-                                    .uploadedFileUrl_uploadImageObjectiveADMEdit,
+                              await widget.paramRefObjectiveUser!
+                                  .update(createUserObjectivesRecordData(
+                                finalObjectives: double.tryParse(_model
+                                    .editObjectiveFinalTextController.text),
+                                descriptionObjectives:
+                                    widget.detailsObjectiveUser,
+                                dataPeriodObjective: int.tryParse(_model
+                                    .editObjectiveDateUserTextController.text),
                               ));
                               Navigator.pop(context);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    'Alterações realizados com sucesso',
+                                    '',
                                     style: TextStyle(
                                       color:
                                           FlutterFlowTheme.of(context).primary,
@@ -619,19 +682,19 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                                       fontSize: 16.0,
                                     ),
                                   ),
-                                  duration: Duration(milliseconds: 1500),
+                                  duration: Duration(milliseconds: 1600),
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).secondary,
                                 ),
                               );
                               await Future.delayed(
                                 Duration(
-                                  milliseconds: 1600,
+                                  milliseconds: 1200,
                                 ),
                               );
 
                               context.pushNamed(
-                                ObjetivesADMWidget.routeName,
+                                ObjectivesWidget.routeName,
                                 extra: <String, dynamic>{
                                   kTransitionInfoKey: TransitionInfo(
                                     hasTransition: true,
@@ -642,7 +705,7 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                               );
                             },
                             text: FFLocalizations.of(context).getText(
-                              'cvcsymzj' /* Confirmar alteração */,
+                              '1wjldcul' /* Confirmar alteração */,
                             ),
                             options: FFButtonOptions(
                               width: double.infinity,

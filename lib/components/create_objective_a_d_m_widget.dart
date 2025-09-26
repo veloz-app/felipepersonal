@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -83,7 +84,9 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Criar objetivo ADM',
+                    FFLocalizations.of(context).getText(
+                      'evxudwqe' /* Criar objetivo ADM */,
+                    ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w500,
@@ -143,6 +146,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -151,7 +156,9 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                         .labelMedium
                                         .fontStyle,
                                   ),
-                              hintText: 'Nome Objetivo',
+                              hintText: FFLocalizations.of(context).getText(
+                                'ctv297k5' /* Nome Objetivo */,
+                              ),
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -161,7 +168,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     fontSize: 12.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -171,7 +179,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
@@ -264,7 +273,9 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Tipo de objetivo',
+                                hintText: FFLocalizations.of(context).getText(
+                                  'gwsidkrd' /* Tipo de objetivo */,
+                                ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -274,8 +285,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -285,7 +296,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -380,7 +392,9 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Detalhes',
+                                hintText: FFLocalizations.of(context).getText(
+                                  'onicdbe7' /* Detalhes */,
+                                ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -390,8 +404,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -401,7 +415,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -548,13 +563,16 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                   topRight: Radius.circular(0.0),
                                 ),
                                 child: Image.network(
-                                  _model.uploadedFileUrl_uploadImageObjectiveADMCreate !=
-                                              ''
-                                      ? _model
-                                          .objetiveNameADMTextController.text
-                                      : 'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FuploadobjectiveADM.png?alt=media&token=60678bc2-14fa-47e2-8fbc-9ba12376693b',
+                                  valueOrDefault<String>(
+                                    _model.uploadedFileUrl_uploadImageObjectiveADMCreate !=
+                                                ''
+                                        ? _model
+                                            .objetiveNameADMTextController.text
+                                        : 'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FuploadobjectiveADM.png?alt=media&token=60678bc2-14fa-47e2-8fbc-9ba12376693b',
+                                    'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FuploadobjectiveADM.png?alt=media&token=60678bc2-14fa-47e2-8fbc-9ba12376693b',
+                                  ),
                                   width: double.infinity,
-                                  height: 66.37,
+                                  height: 74.7,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -594,6 +612,7 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                           imageDisplay: _model
                                               .uploadedFileUrl_uploadImageObjectiveADMCreate,
                                         ));
+                                    Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
@@ -601,7 +620,8 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                           style: TextStyle(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
-                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
                                           ),
                                         ),
                                         duration: Duration(milliseconds: 1500),
@@ -615,9 +635,22 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                         milliseconds: 1600,
                                       ),
                                     );
-                                    Navigator.pop(context);
+
+                                    context.pushNamed(
+                                      ObjetivesADMWidget.routeName,
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
+                                        ),
+                                      },
+                                    );
                                   },
-                            text: 'Criar Objetivo',
+                            text: FFLocalizations.of(context).getText(
+                              'otxxf803' /* Criar Objetivo */,
+                            ),
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
@@ -645,9 +678,9 @@ class _CreateObjectiveADMWidgetState extends State<CreateObjectiveADMWidget> {
                                   ),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(8.0),
-                              disabledColor: Color(0x6AC79B66),
+                              disabledColor: Color(0x64C79B66),
                               disabledTextColor:
-                                  FlutterFlowTheme.of(context).primary,
+                                  FlutterFlowTheme.of(context).primaryText,
                             ),
                           ),
                         ),

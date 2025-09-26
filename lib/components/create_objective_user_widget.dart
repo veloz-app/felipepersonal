@@ -87,7 +87,9 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Criar objetivo',
+                    FFLocalizations.of(context).getText(
+                      'cnonmqgd' /* Criar objetivo */,
+                    ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w500,
@@ -111,7 +113,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                   width: 413.5,
                   height: 344.0,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
                   ),
                   child: Padding(
@@ -127,9 +129,6 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                           height: 40.93,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).primary,
-                            ),
                           ),
                           child: StreamBuilder<List<ObjectivesRecord>>(
                             stream: queryObjectivesRecord(),
@@ -187,25 +186,26 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Selecione o tipo de objetivo',
+                                hintText: FFLocalizations.of(context).getText(
+                                  '2asfpy7o' /* Selecione o tipo de objetivo */,
+                                ),
                                 icon: Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
                                   size: 24.0,
                                 ),
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
                                 elevation: 2.0,
-                                borderColor: Colors.transparent,
+                                borderColor:
+                                    FlutterFlowTheme.of(context).primaryText,
                                 borderWidth: 0.0,
                                 borderRadius: 8.0,
                                 margin: EdgeInsetsDirectional.fromSTEB(
@@ -255,7 +255,9 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Objetivo Final',
+                                hintText: FFLocalizations.of(context).getText(
+                                  'oqle9b69' /* Objetivo Final */,
+                                ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -265,8 +267,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -276,7 +278,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -316,6 +319,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
+                                    color: FlutterFlowTheme.of(context).primary,
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -325,6 +329,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         .fontStyle,
                                   ),
                               minLines: 1,
+                              keyboardType: TextInputType.number,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
@@ -372,7 +377,9 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Em quanto tempo',
+                                hintText: FFLocalizations.of(context).getText(
+                                  'gyvlig5q' /* Em quanto tempo */,
+                                ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -382,8 +389,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -393,7 +400,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -442,6 +450,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         .fontStyle,
                                   ),
                               minLines: 1,
+                              keyboardType: TextInputType.number,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
@@ -489,7 +498,9 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Detalhes  (opcional)',
+                                hintText: FFLocalizations.of(context).getText(
+                                  'ixe9lqe2' /* Detalhes  (opcional) */,
+                                ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -499,8 +510,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -510,7 +521,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -609,6 +621,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         },
                                       ),
                                     });
+                                    Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
@@ -616,7 +629,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           style: TextStyle(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
-                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
                                           ),
                                         ),
                                         duration: Duration(milliseconds: 1500),
@@ -630,12 +644,22 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         milliseconds: 1600,
                                       ),
                                     );
-                                    Navigator.pop(context);
 
-                                    context
-                                        .pushNamed(ObjectivesWidget.routeName);
+                                    context.pushNamed(
+                                      ObjectivesWidget.routeName,
+                                      extra: <String, dynamic>{
+                                        kTransitionInfoKey: TransitionInfo(
+                                          hasTransition: true,
+                                          transitionType:
+                                              PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
+                                        ),
+                                      },
+                                    );
                                   },
-                            text: 'Criar objetivo',
+                            text: FFLocalizations.of(context).getText(
+                              'cq9brbnm' /* Criar objetivo */,
+                            ),
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
@@ -663,9 +687,9 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                   ),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(8.0),
-                              disabledColor: Color(0x6AC79B66),
+                              disabledColor: Color(0x64C79B66),
                               disabledTextColor:
-                                  FlutterFlowTheme.of(context).primary,
+                                  FlutterFlowTheme.of(context).primaryText,
                             ),
                           ),
                         ),

@@ -65,7 +65,9 @@ class _ItemlistEnptyWidgetState extends State<ItemlistEnptyWidget> {
                         width: 166.0,
                         decoration: BoxDecoration(),
                         child: Text(
-                          'Nome',
+                          FFLocalizations.of(context).getText(
+                            '5zan7rok' /* Nome */,
+                          ),
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -97,7 +99,7 @@ class _ItemlistEnptyWidgetState extends State<ItemlistEnptyWidget> {
                       alignment: AlignmentDirectional(0.0, 0.0),
                       child: FaIcon(
                         FontAwesomeIcons.weight,
-                        color: FlutterFlowTheme.of(context).tertiary,
+                        color: FlutterFlowTheme.of(context).info,
                         size: 24.0,
                       ),
                     ),
@@ -123,9 +125,11 @@ class _ItemlistEnptyWidgetState extends State<ItemlistEnptyWidget> {
                       animation: true,
                       animateFromLastPercent: true,
                       progressColor: Color(0xFFCCCCCC),
-                      backgroundColor: FlutterFlowTheme.of(context).accent4,
+                      backgroundColor: FlutterFlowTheme.of(context).info,
                       center: Text(
-                        '50%',
+                        FFLocalizations.of(context).getText(
+                          '3k9dtqgj' /* 50% */,
+                        ),
                         style:
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   font: GoogleFonts.montserrat(
@@ -159,7 +163,7 @@ class _ItemlistEnptyWidgetState extends State<ItemlistEnptyWidget> {
                     Expanded(
                       child: Container(
                         width: 337.6,
-                        height: 49.2,
+                        height: 59.7,
                         decoration: BoxDecoration(
                           color: Color(0xFFEEEEEE),
                         ),
@@ -197,7 +201,9 @@ class _ItemlistEnptyWidgetState extends State<ItemlistEnptyWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      'Objetivo final',
+                                      FFLocalizations.of(context).getText(
+                                        '9kb1jc12' /* Objetivo final */,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -225,7 +231,9 @@ class _ItemlistEnptyWidgetState extends State<ItemlistEnptyWidget> {
                                           ),
                                     ),
                                     Text(
-                                      'Número',
+                                      FFLocalizations.of(context).getText(
+                                        'vfamf1d0' /* Número */,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

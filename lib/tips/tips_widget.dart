@@ -7,9 +7,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'tips_model.dart';
 export 'tips_model.dart';
 
@@ -32,6 +32,11 @@ class _TipsWidgetState extends State<TipsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TipsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -43,8 +48,6 @@ class _TipsWidgetState extends State<TipsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -71,7 +74,9 @@ class _TipsWidgetState extends State<TipsWidget> {
             },
           ),
           title: Text(
-            'Dicas',
+            FFLocalizations.of(context).getText(
+              'wei76zye' /* Dicas */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w500,
@@ -137,7 +142,9 @@ class _TipsWidgetState extends State<TipsWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              'Postar dica',
+                              FFLocalizations.of(context).getText(
+                                'y7lzkx9o' /* Postar dica */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -270,7 +277,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                           ),
                           Container(
                             width: 320.0,
-                            height: 335.0,
+                            height: 355.24,
                             decoration: BoxDecoration(
                               color: Color(0x1357636C),
                               borderRadius: BorderRadius.only(
@@ -279,82 +286,91 @@ class _TipsWidgetState extends State<TipsWidget> {
                                 topLeft: Radius.circular(0.0),
                                 topRight: Radius.circular(0.0),
                               ),
-                              border: Border.all(
-                                color: Colors.white,
-                              ),
                             ),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   24.0, 10.0, 24.0, 24.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    child: Icon(
-                                      Icons.star_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      size: 38.0,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 0.0),
-                                    child: Text(
-                                      listViewTipsRecord.displayNameTypes,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            fontSize: 15.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 0.0),
-                                    child: Text(
-                                      listViewTipsRecord.tipDetail,
-                                      textAlign: TextAlign.justify,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w500,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            fontSize: 13.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                    ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Icon(
+                                          Icons.star_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          size: 38.0,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 0.0),
+                                        child: Text(
+                                          listViewTipsRecord.displayNameTypes,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                fontSize: 15.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 0.0, 0.0),
+                                        child: Text(
+                                          listViewTipsRecord.tipDetail,
+                                          textAlign: TextAlign.justify,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                fontSize: 13.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   Align(
                                     alignment: AlignmentDirectional(0.0, -1.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 16.0, 0.0, 0.0),
+                                    child: Container(
+                                      height: 73.41,
+                                      decoration: BoxDecoration(),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -434,7 +450,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .tertiary,
                                                       size: 24.0,
                                                     ),
                                                   ),
@@ -524,7 +540,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primary,
+                                                              .tertiary,
                                                       size: 23.0,
                                                     ),
                                                   ),
@@ -563,14 +579,86 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                             ToggleIcon(
                                                               onPressed:
                                                                   () async {
-                                                                safeSetState(() =>
-                                                                    FFAppState()
-                                                                            .likeStateVideoAlternative =
-                                                                        !FFAppState()
-                                                                            .likeStateVideoAlternative);
+                                                                final likedTipsElement =
+                                                                    currentUserReference;
+                                                                final likedTipsUpdate = listViewTipsRecord
+                                                                        .likedTips
+                                                                        .contains(
+                                                                            likedTipsElement)
+                                                                    ? FieldValue
+                                                                        .arrayRemove([
+                                                                        likedTipsElement
+                                                                      ])
+                                                                    : FieldValue
+                                                                        .arrayUnion([
+                                                                        likedTipsElement
+                                                                      ]);
+                                                                await listViewTipsRecord
+                                                                    .reference
+                                                                    .update({
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'liked_tips':
+                                                                          likedTipsUpdate,
+                                                                    },
+                                                                  ),
+                                                                });
+                                                                if (listViewTipsRecord
+                                                                        .likedTips
+                                                                        .contains(
+                                                                            currentUserReference) ==
+                                                                    true) {
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'likeCountTips':
+                                                                            FieldValue.increment(-1),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'liked_tips':
+                                                                            FieldValue.delete(),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                } else {
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'likeCountTips':
+                                                                            FieldValue.increment(1),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'liked_tips':
+                                                                            FieldValue.arrayUnion([
+                                                                          currentUserReference
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                }
                                                               },
-                                                              value: FFAppState()
-                                                                  .likeStateVideoAlternative,
+                                                              value: listViewTipsRecord
+                                                                  .likedTips
+                                                                  .contains(
+                                                                      currentUserReference),
                                                               onIcon: FaIcon(
                                                                 FontAwesomeIcons
                                                                     .solidThumbsUp,
@@ -588,14 +676,34 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                 size: 24.0,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              '10',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .montserrat(
+                                                            if (listViewTipsRecord
+                                                                    .likeCountTips >=
+                                                                1)
+                                                              Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  listViewTipsRecord
+                                                                      .likeCountTips
+                                                                      .toString(),
+                                                                  '0',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .montserrat(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -605,20 +713,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
+                                                              ),
                                                           ],
                                                         ),
                                                         Column(
@@ -628,14 +723,86 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                             ToggleIcon(
                                                               onPressed:
                                                                   () async {
-                                                                safeSetState(() =>
-                                                                    FFAppState()
-                                                                            .loveStateVideoAlternative =
-                                                                        !FFAppState()
-                                                                            .loveStateVideoAlternative);
+                                                                final lovedTipsElement =
+                                                                    currentUserReference;
+                                                                final lovedTipsUpdate = listViewTipsRecord
+                                                                        .lovedTips
+                                                                        .contains(
+                                                                            lovedTipsElement)
+                                                                    ? FieldValue
+                                                                        .arrayRemove([
+                                                                        lovedTipsElement
+                                                                      ])
+                                                                    : FieldValue
+                                                                        .arrayUnion([
+                                                                        lovedTipsElement
+                                                                      ]);
+                                                                await listViewTipsRecord
+                                                                    .reference
+                                                                    .update({
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'loved_tips':
+                                                                          lovedTipsUpdate,
+                                                                    },
+                                                                  ),
+                                                                });
+                                                                if (listViewTipsRecord
+                                                                        .lovedTips
+                                                                        .contains(
+                                                                            currentUserReference) ==
+                                                                    true) {
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'loveCountTips':
+                                                                            FieldValue.increment(-1),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'loved_tips':
+                                                                            FieldValue.delete(),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                } else {
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'loveCountTips':
+                                                                            FieldValue.increment(1),
+                                                                      },
+                                                                    ),
+                                                                  });
+
+                                                                  await listViewTipsRecord
+                                                                      .reference
+                                                                      .update({
+                                                                    ...mapToFirestore(
+                                                                      {
+                                                                        'loved_tips':
+                                                                            FieldValue.arrayUnion([
+                                                                          currentUserReference
+                                                                        ]),
+                                                                      },
+                                                                    ),
+                                                                  });
+                                                                }
                                                               },
-                                                              value: FFAppState()
-                                                                  .loveStateVideoAlternative,
+                                                              value: listViewTipsRecord
+                                                                  .lovedTips
+                                                                  .contains(
+                                                                      currentUserReference),
                                                               onIcon: Icon(
                                                                 Icons
                                                                     .favorite_sharp,
@@ -653,14 +820,34 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                 size: 24.0,
                                                               ),
                                                             ),
-                                                            Text(
-                                                              '10',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .montserrat(
+                                                            if (listViewTipsRecord
+                                                                    .loveCountTips >=
+                                                                1)
+                                                              Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  listViewTipsRecord
+                                                                      .loveCountTips
+                                                                      .toString(),
+                                                                  '0',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .montserrat(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      fontSize:
+                                                                          16.0,
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -670,20 +857,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                                    fontSize:
-                                                                        16.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
+                                                              ),
                                                           ],
                                                         ),
                                                       ].divide(

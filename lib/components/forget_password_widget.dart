@@ -1,33 +1,22 @@
-import '/backend/backend.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'edit_tips_model.dart';
-export 'edit_tips_model.dart';
+import 'forget_password_model.dart';
+export 'forget_password_model.dart';
 
-class EditTipsWidget extends StatefulWidget {
-  const EditTipsWidget({
-    super.key,
-    required this.titleTips,
-    required this.detailsTips,
-    required this.tipsEditReference,
-  });
-
-  final String? titleTips;
-  final String? detailsTips;
-  final DocumentReference? tipsEditReference;
+class ForgetPasswordWidget extends StatefulWidget {
+  const ForgetPasswordWidget({super.key});
 
   @override
-  State<EditTipsWidget> createState() => _EditTipsWidgetState();
+  State<ForgetPasswordWidget> createState() => _ForgetPasswordWidgetState();
 }
 
-class _EditTipsWidgetState extends State<EditTipsWidget> {
-  late EditTipsModel _model;
+class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
+  late ForgetPasswordModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -38,15 +27,10 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EditTipsModel());
+    _model = createModel(context, () => ForgetPasswordModel());
 
-    _model.titleTipEditTextController ??=
-        TextEditingController(text: widget.titleTips);
-    _model.titleTipEditFocusNode ??= FocusNode();
-
-    _model.detailsTipesEditTextController ??=
-        TextEditingController(text: widget.detailsTips);
-    _model.detailsTipesEditFocusNode ??= FocusNode();
+    _model.emailRecoveryFieldTextController ??= TextEditingController();
+    _model.emailRecoveryFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -87,18 +71,20 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
             children: [
               Text(
                 FFLocalizations.of(context).getText(
-                  'tj2zpzuw' /* Editar dica */,
+                  'fsje72o6' /* Recuperação de senha */,
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       font: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w500,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                         fontStyle:
                             FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
                       color: Colors.white,
-                      fontSize: 21.0,
+                      fontSize: 17.0,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                       fontStyle:
                           FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
@@ -107,17 +93,18 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
                 child: Container(
                   width: 413.5,
-                  height: 344.02,
+                  height: 263.51,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
                   ),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(38.0, 0.0, 38.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(38.0, 22.0, 38.0, 22.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -125,17 +112,18 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                           child: Container(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.titleTipEditTextController,
-                              focusNode: _model.titleTipEditFocusNode,
+                              controller:
+                                  _model.emailRecoveryFieldTextController,
+                              focusNode: _model.emailRecoveryFieldFocusNode,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.titleTipEditTextController',
+                                '_model.emailRecoveryFieldTextController',
                                 Duration(milliseconds: 100),
                                 () => safeSetState(() {}),
                               ),
                               autofocus: false,
                               obscureText: false,
                               decoration: InputDecoration(
-                                isDense: true,
+                                isDense: false,
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -156,7 +144,7 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                                           .fontStyle,
                                     ),
                                 hintText: FFLocalizations.of(context).getText(
-                                  '0gly8dwe' /* Título dica */,
+                                  'imiq0szk' /* Escreva um e-mail válido */,
                                 ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
@@ -167,8 +155,8 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                                             .labelMedium
                                             .fontStyle,
                                       ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -186,7 +174,7 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: Color(0x2357636C),
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -227,135 +215,12 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                              minLines: 1,
+                              keyboardType: TextInputType.emailAddress,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
                               validator: _model
-                                  .titleTipEditTextControllerValidator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 10.0, 0.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            child: TextFormField(
-                              controller: _model.detailsTipesEditTextController,
-                              focusNode: _model.detailsTipesEditFocusNode,
-                              onChanged: (_) => EasyDebounce.debounce(
-                                '_model.detailsTipesEditTextController',
-                                Duration(milliseconds: 100),
-                                () => safeSetState(() {}),
-                              ),
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.montserrat(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
-                                hintText: FFLocalizations.of(context).getText(
-                                  '6trg4dga' /* Dica */,
-                                ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: Colors.transparent,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                              textAlign: TextAlign.justify,
-                              maxLines: 6,
-                              minLines: 6,
-                              maxLength: 245,
-                              maxLengthEnforcement:
-                                  MaxLengthEnforcement.enforced,
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              enableInteractiveSelection: true,
-                              validator: _model
-                                  .detailsTipesEditTextControllerValidator
+                                  .emailRecoveryFieldTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -364,48 +229,49 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: !((_model.titleTipEditTextController
-                                                .text !=
-                                            '') &&
-                                    (_model.detailsTipesEditTextController
-                                                .text !=
-                                            ''))
+                            onPressed: (_model.emailRecoveryFieldTextController
+                                            .text ==
+                                        '')
                                 ? null
                                 : () async {
-                                    await widget.tipsEditReference!
-                                        .update(createTipsRecordData(
-                                      displayNameTypes: _model
-                                          .titleTipEditTextController.text,
-                                      tipDetail: _model
-                                          .detailsTipesEditTextController.text,
-                                    ));
+                                    if (_model.emailRecoveryFieldTextController
+                                        .text.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Email required!',
+                                          ),
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    await authManager.resetPassword(
+                                      email: _model
+                                          .emailRecoveryFieldTextController
+                                          .text,
+                                      context: context,
+                                    );
                                     Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Dica alterada com sucesso',
+                                          'E-mail de recuperação enviado com sucesso!',
                                           style: TextStyle(
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                                .primaryText,
                                             fontSize: 14.0,
                                           ),
                                         ),
-                                        duration: Duration(milliseconds: 1500),
+                                        duration: Duration(milliseconds: 2000),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context)
                                                 .secondary,
                                       ),
                                     );
-                                    await Future.delayed(
-                                      Duration(
-                                        milliseconds: 1600,
-                                      ),
-                                    );
-
-                                    context.pushNamed(TipsWidget.routeName);
                                   },
                             text: FFLocalizations.of(context).getText(
-                              'n7lz0sbh' /* Confirmar alteração */,
+                              'bh2cgsav' /* Enviar e-mail de recuperação */,
                             ),
                             options: FFButtonOptions(
                               width: double.infinity,
@@ -434,7 +300,7 @@ class _EditTipsWidgetState extends State<EditTipsWidget> {
                                   ),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(8.0),
-                              disabledColor: Color(0x64C79B66),
+                              disabledColor: Color(0x6AC79B66),
                               disabledTextColor:
                                   FlutterFlowTheme.of(context).primaryText,
                             ),

@@ -107,7 +107,9 @@ class _ObjetivesADMWidgetState extends State<ObjetivesADMWidget> {
             },
           ),
           title: Text(
-            'Objetivos ADM',
+            FFLocalizations.of(context).getText(
+              'mo2ki1ws' /* Objetivos ADM */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.montserrat(
                     fontWeight:
@@ -138,7 +140,9 @@ class _ObjetivesADMWidgetState extends State<ObjetivesADMWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                   child: Text(
-                    'Objetivos existentes',
+                    FFLocalizations.of(context).getText(
+                      '87pqfkeh' /* Objetivos existentes */,
+                    ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w600,
@@ -146,7 +150,7 @@ class _ObjetivesADMWidgetState extends State<ObjetivesADMWidget> {
                                 .bodyMedium
                                 .fontStyle,
                           ),
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: FlutterFlowTheme.of(context).primaryText,
                           fontSize: 18.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,

@@ -55,6 +55,11 @@ class UserRecord extends FirestoreRecord {
   int get notificationCount => _notificationCount ?? 0;
   bool hasNotificationCount() => _notificationCount != null;
 
+  // "subDisplay_name" field.
+  String? _subDisplayName;
+  String get subDisplayName => _subDisplayName ?? '';
+  bool hasSubDisplayName() => _subDisplayName != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -64,6 +69,7 @@ class UserRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _userAdm = snapshotData['userAdm'] as String?;
     _notificationCount = castToType<int>(snapshotData['notificationCount']);
+    _subDisplayName = snapshotData['subDisplay_name'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -108,6 +114,7 @@ Map<String, dynamic> createUserRecordData({
   String? phoneNumber,
   String? userAdm,
   int? notificationCount,
+  String? subDisplayName,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -119,6 +126,7 @@ Map<String, dynamic> createUserRecordData({
       'phone_number': phoneNumber,
       'userAdm': userAdm,
       'notificationCount': notificationCount,
+      'subDisplay_name': subDisplayName,
     }.withoutNulls,
   );
 
@@ -137,7 +145,8 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.userAdm == e2?.userAdm &&
-        e1?.notificationCount == e2?.notificationCount;
+        e1?.notificationCount == e2?.notificationCount &&
+        e1?.subDisplayName == e2?.subDisplayName;
   }
 
   @override
@@ -149,7 +158,8 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.userAdm,
-        e?.notificationCount
+        e?.notificationCount,
+        e?.subDisplayName
       ]);
 
   @override

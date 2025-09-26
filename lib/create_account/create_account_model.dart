@@ -6,47 +6,52 @@ import 'package:flutter/material.dart';
 class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for emailCreateLogin widget.
-  FocusNode? emailCreateLoginFocusNode;
-  TextEditingController? emailCreateLoginTextController;
+  // State field(s) for emailCreate widget.
+  FocusNode? emailCreateFocusNode;
+  TextEditingController? emailCreateTextController;
+  String? Function(BuildContext, String?)? emailCreateTextControllerValidator;
+  // State field(s) for nameCreate widget.
+  FocusNode? nameCreateFocusNode;
+  TextEditingController? nameCreateTextController;
+  String? Function(BuildContext, String?)? nameCreateTextControllerValidator;
+  // State field(s) for SubNameCreate widget.
+  FocusNode? subNameCreateFocusNode;
+  TextEditingController? subNameCreateTextController;
+  String? Function(BuildContext, String?)? subNameCreateTextControllerValidator;
+  // State field(s) for passwordCreate widget.
+  FocusNode? passwordCreateFocusNode;
+  TextEditingController? passwordCreateTextController;
+  late bool passwordCreateVisibility;
   String? Function(BuildContext, String?)?
-      emailCreateLoginTextControllerValidator;
-  // State field(s) for nameCreateLogin widget.
-  FocusNode? nameCreateLoginFocusNode;
-  TextEditingController? nameCreateLoginTextController;
+      passwordCreateTextControllerValidator;
+  // State field(s) for passwordConfirmCreate widget.
+  FocusNode? passwordConfirmCreateFocusNode;
+  TextEditingController? passwordConfirmCreateTextController;
+  late bool passwordConfirmCreateVisibility;
   String? Function(BuildContext, String?)?
-      nameCreateLoginTextControllerValidator;
-  // State field(s) for passwordCraeteLogin widget.
-  FocusNode? passwordCraeteLoginFocusNode;
-  TextEditingController? passwordCraeteLoginTextController;
-  late bool passwordCraeteLoginVisibility;
-  String? Function(BuildContext, String?)?
-      passwordCraeteLoginTextControllerValidator;
-  // State field(s) for passwordConfirmCreateLogin widget.
-  FocusNode? passwordConfirmCreateLoginFocusNode;
-  TextEditingController? passwordConfirmCreateLoginTextController;
-  late bool passwordConfirmCreateLoginVisibility;
-  String? Function(BuildContext, String?)?
-      passwordConfirmCreateLoginTextControllerValidator;
+      passwordConfirmCreateTextControllerValidator;
 
   @override
   void initState(BuildContext context) {
-    passwordCraeteLoginVisibility = false;
-    passwordConfirmCreateLoginVisibility = false;
+    passwordCreateVisibility = false;
+    passwordConfirmCreateVisibility = false;
   }
 
   @override
   void dispose() {
-    emailCreateLoginFocusNode?.dispose();
-    emailCreateLoginTextController?.dispose();
+    emailCreateFocusNode?.dispose();
+    emailCreateTextController?.dispose();
 
-    nameCreateLoginFocusNode?.dispose();
-    nameCreateLoginTextController?.dispose();
+    nameCreateFocusNode?.dispose();
+    nameCreateTextController?.dispose();
 
-    passwordCraeteLoginFocusNode?.dispose();
-    passwordCraeteLoginTextController?.dispose();
+    subNameCreateFocusNode?.dispose();
+    subNameCreateTextController?.dispose();
 
-    passwordConfirmCreateLoginFocusNode?.dispose();
-    passwordConfirmCreateLoginTextController?.dispose();
+    passwordCreateFocusNode?.dispose();
+    passwordCreateTextController?.dispose();
+
+    passwordConfirmCreateFocusNode?.dispose();
+    passwordConfirmCreateTextController?.dispose();
   }
 }

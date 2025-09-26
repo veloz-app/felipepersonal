@@ -46,7 +46,16 @@ class _CustonDialogCongratilationWidgetState
       );
       Navigator.pop(context);
 
-      context.goNamed(ObjectivesWidget.routeName);
+      context.goNamed(
+        ObjectivesWidget.routeName,
+        extra: <String, dynamic>{
+          kTransitionInfoKey: TransitionInfo(
+            hasTransition: true,
+            transitionType: PageTransitionType.fade,
+            duration: Duration(milliseconds: 0),
+          ),
+        },
+      );
     });
   }
 
@@ -78,7 +87,7 @@ class _CustonDialogCongratilationWidgetState
               maxWidth: 530.0,
             ),
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: FlutterFlowTheme.of(context).primaryBackground,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 3.0,
@@ -90,10 +99,6 @@ class _CustonDialogCongratilationWidgetState
                 )
               ],
               borderRadius: BorderRadius.circular(24.0),
-              border: Border.all(
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                width: 1.0,
-              ),
             ),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
@@ -111,7 +116,9 @@ class _CustonDialogCongratilationWidgetState
                         Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           child: Text(
-                            'Párabens',
+                            FFLocalizations.of(context).getText(
+                              '3c4yi15n' /* Párabens */,
+                            ),
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .headlineMedium
@@ -124,6 +131,8 @@ class _CustonDialogCongratilationWidgetState
                                         .headlineMedium
                                         .fontStyle,
                                   ),
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .headlineMedium
@@ -174,6 +183,8 @@ class _CustonDialogCongratilationWidgetState
                                                   .labelMedium
                                                   .fontStyle,
                                         ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)

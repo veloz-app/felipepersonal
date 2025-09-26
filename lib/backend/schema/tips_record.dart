@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -30,28 +31,40 @@ class TipsRecord extends FirestoreRecord {
   String get idTips => _idTips ?? '';
   bool hasIdTips() => _idTips != null;
 
-  // "likeCount" field.
-  int? _likeCount;
-  int get likeCount => _likeCount ?? 0;
-  bool hasLikeCount() => _likeCount != null;
-
-  // "loveCount" field.
-  int? _loveCount;
-  int get loveCount => _loveCount ?? 0;
-  bool hasLoveCount() => _loveCount != null;
-
   // "time_stampTips" field.
   DateTime? _timeStampTips;
   DateTime? get timeStampTips => _timeStampTips;
   bool hasTimeStampTips() => _timeStampTips != null;
 
+  // "likeCountTips" field.
+  int? _likeCountTips;
+  int get likeCountTips => _likeCountTips ?? 0;
+  bool hasLikeCountTips() => _likeCountTips != null;
+
+  // "loveCountTips" field.
+  int? _loveCountTips;
+  int get loveCountTips => _loveCountTips ?? 0;
+  bool hasLoveCountTips() => _loveCountTips != null;
+
+  // "liked_tips" field.
+  List<DocumentReference>? _likedTips;
+  List<DocumentReference> get likedTips => _likedTips ?? const [];
+  bool hasLikedTips() => _likedTips != null;
+
+  // "loved_tips" field.
+  List<DocumentReference>? _lovedTips;
+  List<DocumentReference> get lovedTips => _lovedTips ?? const [];
+  bool hasLovedTips() => _lovedTips != null;
+
   void _initializeFields() {
     _displayNameTypes = snapshotData['display_nameTypes'] as String?;
     _tipDetail = snapshotData['tipDetail'] as String?;
     _idTips = snapshotData['idTips'] as String?;
-    _likeCount = castToType<int>(snapshotData['likeCount']);
-    _loveCount = castToType<int>(snapshotData['loveCount']);
     _timeStampTips = snapshotData['time_stampTips'] as DateTime?;
+    _likeCountTips = castToType<int>(snapshotData['likeCountTips']);
+    _loveCountTips = castToType<int>(snapshotData['loveCountTips']);
+    _likedTips = getDataList(snapshotData['liked_tips']);
+    _lovedTips = getDataList(snapshotData['loved_tips']);
   }
 
   static CollectionReference get collection =>
@@ -91,18 +104,18 @@ Map<String, dynamic> createTipsRecordData({
   String? displayNameTypes,
   String? tipDetail,
   String? idTips,
-  int? likeCount,
-  int? loveCount,
   DateTime? timeStampTips,
+  int? likeCountTips,
+  int? loveCountTips,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'display_nameTypes': displayNameTypes,
       'tipDetail': tipDetail,
       'idTips': idTips,
-      'likeCount': likeCount,
-      'loveCount': loveCount,
       'time_stampTips': timeStampTips,
+      'likeCountTips': likeCountTips,
+      'loveCountTips': loveCountTips,
     }.withoutNulls,
   );
 
@@ -114,12 +127,15 @@ class TipsRecordDocumentEquality implements Equality<TipsRecord> {
 
   @override
   bool equals(TipsRecord? e1, TipsRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.displayNameTypes == e2?.displayNameTypes &&
         e1?.tipDetail == e2?.tipDetail &&
         e1?.idTips == e2?.idTips &&
-        e1?.likeCount == e2?.likeCount &&
-        e1?.loveCount == e2?.loveCount &&
-        e1?.timeStampTips == e2?.timeStampTips;
+        e1?.timeStampTips == e2?.timeStampTips &&
+        e1?.likeCountTips == e2?.likeCountTips &&
+        e1?.loveCountTips == e2?.loveCountTips &&
+        listEquality.equals(e1?.likedTips, e2?.likedTips) &&
+        listEquality.equals(e1?.lovedTips, e2?.lovedTips);
   }
 
   @override
@@ -127,9 +143,11 @@ class TipsRecordDocumentEquality implements Equality<TipsRecord> {
         e?.displayNameTypes,
         e?.tipDetail,
         e?.idTips,
-        e?.likeCount,
-        e?.loveCount,
-        e?.timeStampTips
+        e?.timeStampTips,
+        e?.likeCountTips,
+        e?.loveCountTips,
+        e?.likedTips,
+        e?.lovedTips
       ]);
 
   @override

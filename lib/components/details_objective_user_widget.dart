@@ -1,30 +1,29 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'alternative_video_details_model.dart';
-export 'alternative_video_details_model.dart';
+import 'details_objective_user_model.dart';
+export 'details_objective_user_model.dart';
 
-class AlternativeVideoDetailsWidget extends StatefulWidget {
-  const AlternativeVideoDetailsWidget({
+class DetailsObjectiveUserWidget extends StatefulWidget {
+  const DetailsObjectiveUserWidget({
     super.key,
-    required this.titleAlternativeVideo,
-    required this.subTitleAlternativeVideo,
-    required this.moreDetailsAlterantiveVideo,
+    required this.detailsObjectiveUser,
+    required this.paramRefObjective,
   });
 
-  final String? titleAlternativeVideo;
-  final String? subTitleAlternativeVideo;
-  final String? moreDetailsAlterantiveVideo;
+  final String? detailsObjectiveUser;
+  final DocumentReference? paramRefObjective;
 
   @override
-  State<AlternativeVideoDetailsWidget> createState() =>
-      _AlternativeVideoDetailsWidgetState();
+  State<DetailsObjectiveUserWidget> createState() =>
+      _DetailsObjectiveUserWidgetState();
 }
 
-class _AlternativeVideoDetailsWidgetState
-    extends State<AlternativeVideoDetailsWidget> {
-  late AlternativeVideoDetailsModel _model;
+class _DetailsObjectiveUserWidgetState
+    extends State<DetailsObjectiveUserWidget> {
+  late DetailsObjectiveUserModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -35,7 +34,7 @@ class _AlternativeVideoDetailsWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AlternativeVideoDetailsModel());
+    _model = createModel(context, () => DetailsObjectiveUserModel());
   }
 
   @override
@@ -76,7 +75,7 @@ class _AlternativeVideoDetailsWidgetState
             children: [
               Text(
                 FFLocalizations.of(context).getText(
-                  'z2iskxwd' /* Mais detalhes */,
+                  'tgeio236' /* Mais detalhes */,
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       font: GoogleFonts.montserrat(
@@ -98,7 +97,7 @@ class _AlternativeVideoDetailsWidgetState
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
                 child: Container(
                   width: 413.5,
-                  height: 327.51,
+                  height: 327.5,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
@@ -110,59 +109,57 @@ class _AlternativeVideoDetailsWidgetState
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          valueOrDefault<String>(
-                            widget.titleAlternativeVideo,
-                            'Titulo',
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
+                        StreamBuilder<ObjectivesRecord>(
+                          stream: ObjectivesRecord.getDocument(
+                              widget.paramRefObjective!),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
                                 ),
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 20.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                        ),
-                        Text(
-                          valueOrDefault<String>(
-                            widget.subTitleAlternativeVideo,
-                            'SubTitle',
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: FlutterFlowTheme.of(context).secondary,
-                                fontSize: 15.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
+                              );
+                            }
+
+                            final textObjectivesRecord = snapshot.data!;
+
+                            return Text(
+                              textObjectivesRecord.nameObjective,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    fontSize: 20.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                            );
+                          },
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 15.0, 0.0, 0.0),
                           child: Text(
                             valueOrDefault<String>(
-                              widget.moreDetailsAlterantiveVideo,
-                              'moreDetails',
+                              widget.detailsObjectiveUser,
+                              'Texto detalhes',
                             ),
                             textAlign: TextAlign.justify,
                             style: FlutterFlowTheme.of(context)

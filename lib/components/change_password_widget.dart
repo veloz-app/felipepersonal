@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -7,18 +6,18 @@ import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'tips_create_model.dart';
-export 'tips_create_model.dart';
+import 'change_password_model.dart';
+export 'change_password_model.dart';
 
-class TipsCreateWidget extends StatefulWidget {
-  const TipsCreateWidget({super.key});
+class ChangePasswordWidget extends StatefulWidget {
+  const ChangePasswordWidget({super.key});
 
   @override
-  State<TipsCreateWidget> createState() => _TipsCreateWidgetState();
+  State<ChangePasswordWidget> createState() => _ChangePasswordWidgetState();
 }
 
-class _TipsCreateWidgetState extends State<TipsCreateWidget> {
-  late TipsCreateModel _model;
+class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
+  late ChangePasswordModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -29,13 +28,13 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TipsCreateModel());
+    _model = createModel(context, () => ChangePasswordModel());
 
-    _model.titleTipCreateTextController ??= TextEditingController();
-    _model.titleTipCreateFocusNode ??= FocusNode();
+    _model.passwordFieldTextController ??= TextEditingController();
+    _model.passwordFieldFocusNode ??= FocusNode();
 
-    _model.tipCreateTextController ??= TextEditingController();
-    _model.tipCreateFocusNode ??= FocusNode();
+    _model.confirmPasswordFieldTextController ??= TextEditingController();
+    _model.confirmPasswordFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -74,46 +73,42 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    FFLocalizations.of(context).getText(
-                      'deex1e09' /* Criar uma dica */,
+              Text(
+                FFLocalizations.of(context).getText(
+                  'pdmvvgew' /* Trocar senha */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.montserrat(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      color: Colors.white,
+                      fontSize: 17.0,
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                          color: Colors.white,
-                          fontSize: 21.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                  ),
-                ],
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 18.0, 0.0, 0.0),
                 child: Container(
                   width: 413.5,
-                  height: 344.0,
+                  height: 263.51,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
                   ),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(38.0, 0.0, 38.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(38.0, 22.0, 38.0, 22.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -121,17 +116,17 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                           child: Container(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.titleTipCreateTextController,
-                              focusNode: _model.titleTipCreateFocusNode,
+                              controller: _model.passwordFieldTextController,
+                              focusNode: _model.passwordFieldFocusNode,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.titleTipCreateTextController',
+                                '_model.passwordFieldTextController',
                                 Duration(milliseconds: 100),
                                 () => safeSetState(() {}),
                               ),
                               autofocus: false,
-                              obscureText: false,
+                              obscureText: !_model.passwordFieldVisibility,
                               decoration: InputDecoration(
-                                isDense: true,
+                                isDense: false,
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -152,7 +147,7 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                           .fontStyle,
                                     ),
                                 hintText: FFLocalizations.of(context).getText(
-                                  'u20s8gpa' /* Título dica */,
+                                  'dwq2ttrs' /* Digite uma senha */,
                                 ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
@@ -182,7 +177,7 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: Color(0x2357636C),
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -203,6 +198,21 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                 ),
                                 filled: true,
                                 fillColor: Colors.transparent,
+                                suffixIcon: InkWell(
+                                  onTap: () => safeSetState(
+                                    () => _model.passwordFieldVisibility =
+                                        !_model.passwordFieldVisibility,
+                                  ),
+                                  focusNode: FocusNode(skipTraversal: true),
+                                  child: Icon(
+                                    _model.passwordFieldVisibility
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    size: 22,
+                                  ),
+                                ),
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -223,33 +233,35 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                              minLines: 1,
+                              keyboardType: TextInputType.visiblePassword,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
                               validator: _model
-                                  .titleTipCreateTextControllerValidator
+                                  .passwordFieldTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 10.0, 0.0, 0.0),
+                              0.0, 13.0, 0.0, 0.0),
                           child: Container(
                             width: double.infinity,
                             child: TextFormField(
-                              controller: _model.tipCreateTextController,
-                              focusNode: _model.tipCreateFocusNode,
+                              controller:
+                                  _model.confirmPasswordFieldTextController,
+                              focusNode: _model.confirmPasswordFieldFocusNode,
                               onChanged: (_) => EasyDebounce.debounce(
-                                '_model.tipCreateTextController',
+                                '_model.confirmPasswordFieldTextController',
                                 Duration(milliseconds: 100),
                                 () => safeSetState(() {}),
                               ),
                               autofocus: false,
-                              obscureText: false,
+                              obscureText:
+                                  !_model.confirmPasswordFieldVisibility,
                               decoration: InputDecoration(
-                                isDense: true,
+                                isDense: false,
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -270,7 +282,7 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                           .fontStyle,
                                     ),
                                 hintText: FFLocalizations.of(context).getText(
-                                  'nnj45ko9' /* Dica */,
+                                  'qhzkpfju' /* Confirme a senha */,
                                 ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
@@ -300,7 +312,7 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: Color(0x2357636C),
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -321,6 +333,22 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                 ),
                                 filled: true,
                                 fillColor: Colors.transparent,
+                                suffixIcon: InkWell(
+                                  onTap: () => safeSetState(
+                                    () => _model
+                                            .confirmPasswordFieldVisibility =
+                                        !_model.confirmPasswordFieldVisibility,
+                                  ),
+                                  focusNode: FocusNode(skipTraversal: true),
+                                  child: Icon(
+                                    _model.confirmPasswordFieldVisibility
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    size: 22,
+                                  ),
+                                ),
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -341,14 +369,12 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                              textAlign: TextAlign.justify,
-                              maxLines: 6,
-                              minLines: 6,
-                              maxLength: 245,
+                              keyboardType: TextInputType.visiblePassword,
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
-                              validator: _model.tipCreateTextControllerValidator
+                              validator: _model
+                                  .confirmPasswordFieldTextControllerValidator
                                   .asValidator(context),
                             ),
                           ),
@@ -356,160 +382,78 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
-                          child: StreamBuilder<UserRecord>(
-                            stream:
-                                UserRecord.getDocument(currentUserReference!),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
+                          child: FFButtonWidget(
+                            onPressed: !((_model.passwordFieldTextController
+                                                .text !=
+                                            '') &&
+                                    (_model.confirmPasswordFieldTextController
+                                            .text ==
+                                        ''))
+                                ? null
+                                : () async {
+                                    await authManager.updatePassword(
+                                      newPassword: _model
+                                          .passwordFieldTextController.text,
+                                      context: context,
+                                    );
+                                    safeSetState(() {});
 
-                              final buttonUserRecord = snapshot.data!;
-
-                              return FFButtonWidget(
-                                onPressed: !((_model.titleTipCreateTextController
-                                                    .text !=
-                                                '') &&
-                                        (_model.tipCreateTextController
-                                                    .text !=
-                                                ''))
-                                    ? null
-                                    : () async {
-                                        await TipsRecord.collection.doc().set({
-                                          ...createTipsRecordData(
-                                            displayNameTypes: _model
-                                                .titleTipCreateTextController
-                                                .text,
-                                            tipDetail: _model
-                                                .tipCreateTextController.text,
-                                            idTips: '',
-                                            likeCountTips: 0,
-                                            loveCountTips: 0,
+                                    Navigator.pop(context);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Senha alterada com sucesso!',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            fontSize: 14.0,
                                           ),
-                                          ...mapToFirestore(
-                                            {
-                                              'time_stampTips':
-                                                  FieldValue.serverTimestamp(),
-                                            },
-                                          ),
-                                        });
-
-                                        await NotificationRecord.collection
-                                            .doc()
-                                            .set({
-                                          ...createNotificationRecordData(
-                                            notificationType:
-                                                'publicou uma dica',
-                                            idNotification: '',
-                                            statusNotification: false,
-                                            imageCoverUrl:
-                                                'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FIcone%20notifica%C3%A7%C3%A3o.png?alt=media&token=c1d29a66-4e2d-4ef9-a64c-375907c222bc',
-                                          ),
-                                          ...mapToFirestore(
-                                            {
-                                              'timeStamp_notification':
-                                                  FieldValue.serverTimestamp(),
-                                            },
-                                          ),
-                                        });
-
-                                        await buttonUserRecord.reference
-                                            .update({
-                                          ...mapToFirestore(
-                                            {
-                                              'notificationCount':
-                                                  FieldValue.increment(1),
-                                            },
-                                          ),
-                                        });
-                                        Navigator.pop(context);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              '',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16.0,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 1500),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                        await Future.delayed(
-                                          Duration(
-                                            milliseconds: 1600,
-                                          ),
-                                        );
-
-                                        context.pushNamed(
-                                          TipsWidget.routeName,
-                                          extra: <String, dynamic>{
-                                            kTransitionInfoKey: TransitionInfo(
-                                              hasTransition: true,
-                                              transitionType:
-                                                  PageTransitionType.fade,
-                                              duration:
-                                                  Duration(milliseconds: 0),
-                                            ),
-                                          },
-                                        );
-                                      },
-                                text: FFLocalizations.of(context).getText(
-                                  'swyvc2tx' /* Postar dica */,
-                                ),
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 40.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        font: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w500,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .fontStyle,
                                         ),
-                                        color: Colors.white,
-                                        fontSize: 17.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
+                                        duration: Duration(milliseconds: 2000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
                                       ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  disabledColor: Color(0x64C79B66),
-                                  disabledTextColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              );
-                            },
+                                    );
+
+                                    context.goNamedAuth(
+                                        HomepageWidget.routeName,
+                                        context.mounted);
+                                  },
+                            text: FFLocalizations.of(context).getText(
+                              '61zm56g6' /* Confirmar e alterar */,
+                            ),
+                            options: FFButtonOptions(
+                              width: double.infinity,
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).secondary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    fontSize: 17.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                              elevation: 0.0,
+                              borderRadius: BorderRadius.circular(8.0),
+                              disabledColor: Color(0x6AC79B66),
+                              disabledTextColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                            ),
                           ),
                         ),
                       ],
