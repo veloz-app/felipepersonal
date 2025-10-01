@@ -274,246 +274,236 @@ class _HomepageWidgetState extends State<HomepageWidget>
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 40.0, 0.0, 0.0),
-                            child: StreamBuilder<List<NotificationRecord>>(
-                              stream: queryNotificationRecord(
-                                queryBuilder: (notificationRecord) =>
-                                    notificationRecord.orderBy(
-                                        'timeStamp_notification',
-                                        descending: true),
+                            child: PagedListView<DocumentSnapshot<Object?>?,
+                                NotificationRecord>(
+                              pagingController: _model.setListViewController(
+                                NotificationRecord.collection.orderBy(
+                                    'timeStamp_notification',
+                                    descending: true),
                               ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
+                              padding: EdgeInsets.zero,
+                              reverse: false,
+                              scrollDirection: Axis.vertical,
+                              builderDelegate:
+                                  PagedChildBuilderDelegate<NotificationRecord>(
+                                // Customize what your widget looks like when it's loading the first page.
+                                firstPageProgressIndicatorBuilder: (_) =>
+                                    Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
                                       ),
                                     ),
-                                  );
-                                }
-                                List<NotificationRecord>
-                                    listViewNotificationRecordList =
-                                    snapshot.data!;
+                                  ),
+                                ),
+                                // Customize what your widget looks like when it's loading another page.
+                                newPageProgressIndicatorBuilder: (_) => Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
 
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount:
-                                      listViewNotificationRecordList.length,
-                                  itemBuilder: (context, listViewIndex) {
-                                    final listViewNotificationRecord =
-                                        listViewNotificationRecordList[
-                                            listViewIndex];
-                                    return InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await listViewNotificationRecord
-                                            .reference
-                                            .update(
-                                                createNotificationRecordData(
-                                          statusNotification: true,
-                                        ));
-                                        if (listViewNotificationRecord
-                                                .notificationType ==
-                                            'publicou um vídeo alternativo') {
-                                          context.pushNamed(
-                                              AlternativeTrainingWidget
-                                                  .routeName);
+                                itemBuilder: (context, _, listViewIndex) {
+                                  final listViewNotificationRecord = _model
+                                      .listViewPagingController!
+                                      .itemList![listViewIndex];
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await listViewNotificationRecord.reference
+                                          .update(createNotificationRecordData(
+                                        statusNotification: true,
+                                      ));
+                                      if (listViewNotificationRecord
+                                              .notificationType ==
+                                          'publicou um vídeo alternativo') {
+                                        context.pushNamed(
+                                            AlternativeTrainingWidget
+                                                .routeName);
 
-                                          if (scaffoldKey
-                                                  .currentState!.isDrawerOpen ||
-                                              scaffoldKey.currentState!
-                                                  .isEndDrawerOpen) {
-                                            Navigator.pop(context);
-                                          }
-
-                                          if (valueOrDefault(
-                                                  currentUserDocument
-                                                      ?.notificationCount,
-                                                  0) >=
-                                              1) {
-                                            await currentUserReference!.update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'notificationCount':
-                                                      FieldValue.increment(
-                                                          -(1)),
-                                                },
-                                              ),
-                                            });
-                                            return;
-                                          } else {
-                                            return;
-                                          }
-                                        } else {
-                                          context
-                                              .pushNamed(TipsWidget.routeName);
-
-                                          if (scaffoldKey
-                                                  .currentState!.isDrawerOpen ||
-                                              scaffoldKey.currentState!
-                                                  .isEndDrawerOpen) {
-                                            Navigator.pop(context);
-                                          }
-
-                                          if (valueOrDefault(
-                                                  currentUserDocument
-                                                      ?.notificationCount,
-                                                  0) >=
-                                              1) {
-                                            await currentUserReference!.update({
-                                              ...mapToFirestore(
-                                                {
-                                                  'notificationCount':
-                                                      FieldValue.increment(
-                                                          -(1)),
-                                                },
-                                              ),
-                                            });
-                                            return;
-                                          } else {
-                                            return;
-                                          }
+                                        if (scaffoldKey
+                                                .currentState!.isDrawerOpen ||
+                                            scaffoldKey.currentState!
+                                                .isEndDrawerOpen) {
+                                          Navigator.pop(context);
                                         }
-                                      },
-                                      child: Card(
-                                        clipBehavior:
-                                            Clip.antiAliasWithSaveLayer,
-                                        elevation: 2.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          elevation: 2.0,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: listViewNotificationRecord
-                                                          .statusNotification ==
-                                                      false
-                                                  ? FlutterFlowTheme.of(context)
-                                                      .primary
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primaryText,
+
+                                        if (valueOrDefault(
+                                                currentUserDocument
+                                                    ?.notificationCount,
+                                                0) >=
+                                            1) {
+                                          await currentUserReference!.update({
+                                            ...mapToFirestore(
+                                              {
+                                                'notificationCount':
+                                                    FieldValue.increment(-(1)),
+                                              },
                                             ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      9.0, 5.0, 11.0, 5.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            RichText(
-                                                              textScaler:
-                                                                  MediaQuery.of(
+                                          });
+                                          return;
+                                        } else {
+                                          return;
+                                        }
+                                      } else {
+                                        context.pushNamed(TipsWidget.routeName);
+
+                                        if (scaffoldKey
+                                                .currentState!.isDrawerOpen ||
+                                            scaffoldKey.currentState!
+                                                .isEndDrawerOpen) {
+                                          Navigator.pop(context);
+                                        }
+
+                                        if (valueOrDefault(
+                                                currentUserDocument
+                                                    ?.notificationCount,
+                                                0) >=
+                                            1) {
+                                          await currentUserReference!.update({
+                                            ...mapToFirestore(
+                                              {
+                                                'notificationCount':
+                                                    FieldValue.increment(-(1)),
+                                              },
+                                            ),
+                                          });
+                                          return;
+                                        } else {
+                                          return;
+                                        }
+                                      }
+                                    },
+                                    child: Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      elevation: 2.0,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        elevation: 2.0,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: listViewNotificationRecord
+                                                        .statusNotification ==
+                                                    false
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .info,
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    9.0, 5.0, 11.0, 5.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          RichText(
+                                                            textScaler:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .textScaler,
+                                                            text: TextSpan(
+                                                              children: [
+                                                                TextSpan(
+                                                                  text: FFLocalizations.of(
                                                                           context)
-                                                                      .textScaler,
-                                                              text: TextSpan(
-                                                                children: [
-                                                                  TextSpan(
-                                                                    text: FFLocalizations.of(
-                                                                            context)
-                                                                        .getText(
-                                                                      'lx0c518o' /* Felipe Personal  */,
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          font:
-                                                                              GoogleFonts.montserrat(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                          ),
-                                                                          color: listViewNotificationRecord.statusNotification == true
-                                                                              ? FlutterFlowTheme.of(context).success
-                                                                              : FlutterFlowTheme.of(context).success,
-                                                                          fontSize:
-                                                                              10.0,
-                                                                          letterSpacing:
-                                                                              0.0,
+                                                                      .getText(
+                                                                    'lx0c518o' /* Felipe Personal  */,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .montserrat(
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                           fontStyle: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .fontStyle,
                                                                         ),
-                                                                  ),
-                                                                  TextSpan(
-                                                                    text: listViewNotificationRecord
-                                                                        .notificationType,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          font:
-                                                                              GoogleFonts.montserrat(
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                          ),
-                                                                          color: listViewNotificationRecord.statusNotification == true
-                                                                              ? FlutterFlowTheme.of(context).info
-                                                                              : FlutterFlowTheme.of(context).success,
-                                                                          fontSize:
-                                                                              10.0,
-                                                                          letterSpacing:
-                                                                              0.0,
+                                                                        color: listViewNotificationRecord.statusNotification ==
+                                                                                false
+                                                                            ? FlutterFlowTheme.of(context).info
+                                                                            : FlutterFlowTheme.of(context).primary,
+                                                                        fontSize:
+                                                                            10.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                ),
+                                                                TextSpan(
+                                                                  text: listViewNotificationRecord
+                                                                      .notificationType,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .montserrat(
                                                                           fontWeight:
                                                                               FontWeight.w300,
                                                                           fontStyle: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .fontStyle,
                                                                         ),
-                                                                  )
-                                                                ],
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .montserrat(
-                                                                        fontWeight: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontWeight,
+                                                                        color: listViewNotificationRecord.statusNotification ==
+                                                                                false
+                                                                            ? FlutterFlowTheme.of(context).info
+                                                                            : FlutterFlowTheme.of(context).primary,
+                                                                        fontSize:
+                                                                            10.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w300,
                                                                         fontStyle: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryBackground,
-                                                                      fontSize:
-                                                                          13.0,
-                                                                      letterSpacing:
-                                                                          0.0,
+                                                                )
+                                                              ],
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .montserrat(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -523,48 +513,47 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                              ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                    fontSize:
+                                                                        13.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                             ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                dateTimeFormat(
-                                                                  "d/M H:mm",
-                                                                  listViewNotificationRecord
-                                                                      .timeStampNotification!,
-                                                                  locale: FFLocalizations.of(
-                                                                          context)
-                                                                      .languageCode,
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        5.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              dateTimeFormat(
+                                                                "d/M H:mm",
+                                                                listViewNotificationRecord
+                                                                    .timeStampNotification!,
+                                                                locale: FFLocalizations.of(
                                                                         context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      font: GoogleFonts
-                                                                          .montserrat(
-                                                                        fontWeight: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontWeight,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
-                                                                      ),
-                                                                      color: listViewNotificationRecord.statusNotification ==
-                                                                              false
-                                                                          ? FlutterFlowTheme.of(context)
-                                                                              .info
-                                                                          : FlutterFlowTheme.of(context)
-                                                                              .secondary,
-                                                                      fontSize:
-                                                                          7.0,
-                                                                      letterSpacing:
-                                                                          0.0,
+                                                                    .languageCode,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .montserrat(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -574,71 +563,87 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                              ),
+                                                                    color: listViewNotificationRecord.statusNotification ==
+                                                                            false
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .info
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                    fontSize:
+                                                                        7.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Container(
-                                                          width: 71.0,
-                                                          height: 38.0,
-                                                          decoration:
-                                                              BoxDecoration(
+                                                    ),
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Container(
+                                                        width: 71.0,
+                                                        height: 38.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0.0, 0.0),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      6.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         8.0),
-                                                          ),
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0.0, 0.0),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        6.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                              child:
-                                                                  Image.network(
-                                                                listViewNotificationRecord
-                                                                    .imageCoverUrl,
-                                                                width: 71.0,
-                                                                height: double
-                                                                    .infinity,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                                alignment:
-                                                                    Alignment(
-                                                                        0.0,
-                                                                        0.0),
-                                                              ),
+                                                            child:
+                                                                Image.network(
+                                                              listViewNotificationRecord
+                                                                  .imageCoverUrl,
+                                                              width: 71.0,
+                                                              height: double
+                                                                  .infinity,
+                                                              fit: BoxFit.cover,
+                                                              alignment:
+                                                                  Alignment(
+                                                                      0.0, 0.0),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                    );
-                                  },
-                                );
-                              },
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),

@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'objetives_a_d_m_model.dart';
 export 'objetives_a_d_m_model.dart';
 
@@ -160,111 +161,110 @@ class _ObjetivesADMWidgetState extends State<ObjetivesADMWidget> {
                   ),
                 ),
                 Expanded(
-                  child: StreamBuilder<List<ObjectivesRecord>>(
-                    stream: queryObjectivesRecord(),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
+                  child: PagedListView<DocumentSnapshot<Object?>?,
+                      ObjectivesRecord>.separated(
+                    pagingController: _model.setListViewController(
+                      ObjectivesRecord.collection,
+                    ),
+                    padding: EdgeInsets.zero,
+                    reverse: false,
+                    scrollDirection: Axis.vertical,
+                    separatorBuilder: (_, __) => SizedBox(height: 6.0),
+                    builderDelegate:
+                        PagedChildBuilderDelegate<ObjectivesRecord>(
+                      // Customize what your widget looks like when it's loading the first page.
+                      firstPageProgressIndicatorBuilder: (_) => Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
                             ),
                           ),
-                        );
-                      }
-                      List<ObjectivesRecord> listViewObjectivesRecordList =
-                          snapshot.data!;
-
-                      return ListView.separated(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewObjectivesRecordList.length,
-                        separatorBuilder: (_, __) => SizedBox(height: 6.0),
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewObjectivesRecord =
-                              listViewObjectivesRecordList[listViewIndex];
-                          return Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            elevation: 2.0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      // Customize what your widget looks like when it's loading another page.
+                      newPageProgressIndicatorBuilder: (_) => Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: 176.9,
-                                    decoration: BoxDecoration(),
-                                    child: Text(
-                                      listViewObjectivesRecord.nameObjective,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                            fontSize: 13.0,
-                                            letterSpacing: 0.0,
+                          ),
+                        ),
+                      ),
+
+                      itemBuilder: (context, _, listViewIndex) {
+                        final listViewObjectivesRecord = _model
+                            .listViewPagingController!.itemList![listViewIndex];
+                        return Card(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          elevation: 2.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 176.9,
+                                  decoration: BoxDecoration(),
+                                  child: Text(
+                                    listViewObjectivesRecord.nameObjective,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.montserrat(
                                             fontWeight: FontWeight.w600,
                                             fontStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 87.6,
-                                    decoration: BoxDecoration(),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                          Icons.list,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 17.0,
+                                          fontSize: 13.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  7.0, 0.0, 0.0, 0.0),
-                                          child: Text(
-                                            valueOrDefault<String>(
-                                              listViewObjectivesRecord
-                                                  .typeObjective,
-                                              'unidade',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.montserrat(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  fontSize: 11.0,
-                                                  letterSpacing: 0.0,
+                                  ),
+                                ),
+                                Container(
+                                  width: 87.6,
+                                  decoration: BoxDecoration(),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.list,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 17.0,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            7.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            listViewObjectivesRecord
+                                                .typeObjective,
+                                            'unidade',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.montserrat(
                                                   fontWeight: FontWeight.w600,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -272,162 +272,167 @@ class _ObjetivesADMWidgetState extends State<ObjetivesADMWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: Container(
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.55,
-                                                    child:
-                                                        EditObjectiveADMWidget(
-                                                      nameObjectiveADM:
-                                                          listViewObjectivesRecord
-                                                              .nameObjective,
-                                                      typeObjectiveADM:
-                                                          listViewObjectivesRecord
-                                                              .typeObjective,
-                                                      detailsObjetiveADM:
-                                                          listViewObjectivesRecord
-                                                              .description,
-                                                      imageObjectiveDisplay:
-                                                          listViewObjectivesRecord
-                                                              .imageDisplay,
-                                                      docObjectiveADM:
-                                                          listViewObjectivesRecord
-                                                              .reference,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                        child: FaIcon(
-                                          FontAwesomeIcons.solidEdit,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 21.0,
-                                        ),
-                                      ),
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          var confirmDialogResponse =
-                                              await showDialog<bool>(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        content: Text(
-                                                            'Deseja realmente deletar?'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    false),
-                                                            child: Text('Não'),
-                                                          ),
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext,
-                                                                    true),
-                                                            child: Text('Sim'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  ) ??
-                                                  false;
-                                          if (confirmDialogResponse) {
-                                            await listViewObjectivesRecord
-                                                .reference
-                                                .delete();
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  '',
-                                                  style: TextStyle(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondary,
-                                                    fontSize: 14.0,
-                                                  ),
-                                                ),
-                                                duration: Duration(
-                                                    milliseconds: 4000),
-                                                backgroundColor:
+                                                fontSize: 11.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                        .bodyMedium
+                                                        .fontStyle,
                                               ),
-                                            );
-                                            await Future.delayed(
-                                              Duration(
-                                                milliseconds: 1600,
-                                              ),
-                                            );
-
-                                            context.pushNamed(
-                                                ObjetivesADMWidget.routeName);
-
-                                            return;
-                                          } else {
-                                            return;
-                                          }
-                                        },
-                                        child: FaIcon(
-                                          FontAwesomeIcons.trash,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 19.0,
                                         ),
                                       ),
-                                    ].divide(SizedBox(width: 12.0)),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child: Container(
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.55,
+                                                  child: EditObjectiveADMWidget(
+                                                    nameObjectiveADM:
+                                                        listViewObjectivesRecord
+                                                            .nameObjective,
+                                                    typeObjectiveADM:
+                                                        listViewObjectivesRecord
+                                                            .typeObjective,
+                                                    detailsObjetiveADM:
+                                                        listViewObjectivesRecord
+                                                            .description,
+                                                    imageObjectiveDisplay:
+                                                        listViewObjectivesRecord
+                                                            .imageDisplay,
+                                                    docObjectiveADM:
+                                                        listViewObjectivesRecord
+                                                            .reference,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(() {}));
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.solidEdit,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 21.0,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        var confirmDialogResponse =
+                                            await showDialog<bool>(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      content: Text(
+                                                          'Deseja realmente deletar?'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  false),
+                                                          child: Text('Não'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  true),
+                                                          child: Text('Sim'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ) ??
+                                                false;
+                                        if (confirmDialogResponse) {
+                                          await listViewObjectivesRecord
+                                              .reference
+                                              .delete();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                '',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  fontSize: 14.0,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                            ),
+                                          );
+                                          await Future.delayed(
+                                            Duration(
+                                              milliseconds: 1600,
+                                            ),
+                                          );
+
+                                          context.pushNamed(
+                                              ObjetivesADMWidget.routeName);
+
+                                          return;
+                                        } else {
+                                          return;
+                                        }
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.trash,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 19.0,
+                                      ),
+                                    ),
+                                  ].divide(SizedBox(width: 12.0)),
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                      );
-                    },
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/components/challenger_timer_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'alternative_training_widget.dart' show AlternativeTrainingWidget;
@@ -11,6 +12,12 @@ class AlternativeTrainingModel
 
   String? userLikeDoc;
 
+  int? currentIndex = 0;
+
+  DateTime? dataCalculator;
+
+  int? duracaoDesafio;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for ListView widget.
@@ -20,13 +27,21 @@ class AlternativeTrainingModel
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
 
+  // Models for ChallengerTimer dynamic component.
+  late FlutterFlowDynamicModels<ChallengerTimerModel> challengerTimerModels;
+
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    challengerTimerModels =
+        FlutterFlowDynamicModels(() => ChallengerTimerModel());
+  }
 
   @override
   void dispose() {
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
+
+    challengerTimerModels.dispose();
   }
 
   /// Additional helper methods.
@@ -58,7 +73,7 @@ class AlternativeTrainingModel
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,
           controller: controller,
-          pageSize: 4,
+          pageSize: 10,
           isStream: true,
         ),
       );

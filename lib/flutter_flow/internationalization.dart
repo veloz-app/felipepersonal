@@ -237,7 +237,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // alternativeTraining
   {
     'ryd5vvtx': {
-      'pt': 'Treino alternativo',
+      'pt': 'Desafios',
       'en': 'Alternative training',
       'es': 'Entrenamiento alternativo',
     },
@@ -248,6 +248,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '96hh478u': {
       'pt': 'Mais detalhes',
+      'en': 'More details',
+      'es': 'Más detalles',
+    },
+    '8hamp1vy': {
+      'pt': 'Participando',
+      'en': 'More details',
+      'es': 'Más detalles',
+    },
+    'fx1o3s2s': {
+      'pt': 'Participar',
       'en': 'More details',
       'es': 'Más detalles',
     },
@@ -323,7 +333,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // postAlternativeTraining
   {
     'a04qbdm0': {
-      'pt': 'Postar vídeo de treino alternativo',
+      'pt': 'Postar vídeo de desafio',
       'en': 'Post alternative workout video',
       'es': 'Vídeo de entrenamiento alternativo posterior',
     },
@@ -332,10 +342,50 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Title',
       'es': 'Título',
     },
-    'lnrfbydu': {
+    'fumk1ja3': {
       'pt': 'Subtítulo',
       'en': 'Caption',
       'es': 'Subtítulo',
+    },
+    'lb4sgpfm': {
+      'pt': 'Selecione o período',
+      'en': '',
+      'es': '',
+    },
+    'qf2hbqqw': {
+      'pt': 'Search...',
+      'en': '',
+      'es': '',
+    },
+    '3agl3nqp': {
+      'pt': '1 dia',
+      'en': '',
+      'es': '',
+    },
+    'ny6vfv3w': {
+      'pt': '2 dias',
+      'en': '',
+      'es': '',
+    },
+    'u7hkezka': {
+      'pt': '3 dias',
+      'en': '',
+      'es': '',
+    },
+    't2n4sw8d': {
+      'pt': '4 dias',
+      'en': '',
+      'es': '',
+    },
+    'l1h45rv5': {
+      'pt': '5 dias',
+      'en': '',
+      'es': '',
+    },
+    'hljdamgg': {
+      'pt': '1 semana',
+      'en': '',
+      'es': '',
     },
     'pk3ugkyv': {
       'pt': 'Detalhes',
@@ -353,7 +403,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Portada del vídeo',
     },
     'bxhrgrjl': {
-      'pt': 'Postar conteúdo',
+      'pt': 'Postar desafio',
       'en': 'Post content',
       'es': 'Contenido de la publicación',
     },
@@ -782,6 +832,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'pt': 'Enviar e-mail de recuperação',
       'en': 'Send recovery email',
       'es': 'Enviar correo electrónico de recuperación',
+    },
+  },
+  // ChallengerTimer
+  {
+    '2he4mnor': {
+      'pt': 'Tempo restante',
+      'en': '',
+      'es': '',
     },
   },
   // Miscellaneous

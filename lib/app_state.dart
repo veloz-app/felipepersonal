@@ -26,6 +26,9 @@ class FFAppState extends ChangeNotifier {
           prefs.getBool('ff_loveStateVideoAlternative') ??
               _loveStateVideoAlternative;
     });
+    _safeInit(() {
+      _IsTimerRunning = prefs.getBool('ff_IsTimerRunning') ?? _IsTimerRunning;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -61,10 +64,17 @@ class FFAppState extends ChangeNotifier {
     _expandedIndex = value;
   }
 
-  double _atualProgress = 0.0;
-  double get atualProgress => _atualProgress;
-  set atualProgress(double value) {
-    _atualProgress = value;
+  int _remainigSeconds = 0;
+  int get remainigSeconds => _remainigSeconds;
+  set remainigSeconds(int value) {
+    _remainigSeconds = value;
+  }
+
+  bool _IsTimerRunning = false;
+  bool get IsTimerRunning => _IsTimerRunning;
+  set IsTimerRunning(bool value) {
+    _IsTimerRunning = value;
+    prefs.setBool('ff_IsTimerRunning', value);
   }
 }
 

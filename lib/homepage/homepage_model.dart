@@ -16,6 +16,13 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
   ///  State fields for stateful widgets in this page.
 
   InstantTimer? instantTimer;
+  // State field(s) for ListView widget.
+
+  PagingController<DocumentSnapshot?, NotificationRecord>?
+      listViewPagingController;
+  Query? listViewPagingQuery;
+  List<StreamSubscription?> listViewStreamSubscriptions = [];
+
   // State field(s) for pageViewBanner widget.
   PageController? pageViewBannerController;
 
@@ -37,11 +44,46 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
   @override
   void dispose() {
     instantTimer?.cancel();
+    listViewStreamSubscriptions.forEach((s) => s?.cancel());
+    listViewPagingController?.dispose();
+
     gridViewStreamSubscriptions2.forEach((s) => s?.cancel());
     gridViewPagingController2?.dispose();
   }
 
   /// Additional helper methods.
+  PagingController<DocumentSnapshot?, NotificationRecord> setListViewController(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController ??= _createListViewController(query, parent);
+    if (listViewPagingQuery != query) {
+      listViewPagingQuery = query;
+      listViewPagingController?.refresh();
+    }
+    return listViewPagingController!;
+  }
+
+  PagingController<DocumentSnapshot?, NotificationRecord>
+      _createListViewController(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, NotificationRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryNotificationRecordPage(
+          queryBuilder: (_) => listViewPagingQuery ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions,
+          controller: controller,
+          pageSize: 3,
+          isStream: true,
+        ),
+      );
+  }
+
   PagingController<DocumentSnapshot?, UserObjectivesRecord>
       setGridViewController2(
     Query query, {

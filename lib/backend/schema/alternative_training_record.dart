@@ -31,11 +31,6 @@ class AlternativeTrainingRecord extends FirestoreRecord {
   String get moreDetails => _moreDetails ?? '';
   bool hasMoreDetails() => _moreDetails != null;
 
-  // "idAlternative" field.
-  String? _idAlternative;
-  String get idAlternative => _idAlternative ?? '';
-  bool hasIdAlternative() => _idAlternative != null;
-
   // "timeStamp_training" field.
   DateTime? _timeStampTraining;
   DateTime? get timeStampTraining => _timeStampTraining;
@@ -66,17 +61,54 @@ class AlternativeTrainingRecord extends FirestoreRecord {
   List<DocumentReference> get lovedBy => _lovedBy ?? const [];
   bool hasLovedBy() => _lovedBy != null;
 
+  // "challengesReference" field.
+  List<DocumentReference>? _challengesReference;
+  List<DocumentReference> get challengesReference =>
+      _challengesReference ?? const [];
+  bool hasChallengesReference() => _challengesReference != null;
+
+  // "chellengerStatus" field.
+  bool? _chellengerStatus;
+  bool get chellengerStatus => _chellengerStatus ?? false;
+  bool hasChellengerStatus() => _chellengerStatus != null;
+
+  // "durationMs" field.
+  int? _durationMs;
+  int get durationMs => _durationMs ?? 0;
+  bool hasDurationMs() => _durationMs != null;
+
+  // "challengerStartDate" field.
+  DateTime? _challengerStartDate;
+  DateTime? get challengerStartDate => _challengerStartDate;
+  bool hasChallengerStartDate() => _challengerStartDate != null;
+
+  // "chellengerEndDate" field.
+  DateTime? _chellengerEndDate;
+  DateTime? get chellengerEndDate => _chellengerEndDate;
+  bool hasChellengerEndDate() => _chellengerEndDate != null;
+
+  // "refChallengerTotal" field.
+  DocumentReference? _refChallengerTotal;
+  DocumentReference? get refChallengerTotal => _refChallengerTotal;
+  bool hasRefChallengerTotal() => _refChallengerTotal != null;
+
   void _initializeFields() {
     _displayNameTraining = snapshotData['display_name_training'] as String?;
     _description = snapshotData['description'] as String?;
     _moreDetails = snapshotData['moreDetails'] as String?;
-    _idAlternative = snapshotData['idAlternative'] as String?;
     _timeStampTraining = snapshotData['timeStamp_training'] as DateTime?;
     _videoUrl = snapshotData['video_url'] as String?;
     _likeCountVideo = castToType<int>(snapshotData['likeCountVideo']);
     _loveCountVideo = castToType<int>(snapshotData['loveCountVideo']);
     _likedBy = getDataList(snapshotData['liked_by']);
     _lovedBy = getDataList(snapshotData['loved_by']);
+    _challengesReference = getDataList(snapshotData['challengesReference']);
+    _chellengerStatus = snapshotData['chellengerStatus'] as bool?;
+    _durationMs = castToType<int>(snapshotData['durationMs']);
+    _challengerStartDate = snapshotData['challengerStartDate'] as DateTime?;
+    _chellengerEndDate = snapshotData['chellengerEndDate'] as DateTime?;
+    _refChallengerTotal =
+        snapshotData['refChallengerTotal'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -118,22 +150,30 @@ Map<String, dynamic> createAlternativeTrainingRecordData({
   String? displayNameTraining,
   String? description,
   String? moreDetails,
-  String? idAlternative,
   DateTime? timeStampTraining,
   String? videoUrl,
   int? likeCountVideo,
   int? loveCountVideo,
+  bool? chellengerStatus,
+  int? durationMs,
+  DateTime? challengerStartDate,
+  DateTime? chellengerEndDate,
+  DocumentReference? refChallengerTotal,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'display_name_training': displayNameTraining,
       'description': description,
       'moreDetails': moreDetails,
-      'idAlternative': idAlternative,
       'timeStamp_training': timeStampTraining,
       'video_url': videoUrl,
       'likeCountVideo': likeCountVideo,
       'loveCountVideo': loveCountVideo,
+      'chellengerStatus': chellengerStatus,
+      'durationMs': durationMs,
+      'challengerStartDate': challengerStartDate,
+      'chellengerEndDate': chellengerEndDate,
+      'refChallengerTotal': refChallengerTotal,
     }.withoutNulls,
   );
 
@@ -150,13 +190,18 @@ class AlternativeTrainingRecordDocumentEquality
     return e1?.displayNameTraining == e2?.displayNameTraining &&
         e1?.description == e2?.description &&
         e1?.moreDetails == e2?.moreDetails &&
-        e1?.idAlternative == e2?.idAlternative &&
         e1?.timeStampTraining == e2?.timeStampTraining &&
         e1?.videoUrl == e2?.videoUrl &&
         e1?.likeCountVideo == e2?.likeCountVideo &&
         e1?.loveCountVideo == e2?.loveCountVideo &&
         listEquality.equals(e1?.likedBy, e2?.likedBy) &&
-        listEquality.equals(e1?.lovedBy, e2?.lovedBy);
+        listEquality.equals(e1?.lovedBy, e2?.lovedBy) &&
+        listEquality.equals(e1?.challengesReference, e2?.challengesReference) &&
+        e1?.chellengerStatus == e2?.chellengerStatus &&
+        e1?.durationMs == e2?.durationMs &&
+        e1?.challengerStartDate == e2?.challengerStartDate &&
+        e1?.chellengerEndDate == e2?.chellengerEndDate &&
+        e1?.refChallengerTotal == e2?.refChallengerTotal;
   }
 
   @override
@@ -164,13 +209,18 @@ class AlternativeTrainingRecordDocumentEquality
         e?.displayNameTraining,
         e?.description,
         e?.moreDetails,
-        e?.idAlternative,
         e?.timeStampTraining,
         e?.videoUrl,
         e?.likeCountVideo,
         e?.loveCountVideo,
         e?.likedBy,
-        e?.lovedBy
+        e?.lovedBy,
+        e?.challengesReference,
+        e?.chellengerStatus,
+        e?.durationMs,
+        e?.challengerStartDate,
+        e?.chellengerEndDate,
+        e?.refChallengerTotal
       ]);
 
   @override

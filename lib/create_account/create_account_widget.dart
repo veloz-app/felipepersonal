@@ -94,10 +94,11 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                       ),
                       Container(
                         width: double.infinity,
-                        height: 381.75,
+                        height: 427.61,
                         decoration: BoxDecoration(),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -258,7 +259,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 14.0, 0.0, 0.0),
+                                  0.0, 12.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -393,7 +394,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 14.0, 0.0, 0.0),
+                                  0.0, 12.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -529,7 +530,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 14.0, 0.0, 0.0),
+                                  0.0, 12.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -680,7 +681,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 14.0, 0.0, 0.0),
+                                  0.0, 12.0, 0.0, 0.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -835,7 +836,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 18.0, 0.0, 0.0),
+                                  0.0, 14.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: !((_model.emailCreateTextController
                                                     .text !=
@@ -959,8 +960,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                       ),
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(8.0),
-                                  disabledColor:
-                                      FlutterFlowTheme.of(context).primary,
+                                  disabledColor: Color(0xFF56132C),
                                 ),
                               ),
                             ),

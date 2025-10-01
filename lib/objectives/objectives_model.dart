@@ -53,7 +53,7 @@ class ObjectivesModel extends FlutterFlowModel<ObjectivesWidget> {
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,
           controller: controller,
-          pageSize: 3,
+          pageSize: 1,
           isStream: true,
         ),
       );

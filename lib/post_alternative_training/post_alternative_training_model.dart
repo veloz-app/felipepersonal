@@ -1,5 +1,6 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
 import 'post_alternative_training_widget.dart'
     show PostAlternativeTrainingWidget;
@@ -25,6 +26,9 @@ class PostAlternativeTrainingModel
   TextEditingController? subtitleVideoCreateTextController;
   String? Function(BuildContext, String?)?
       subtitleVideoCreateTextControllerValidator;
+  // State field(s) for DropDown widget.
+  int? dropDownValue;
+  FormFieldController<int>? dropDownValueController;
   // State field(s) for detailVideoCreate widget.
   FocusNode? detailVideoCreateFocusNode;
   TextEditingController? detailVideoCreateTextController;

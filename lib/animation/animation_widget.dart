@@ -39,7 +39,7 @@ class _AnimationWidgetState extends State<AnimationWidget>
         ),
       );
 
-      context.pushNamed(
+      context.goNamed(
         LoginWidget.routeName,
         extra: <String, dynamic>{
           kTransitionInfoKey: TransitionInfo(
