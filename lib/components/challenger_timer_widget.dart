@@ -1,23 +1,15 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'challenger_timer_model.dart';
 export 'challenger_timer_model.dart';
 
 class ChallengerTimerWidget extends StatefulWidget {
-  const ChallengerTimerWidget({
-    super.key,
-    required this.challengerReference,
-    required this.endTime,
-  });
-
-  final DocumentReference? challengerReference;
-  final int? endTime;
+  const ChallengerTimerWidget({super.key});
 
   @override
   State<ChallengerTimerWidget> createState() => _ChallengerTimerWidgetState();
@@ -36,13 +28,6 @@ class _ChallengerTimerWidgetState extends State<ChallengerTimerWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ChallengerTimerModel());
-
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.timerController.onStartTimer();
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -125,39 +110,65 @@ class _ChallengerTimerWidgetState extends State<ChallengerTimerWidget> {
                   ),
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(-0.6, 0.9),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                  child: FlutterFlowTimer(
-                    initialTime: widget.endTime!,
-                    getDisplayTime: (value) => StopWatchTimer.getDisplayTime(
-                        value,
-                        milliSecond: false),
-                    controller: _model.timerController,
-                    updateStateInterval: Duration(milliseconds: 1000),
-                    onChanged: (value, displayTime, shouldUpdate) {
-                      _model.timerMilliseconds = value;
-                      _model.timerValue = displayTime;
-                      if (shouldUpdate) safeSetState(() {});
-                    },
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).headlineSmall.override(
-                          font: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.normal,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 7.0),
+                child: StreamBuilder<List<AlternativeTrainingRecord>>(
+                  stream: queryAlternativeTrainingRecord(
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    List<AlternativeTrainingRecord>
+                        textAlternativeTrainingRecordList = snapshot.data!;
+                    // Return an empty Container when the item does not exist.
+                    if (snapshot.data!.isEmpty) {
+                      return Container();
+                    }
+                    final textAlternativeTrainingRecord =
+                        textAlternativeTrainingRecordList.isNotEmpty
+                            ? textAlternativeTrainingRecordList.first
+                            : null;
+
+                    return Text(
+                      valueOrDefault<String>(
+                        functions.formatTimeDifference(
+                            textAlternativeTrainingRecord?.chellengerEndDate),
+                        'Tempo',
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.montserrat(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                            color: FlutterFlowTheme.of(context).info,
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
                             fontStyle: FlutterFlowTheme.of(context)
-                                .headlineSmall
+                                .bodyMedium
                                 .fontStyle,
                           ),
-                          color: FlutterFlowTheme.of(context).info,
-                          fontSize: 22.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .fontStyle,
-                        ),
-                  ),
+                    );
+                  },
                 ),
               ),
             ],

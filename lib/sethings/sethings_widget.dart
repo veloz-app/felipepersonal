@@ -357,7 +357,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                                         icon: Icon(
                                           Icons.upload,
                                           color: FlutterFlowTheme.of(context)
-                                              .tertiary,
+                                              .secondary,
                                           size: 17.0,
                                         ),
                                         onPressed: () {

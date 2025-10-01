@@ -1,6 +1,6 @@
 import '/backend/backend.dart';
-import '/components/challenger_timer_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/index.dart';
 import 'alternative_training_widget.dart' show AlternativeTrainingWidget;
 import 'package:flutter/material.dart';
@@ -18,6 +18,8 @@ class AlternativeTrainingModel
 
   int? duracaoDesafio;
 
+  String? tempoRestanteString;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for ListView widget.
@@ -27,21 +29,17 @@ class AlternativeTrainingModel
   Query? listViewPagingQuery;
   List<StreamSubscription?> listViewStreamSubscriptions = [];
 
-  // Models for ChallengerTimer dynamic component.
-  late FlutterFlowDynamicModels<ChallengerTimerModel> challengerTimerModels;
+  InstantTimer? instantTimer;
 
   @override
-  void initState(BuildContext context) {
-    challengerTimerModels =
-        FlutterFlowDynamicModels(() => ChallengerTimerModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
 
-    challengerTimerModels.dispose();
+    instantTimer?.cancel();
   }
 
   /// Additional helper methods.

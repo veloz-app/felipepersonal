@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -365,8 +366,11 @@ class _PostAlternativeTrainingWidgetState
                           'hljdamgg' /* 1 semana */,
                         )
                       ],
-                      onChanged: (val) =>
-                          safeSetState(() => _model.dropDownValue = val),
+                      onChanged: (val) async {
+                        safeSetState(() => _model.dropDownValue = val);
+                        _model.durationAdmMs = _model.dropDownValue;
+                        safeSetState(() {});
+                      },
                       width: double.infinity,
                       height: 40.0,
                       textStyle:
@@ -786,180 +790,136 @@ um vídeo */
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                      child: StreamBuilder<List<AlternativeTrainingRecord>>(
-                        stream: queryAlternativeTrainingRecord(
-                          singleRecord: true,
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
+                      child: FFButtonWidget(
+                        onPressed: !((_model.titleVideoCreateTextController
+                                            .text !=
+                                        '') &&
+                                (_model.detailVideoCreateTextController
+                                            .text !=
+                                        '') &&
+                                (_model.confirmVIdeoUpdate == true) &&
+                                (_model.confirmImageCoverUpdate == true) &&
+                                (_model.dropDownValue != null))
+                            ? null
+                            : () async {
+                                _model.confirmVIdeoUpdate = false;
+                                _model.confirmImageCoverUpdate = false;
+                                safeSetState(() {});
+
+                                var alternativeTrainingRecordReference =
+                                    AlternativeTrainingRecord.collection.doc();
+                                await alternativeTrainingRecordReference.set({
+                                  ...createAlternativeTrainingRecordData(
+                                    displayNameTraining: _model
+                                        .titleVideoCreateTextController.text,
+                                    description: _model
+                                        .detailVideoCreateTextController.text,
+                                    moreDetails: _model
+                                        .detailVideoCreateTextController.text,
+                                    videoUrl: _model
+                                        .uploadedFileUrl_uploadAlternativeVideo,
+                                    likeCountVideo: 0,
+                                    loveCountVideo: 0,
+                                    challengerStartDate: getCurrentTimestamp,
+                                    chellengerStatus: true,
+                                    durationMs: _model.dropDownValue,
+                                    chellengerEndDate:
+                                        functions.calculateDeadline(
+                                            _model.durationAdmMs),
+                                    refChallengerTotal: currentUserReference,
                                   ),
-                                ),
-                              ),
-                            );
-                          }
-                          List<AlternativeTrainingRecord>
-                              buttonAlternativeTrainingRecordList =
-                              snapshot.data!;
-                          // Return an empty Container when the item does not exist.
-                          if (snapshot.data!.isEmpty) {
-                            return Container();
-                          }
-                          final buttonAlternativeTrainingRecord =
-                              buttonAlternativeTrainingRecordList.isNotEmpty
-                                  ? buttonAlternativeTrainingRecordList.first
-                                  : null;
+                                  ...mapToFirestore(
+                                    {
+                                      'timeStamp_training':
+                                          FieldValue.serverTimestamp(),
+                                    },
+                                  ),
+                                });
+                                _model.referenceVideo =
+                                    AlternativeTrainingRecord
+                                        .getDocumentFromData({
+                                  ...createAlternativeTrainingRecordData(
+                                    displayNameTraining: _model
+                                        .titleVideoCreateTextController.text,
+                                    description: _model
+                                        .detailVideoCreateTextController.text,
+                                    moreDetails: _model
+                                        .detailVideoCreateTextController.text,
+                                    videoUrl: _model
+                                        .uploadedFileUrl_uploadAlternativeVideo,
+                                    likeCountVideo: 0,
+                                    loveCountVideo: 0,
+                                    challengerStartDate: getCurrentTimestamp,
+                                    chellengerStatus: true,
+                                    durationMs: _model.dropDownValue,
+                                    chellengerEndDate:
+                                        functions.calculateDeadline(
+                                            _model.durationAdmMs),
+                                    refChallengerTotal: currentUserReference,
+                                  ),
+                                  ...mapToFirestore(
+                                    {
+                                      'timeStamp_training': DateTime.now(),
+                                    },
+                                  ),
+                                }, alternativeTrainingRecordReference);
 
-                          return FFButtonWidget(
-                            onPressed: !((_model.titleVideoCreateTextController
-                                                .text !=
-                                            '') &&
-                                    (_model.detailVideoCreateTextController
-                                                .text !=
-                                            '') &&
-                                    (_model.confirmVIdeoUpdate == true) &&
-                                    (_model.confirmImageCoverUpdate == true))
-                                ? null
-                                : () async {
-                                    _model.confirmVIdeoUpdate = false;
-                                    _model.confirmImageCoverUpdate = false;
-                                    safeSetState(() {});
+                                await NotificationRecord.collection.doc().set({
+                                  ...createNotificationRecordData(
+                                    notificationType:
+                                        'publicou um vídeo alternativo',
+                                    idNotification: '',
+                                    statusNotification: false,
+                                    imageCoverUrl: _model
+                                        .uploadedFileUrl_uploadImageCOverNotification,
+                                  ),
+                                  ...mapToFirestore(
+                                    {
+                                      'timeStamp_notification':
+                                          FieldValue.serverTimestamp(),
+                                    },
+                                  ),
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Desafio postado com sucesso',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 1500),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                  ),
+                                );
+                                await Future.delayed(
+                                  Duration(
+                                    milliseconds: 1600,
+                                  ),
+                                );
 
-                                    var alternativeTrainingRecordReference =
-                                        AlternativeTrainingRecord.collection
-                                            .doc();
-                                    await alternativeTrainingRecordReference
-                                        .set({
-                                      ...createAlternativeTrainingRecordData(
-                                        displayNameTraining: _model
-                                            .titleVideoCreateTextController
-                                            .text,
-                                        description: _model
-                                            .detailVideoCreateTextController
-                                            .text,
-                                        moreDetails: _model
-                                            .detailVideoCreateTextController
-                                            .text,
-                                        videoUrl: _model
-                                            .uploadedFileUrl_uploadAlternativeVideo,
-                                        likeCountVideo: 0,
-                                        loveCountVideo: 0,
-                                        challengerStartDate:
-                                            getCurrentTimestamp,
-                                        chellengerStatus: true,
-                                        durationMs: _model.dropDownValue,
-                                        chellengerEndDate:
-                                            functions.calculateDeadline(
-                                                buttonAlternativeTrainingRecord
-                                                    ?.durationMs),
-                                      ),
-                                      ...mapToFirestore(
-                                        {
-                                          'timeStamp_training':
-                                              FieldValue.serverTimestamp(),
-                                        },
-                                      ),
-                                    });
-                                    _model.referenceVideo =
-                                        AlternativeTrainingRecord
-                                            .getDocumentFromData({
-                                      ...createAlternativeTrainingRecordData(
-                                        displayNameTraining: _model
-                                            .titleVideoCreateTextController
-                                            .text,
-                                        description: _model
-                                            .detailVideoCreateTextController
-                                            .text,
-                                        moreDetails: _model
-                                            .detailVideoCreateTextController
-                                            .text,
-                                        videoUrl: _model
-                                            .uploadedFileUrl_uploadAlternativeVideo,
-                                        likeCountVideo: 0,
-                                        loveCountVideo: 0,
-                                        challengerStartDate:
-                                            getCurrentTimestamp,
-                                        chellengerStatus: true,
-                                        durationMs: _model.dropDownValue,
-                                        chellengerEndDate:
-                                            functions.calculateDeadline(
-                                                buttonAlternativeTrainingRecord
-                                                    ?.durationMs),
-                                      ),
-                                      ...mapToFirestore(
-                                        {
-                                          'timeStamp_training': DateTime.now(),
-                                        },
-                                      ),
-                                    }, alternativeTrainingRecordReference);
+                                context.pushNamed(
+                                    AlternativeTrainingWidget.routeName);
 
-                                    await NotificationRecord.collection
-                                        .doc()
-                                        .set({
-                                      ...createNotificationRecordData(
-                                        notificationType:
-                                            'publicou um vídeo alternativo',
-                                        idNotification: '',
-                                        statusNotification: false,
-                                        imageCoverUrl: _model
-                                            .uploadedFileUrl_uploadImageCOverNotification,
-                                      ),
-                                      ...mapToFirestore(
-                                        {
-                                          'timeStamp_notification':
-                                              FieldValue.serverTimestamp(),
-                                        },
-                                      ),
-                                    });
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Video postado com sucesso',
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                        duration: Duration(milliseconds: 1500),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                      ),
-                                    );
-                                    await Future.delayed(
-                                      Duration(
-                                        milliseconds: 1600,
-                                      ),
-                                    );
-
-                                    context.pushNamed(
-                                        AlternativeTrainingWidget.routeName);
-
-                                    safeSetState(() {});
-                                  },
-                            text: FFLocalizations.of(context).getText(
-                              'bxhrgrjl' /* Postar desafio */,
-                            ),
-                            options: FFButtonOptions(
-                              width: double.infinity,
-                              height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).secondary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
+                                safeSetState(() {});
+                              },
+                        text: FFLocalizations.of(context).getText(
+                          'bxhrgrjl' /* Postar desafio */,
+                        ),
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).secondary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
                                     font: GoogleFonts.montserrat(
                                       fontWeight: FontWeight.w500,
                                       fontStyle: FlutterFlowTheme.of(context)
@@ -974,14 +934,12 @@ um vídeo */
                                         .titleSmall
                                         .fontStyle,
                                   ),
-                              elevation: 0.0,
-                              borderRadius: BorderRadius.circular(8.0),
-                              disabledColor: Color(0x6AC79B66),
-                              disabledTextColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                            ),
-                          );
-                        },
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                          disabledColor: Color(0x6AC79B66),
+                          disabledTextColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                        ),
                       ),
                     ),
                   ),

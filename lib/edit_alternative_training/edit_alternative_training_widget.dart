@@ -95,7 +95,7 @@ class _EditAlternativeTrainingWidgetState
           ),
           title: Text(
             FFLocalizations.of(context).getText(
-              'katihd69' /* Editar vídeo de treino alterna... */,
+              'katihd69' /* Editar vídeo de desafiio */,
             ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.montserrat(

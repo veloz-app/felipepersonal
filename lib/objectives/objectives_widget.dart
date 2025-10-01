@@ -757,7 +757,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                 child:
                                                                     Container(
                                                                   width: 337.6,
-                                                                  height: 59.53,
+                                                                  height: 59.5,
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: Color(

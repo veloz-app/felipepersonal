@@ -311,7 +311,8 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                     ),
                                   ),
                                 ),
-
+                                noItemsFoundIndicatorBuilder: (_) =>
+                                    EnptyFieldCompletedWidget(),
                                 itemBuilder: (context, _, listViewIndex) {
                                   final listViewNotificationRecord = _model
                                       .listViewPagingController!
@@ -1012,9 +1013,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                   children: [
                                     Text(
                                       FFLocalizations.of(context).getText(
-                                        '7bpjaj60' /* Treino
-alternativo */
-                                        ,
+                                        '7bpjaj60' /* Desafios */,
                                       ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)

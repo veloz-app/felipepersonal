@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'challenger_timer_widget.dart' show ChallengerTimerWidget;
+import 'estudio_widget.dart' show EstudioWidget;
 import 'package:flutter/material.dart';
 
-class ChallengerTimerModel extends FlutterFlowModel<ChallengerTimerWidget> {
+class EstudioModel extends FlutterFlowModel<EstudioWidget> {
   @override
   void initState(BuildContext context) {}
 

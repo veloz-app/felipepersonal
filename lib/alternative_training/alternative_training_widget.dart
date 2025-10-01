@@ -1,19 +1,20 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/alternative_video_details_widget.dart';
-import '/components/challenger_timer_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_video_player.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 import 'alternative_training_model.dart';
 export 'alternative_training_model.dart';
 
@@ -48,6 +49,8 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<List<UserChallengersRecord>>(
       stream: queryUserChallengersRecord(
         singleRecord: true,
@@ -987,268 +990,403 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                     alignment:
                                                         AlignmentDirectional(
                                                             0.0, 0.0),
-                                                    child: Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          if (listViewAlternativeTrainingRecord
-                                                                  .challengesReference
-                                                                  .contains(
-                                                                      currentUserReference) ==
-                                                              true)
-                                                            Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      -0.87,
-                                                                      -0.94),
-                                                              child: Container(
-                                                                width: 132.4,
-                                                                height: 68.6,
-                                                                decoration:
-                                                                    BoxDecoration(),
-                                                                child:
-                                                                    wrapWithModel(
-                                                                  model: _model
-                                                                      .challengerTimerModels
-                                                                      .getModel(
-                                                                    listViewAlternativeTrainingRecord
-                                                                        .chellengerStatus
-                                                                        .toString(),
-                                                                    listViewIndex,
-                                                                  ),
-                                                                  updateCallback: () =>
-                                                                      safeSetState(
-                                                                          () {}),
-                                                                  child:
-                                                                      ChallengerTimerWidget(
-                                                                    key: Key(
-                                                                      'Keyvf4_${listViewAlternativeTrainingRecord.chellengerStatus.toString()}',
-                                                                    ),
-                                                                    challengerReference:
-                                                                        listViewAlternativeTrainingRecord
-                                                                            .reference,
-                                                                    endTime:
-                                                                        listViewAlternativeTrainingRecord
-                                                                            .durationMs,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        if (listViewAlternativeTrainingRecord
+                                                                .challengesReference
+                                                                .contains(
+                                                                    currentUserReference) ==
+                                                            true)
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
                                                                     0.0, 0.0),
-                                                            child: Builder(
-                                                              builder:
-                                                                  (context) {
-                                                                if (listViewAlternativeTrainingRecord
-                                                                        .challengesReference
-                                                                        .contains(
-                                                                            currentUserReference) ==
-                                                                    true) {
-                                                                  return Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            7.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        FFButtonWidget(
-                                                                      onPressed:
-                                                                          () async {
-                                                                        if (listViewAlternativeTrainingRecord.challengesReference.contains(currentUserReference) ==
-                                                                            true) {
-                                                                          var confirmDialogResponse = await showDialog<bool>(
-                                                                                context: context,
-                                                                                builder: (alertDialogContext) {
-                                                                                  return AlertDialog(
-                                                                                    content: Text('Deseja cancelar a participação do desafio?'),
-                                                                                    actions: [
-                                                                                      TextButton(
-                                                                                        onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                        child: Text('Não'),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          2.0,
+                                                                          0.0,
+                                                                          2.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  FFAppState()
+                                                                      .expandedIndex = listViewIndex ==
+                                                                          FFAppState()
+                                                                              .expandedIndex
+                                                                      ? -1
+                                                                      : listViewIndex;
+                                                                  safeSetState(
+                                                                      () {});
+                                                                  _model.instantTimer =
+                                                                      InstantTimer
+                                                                          .periodic(
+                                                                    duration: Duration(
+                                                                        milliseconds:
+                                                                            1000),
+                                                                    callback:
+                                                                        (timer) async {
+                                                                      _model.tempoRestanteString =
+                                                                          functions
+                                                                              .formatTimeDifference(alternativeTrainingUserChallengersRecord?.endDateChallenger);
+                                                                    },
+                                                                    startImmediately:
+                                                                        true,
+                                                                  );
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 135.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color(
+                                                                        0x49060000),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            7.0),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsets.all(7.0),
+                                                                              child: Container(
+                                                                                width: 120.67,
+                                                                                height: 26.8,
+                                                                                decoration: BoxDecoration(
+                                                                                  color: Color(0x53FFFFFF),
+                                                                                  borderRadius: BorderRadius.circular(6.0),
+                                                                                ),
+                                                                                child: Padding(
+                                                                                  padding: EdgeInsets.all(5.0),
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        FFLocalizations.of(context).getText(
+                                                                                          '1m2szp7c' /* Tempo restante */,
+                                                                                        ),
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.montserrat(
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              color: FlutterFlowTheme.of(context).info,
+                                                                                              fontSize: 10.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FontWeight.w500,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
                                                                                       ),
-                                                                                      TextButton(
-                                                                                        onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                        child: Text('Sim'),
+                                                                                      Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                        child: FaIcon(
+                                                                                          FontAwesomeIcons.angleUp,
+                                                                                          color: FlutterFlowTheme.of(context).info,
+                                                                                          size: 16.0,
+                                                                                        ),
                                                                                       ),
                                                                                     ],
-                                                                                  );
-                                                                                },
-                                                                              ) ??
-                                                                              false;
-                                                                          if (confirmDialogResponse) {
-                                                                            await listViewAlternativeTrainingRecord.reference.update({
-                                                                              ...mapToFirestore(
-                                                                                {
-                                                                                  'challengesReference': FieldValue.arrayRemove([
-                                                                                    currentUserReference
-                                                                                  ]),
-                                                                                },
+                                                                                  ),
+                                                                                ),
                                                                               ),
-                                                                            });
-                                                                            await alternativeTrainingUserChallengersRecord!.reference.delete();
-                                                                          } else {
-                                                                            return;
-                                                                          }
-
-                                                                          return;
-                                                                        } else {
-                                                                          return;
-                                                                        }
-                                                                      },
-                                                                      text: FFLocalizations.of(
-                                                                              context)
-                                                                          .getText(
-                                                                        '8hamp1vy' /* Participando */,
-                                                                      ),
-                                                                      options:
-                                                                          FFButtonOptions(
-                                                                        width:
-                                                                            128.4,
-                                                                        height:
-                                                                            29.0,
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            16.0,
-                                                                            0.0,
-                                                                            16.0,
-                                                                            0.0),
-                                                                        iconAlignment:
-                                                                            IconAlignment.end,
-                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                        textStyle: FlutterFlowTheme.of(context)
-                                                                            .titleSmall
-                                                                            .override(
-                                                                              font: GoogleFonts.montserrat(
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                              ),
-                                                                              color: Colors.white,
-                                                                              fontSize: 6.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                             ),
-                                                                        elevation:
-                                                                            0.0,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                    ),
-                                                                  );
-                                                                } else {
-                                                                  return Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            7.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        FFButtonWidget(
-                                                                      onPressed:
-                                                                          () async {
-                                                                        if (listViewAlternativeTrainingRecord.challengesReference.contains(currentUserReference) ==
-                                                                            false) {
+                                                                      if (listViewIndex ==
+                                                                          FFAppState()
+                                                                              .expandedIndex)
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              7.0),
+                                                                          child:
+                                                                              Text(
+                                                                            valueOrDefault<String>(
+                                                                              _model.tempoRestanteString,
+                                                                              'Tempo',
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  font: GoogleFonts.montserrat(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
+                                                                                  color: Colors.white,
+                                                                                  fontSize: 16.0,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  0.0, 0.0),
+                                                          child: Builder(
+                                                            builder: (context) {
+                                                              if (listViewAlternativeTrainingRecord
+                                                                      .challengesReference
+                                                                      .contains(
+                                                                          currentUserReference) ==
+                                                                  true) {
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          7.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      FFButtonWidget(
+                                                                    onPressed:
+                                                                        () async {
+                                                                      if (listViewAlternativeTrainingRecord
+                                                                              .challengesReference
+                                                                              .contains(currentUserReference) ==
+                                                                          true) {
+                                                                        var confirmDialogResponse = await showDialog<bool>(
+                                                                              context: context,
+                                                                              builder: (alertDialogContext) {
+                                                                                return AlertDialog(
+                                                                                  content: Text('Deseja cancelar a participação do desafio?'),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                      child: Text('Não'),
+                                                                                    ),
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                      child: Text('Sim'),
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            ) ??
+                                                                            false;
+                                                                        if (confirmDialogResponse) {
                                                                           await listViewAlternativeTrainingRecord
                                                                               .reference
                                                                               .update({
                                                                             ...mapToFirestore(
                                                                               {
-                                                                                'challengesReference': FieldValue.arrayUnion([
+                                                                                'challengesReference': FieldValue.arrayRemove([
                                                                                   currentUserReference
                                                                                 ]),
                                                                               },
                                                                             ),
                                                                           });
-
-                                                                          await UserChallengersRecord
-                                                                              .collection
-                                                                              .doc()
-                                                                              .set(createUserChallengersRecordData(
-                                                                                startDateChallenger: getCurrentTimestamp,
-                                                                                userRefChallenger: currentUserReference,
-                                                                                docRefChallenger: listViewAlternativeTrainingRecord.reference,
-                                                                                userStatus: true,
-                                                                                endDateChallenger: functions.calculateDeadline(listViewAlternativeTrainingRecord.durationMs),
-                                                                              ));
-                                                                          return;
+                                                                          await alternativeTrainingUserChallengersRecord!
+                                                                              .reference
+                                                                              .delete();
                                                                         } else {
                                                                           return;
                                                                         }
-                                                                      },
-                                                                      text: FFLocalizations.of(
+
+                                                                        return;
+                                                                      } else {
+                                                                        return;
+                                                                      }
+                                                                    },
+                                                                    text: FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      '8hamp1vy' /* Participando */,
+                                                                    ),
+                                                                    options:
+                                                                        FFButtonOptions(
+                                                                      width:
+                                                                          128.4,
+                                                                      height:
+                                                                          29.0,
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          16.0,
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                                      iconAlignment:
+                                                                          IconAlignment
+                                                                              .end,
+                                                                      iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .getText(
-                                                                        'fx1o3s2s' /* Participar */,
-                                                                      ),
-                                                                      icon:
-                                                                          FaIcon(
-                                                                        FontAwesomeIcons
-                                                                            .arrowRight,
-                                                                        size:
-                                                                            15.0,
-                                                                      ),
-                                                                      options:
-                                                                          FFButtonOptions(
-                                                                        width:
-                                                                            128.4,
-                                                                        height:
-                                                                            29.0,
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            16.0,
-                                                                            0.0,
-                                                                            16.0,
-                                                                            0.0),
-                                                                        iconAlignment:
-                                                                            IconAlignment.end,
-                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondary,
-                                                                        textStyle: FlutterFlowTheme.of(context)
-                                                                            .titleSmall
-                                                                            .override(
-                                                                              font: GoogleFonts.montserrat(
-                                                                                fontWeight: FontWeight.w500,
-                                                                                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                              ),
-                                                                              color: Colors.white,
-                                                                              fontSize: 6.0,
-                                                                              letterSpacing: 0.0,
+                                                                          .primary,
+                                                                      textStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .override(
+                                                                            font:
+                                                                                GoogleFonts.montserrat(
                                                                               fontWeight: FontWeight.w500,
                                                                               fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                             ),
-                                                                        elevation:
-                                                                            0.0,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
-                                                                      ),
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize:
+                                                                                6.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                          ),
+                                                                      elevation:
+                                                                          0.0,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
                                                                     ),
-                                                                  );
-                                                                }
-                                                              },
-                                                            ),
+                                                                  ),
+                                                                );
+                                                              } else {
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          7.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      FFButtonWidget(
+                                                                    onPressed:
+                                                                        () async {
+                                                                      if (listViewAlternativeTrainingRecord
+                                                                              .challengesReference
+                                                                              .contains(currentUserReference) ==
+                                                                          false) {
+                                                                        await listViewAlternativeTrainingRecord
+                                                                            .reference
+                                                                            .update({
+                                                                          ...mapToFirestore(
+                                                                            {
+                                                                              'challengesReference': FieldValue.arrayUnion([
+                                                                                currentUserReference
+                                                                              ]),
+                                                                            },
+                                                                          ),
+                                                                        });
+
+                                                                        await UserChallengersRecord
+                                                                            .collection
+                                                                            .doc()
+                                                                            .set(createUserChallengersRecordData(
+                                                                              startDateChallenger: getCurrentTimestamp,
+                                                                              userRefChallenger: currentUserReference,
+                                                                              docRefChallenger: listViewAlternativeTrainingRecord.reference,
+                                                                              userStatus: true,
+                                                                              endDateChallenger: functions.calculateDeadline(listViewAlternativeTrainingRecord.durationMs),
+                                                                            ));
+                                                                        return;
+                                                                      } else {
+                                                                        return;
+                                                                      }
+                                                                    },
+                                                                    text: FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'fx1o3s2s' /* Participar */,
+                                                                    ),
+                                                                    icon:
+                                                                        FaIcon(
+                                                                      FontAwesomeIcons
+                                                                          .arrowRight,
+                                                                      size:
+                                                                          15.0,
+                                                                    ),
+                                                                    options:
+                                                                        FFButtonOptions(
+                                                                      width:
+                                                                          128.4,
+                                                                      height:
+                                                                          29.0,
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          16.0,
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                                      iconAlignment:
+                                                                          IconAlignment
+                                                                              .end,
+                                                                      iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      textStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .override(
+                                                                            font:
+                                                                                GoogleFonts.montserrat(
+                                                                              fontWeight: FontWeight.w500,
+                                                                              fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                            ),
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize:
+                                                                                6.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                          ),
+                                                                      elevation:
+                                                                          0.0,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                            },
                                                           ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),

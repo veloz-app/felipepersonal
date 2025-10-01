@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'enpty_field_completed_model.dart';
@@ -44,7 +43,7 @@ class _EnptyFieldCompletedWidgetState extends State<EnptyFieldCompletedWidget> {
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).primaryBackground,
+              color: Color(0x0AFFFFFF),
             ),
           ),
         ),

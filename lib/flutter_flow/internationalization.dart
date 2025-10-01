@@ -204,7 +204,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Felipe Personal',
     },
     '7bpjaj60': {
-      'pt': 'Treino\nalternativo',
+      'pt': 'Desafios',
       'en': 'Alternative\ntraining',
       'es': 'Entrenamiento alternativo',
     },
@@ -250,6 +250,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'pt': 'Mais detalhes',
       'en': 'More details',
       'es': 'Más detalles',
+    },
+    '1m2szp7c': {
+      'pt': 'Tempo restante',
+      'en': '',
+      'es': '',
     },
     '8hamp1vy': {
       'pt': 'Participando',
@@ -477,7 +482,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // editAlternativeTraining
   {
     'katihd69': {
-      'pt': 'Editar vídeo de treino alternativo',
+      'pt': 'Editar vídeo de desafiio',
       'en': 'Edit alternative workout video',
       'es': 'Editar vídeo de entrenamiento alternativo',
     },
@@ -568,6 +573,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Objetivos existentes',
     },
     'i9vp6jzm': {
+      'pt': 'Home',
+      'en': 'Home',
+      'es': 'Hogar',
+    },
+  },
+  // estudio
+  {
+    '71qa1ueb': {
+      'pt': 'Page Title',
+      'en': '',
+      'es': '',
+    },
+    '69erhqnr': {
+      'pt': 'Hello World',
+      'en': '',
+      'es': '',
+    },
+    'p7ydh5ub': {
+      'pt': 'Hello World',
+      'en': '',
+      'es': '',
+    },
+    'esg5e5gn': {
       'pt': 'Home',
       'en': 'Home',
       'es': 'Hogar',

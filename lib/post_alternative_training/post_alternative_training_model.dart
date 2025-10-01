@@ -14,6 +14,8 @@ class PostAlternativeTrainingModel
 
   bool? confirmImageCoverUpdate;
 
+  int? durationAdmMs;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for titleVideoCreate widget.

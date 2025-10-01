@@ -171,6 +171,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: ObjetivesADMWidget.routeName,
           path: ObjetivesADMWidget.routePath,
           builder: (context, params) => ObjetivesADMWidget(),
+        ),
+        FFRoute(
+          name: EstudioWidget.routeName,
+          path: EstudioWidget.routePath,
+          builder: (context, params) => EstudioWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
