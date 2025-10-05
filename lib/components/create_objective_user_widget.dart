@@ -39,9 +39,6 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
     _model.objectiveCreateUserTextController ??= TextEditingController();
     _model.objectiveCreateUserFocusNode ??= FocusNode();
 
-    _model.dateObjectiveCreateUserTextController ??= TextEditingController();
-    _model.dateObjectiveCreateUserFocusNode ??= FocusNode();
-
     _model.detailsObjectiveCreateUserTextController ??= TextEditingController();
     _model.detailsObjectiveCreateUserFocusNode ??= FocusNode();
   }
@@ -151,14 +148,14 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                   dropDownObjectivesRecordList = snapshot.data!;
 
                               return FlutterFlowDropDown<String>(
-                                controller: _model.dropDownValueController ??=
+                                controller: _model.dropDownValueController1 ??=
                                     FormFieldController<String>(null),
                                 options: dropDownObjectivesRecordList
                                     .map((e) => e.nameObjective)
                                     .toList(),
                                 onChanged: (val) async {
                                   safeSetState(
-                                      () => _model.dropDownValue = val);
+                                      () => _model.dropDownValue1 = val);
                                   unawaited(
                                     () async {
                                       _model.docReferenceOutput =
@@ -166,7 +163,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         queryBuilder: (objectivesRecord) =>
                                             objectivesRecord.where(
                                           'name_objective',
-                                          isEqualTo: _model.dropDownValue,
+                                          isEqualTo: _model.dropDownValue1,
                                         ),
                                         singleRecord: true,
                                       ).then((s) => s.firstOrNull);
@@ -218,246 +215,398 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                             },
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 13.0, 0.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            child: TextFormField(
-                              controller:
-                                  _model.objectiveCreateUserTextController,
-                              focusNode: _model.objectiveCreateUserFocusNode,
-                              onChanged: (_) => EasyDebounce.debounce(
-                                '_model.objectiveCreateUserTextController',
-                                Duration(milliseconds: 100),
-                                () => safeSetState(() {}),
-                              ),
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.montserrat(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 13.0, 0.0, 0.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model
+                                        .objectiveCreateUserTextController,
+                                    focusNode:
+                                        _model.objectiveCreateUserFocusNode,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.objectiveCreateUserTextController',
+                                      Duration(milliseconds: 100),
+                                      () => safeSetState(() {}),
                                     ),
-                                hintText: FFLocalizations.of(context).getText(
-                                  'oqle9b69' /* Objetivo Final */,
-                                ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
+                                    autofocus: false,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
-                                          .fontStyle,
+                                          .override(
+                                            font: GoogleFonts.montserrat(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                      hintText:
+                                          FFLocalizations.of(context).getText(
+                                        'oqle9b69' /* Objetivo Final */,
+                                      ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            font: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 12.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .fontStyle,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.transparent,
                                     ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.montserrat(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                    minLines: 1,
+                                    keyboardType: TextInputType.number,
+                                    cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    width: 1.0,
+                                    enableInteractiveSelection: true,
+                                    validator: _model
+                                        .objectiveCreateUserTextControllerValidator
+                                        .asValidator(context),
                                   ),
-                                  borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: Colors.transparent,
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                              minLines: 1,
-                              keyboardType: TextInputType.number,
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              enableInteractiveSelection: true,
-                              validator: _model
-                                  .objectiveCreateUserTextControllerValidator
-                                  .asValidator(context),
                             ),
-                          ),
+                          ].divide(SizedBox(width: 20.0)),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 13.0, 0.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            child: TextFormField(
-                              controller:
-                                  _model.dateObjectiveCreateUserTextController,
-                              focusNode:
-                                  _model.dateObjectiveCreateUserFocusNode,
-                              onChanged: (_) => EasyDebounce.debounce(
-                                '_model.dateObjectiveCreateUserTextController',
-                                Duration(milliseconds: 100),
-                                () => safeSetState(() {}),
-                              ),
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.montserrat(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontWeight,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(
+                                child: FlutterFlowDropDown<int>(
+                                  controller:
+                                      _model.dropDownDatatimeValueController ??=
+                                          FormFieldController<int>(
+                                    _model.dropDownDatatimeValue ??= 1,
+                                  ),
+                                  options: List<int>.from([
+                                    0,
+                                    1,
+                                    2,
+                                    3,
+                                    4,
+                                    5,
+                                    6,
+                                    7,
+                                    8,
+                                    9,
+                                    10,
+                                    11,
+                                    12,
+                                    13,
+                                    14,
+                                    15,
+                                    16,
+                                    17,
+                                    18,
+                                    19,
+                                    20,
+                                    21,
+                                    22,
+                                    23,
+                                    24,
+                                    25,
+                                    26,
+                                    27,
+                                    28,
+                                    29
+                                  ]),
+                                  optionLabels: [
+                                    FFLocalizations.of(context).getText(
+                                      'xv9i86ym' /* 1 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'oxdcfr6e' /* 2 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'vrbjqsrx' /* 3 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'gfkjyszv' /* 4 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '1p8if5e0' /* 5 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'jossghbc' /* 6 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '3zfarid3' /* 7 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '6b8qx218' /* 8 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'isez3rqt' /* 9 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'v37jmi69' /* 10 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '6jxb9yl7' /* 11 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '08cjtxa8' /* 12 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '0gq22iri' /* 13 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'zd4ywpzj' /* 14 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'eikcv0w9' /* 15 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'x8tcyaaz' /* 16 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '8lfvcc6x' /* 17 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '4wydx9c3' /* 18 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '6wg6sxlg' /* 19 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'rubaa9ck' /* 20 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'egdcin2j' /* 21 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'jvyftdoo' /* 22 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'm48tpyms' /* 23 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'ohfsrswc' /* 24 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'l3jgyb8t' /* 25 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'yigzat9c' /* 26 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'j75lp0ok' /* 27 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'yuet81ou' /* 28 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      '6ikhm7kp' /* 29 */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'bauutge1' /* 30 */,
+                                    )
+                                  ],
+                                  onChanged: (val) => safeSetState(
+                                      () => _model.dropDownDatatimeValue = val),
+                                  width: 200.0,
+                                  height: 40.0,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 13.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
                                         fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
+                                            .bodyMedium
                                             .fontStyle,
                                       ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
-                                hintText: FFLocalizations.of(context).getText(
-                                  'gyvlig5q' /* Em quanto tempo */,
-                                ),
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  hintText: FFLocalizations.of(context).getText(
+                                    'zyobacl7' /* Selecionar o período */,
+                                  ),
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 1.0,
+                                        .secondaryText,
+                                    size: 24.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  elevation: 2.0,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  borderWidth: 0.0,
+                                  borderRadius: 8.0,
+                                  margin: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  hidesUnderline: true,
+                                  isOverButton: false,
+                                  isSearchable: false,
+                                  isMultiSelect: false,
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: Colors.transparent,
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.montserrat(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
+                              Flexible(
+                                child: FlutterFlowDropDown<String>(
+                                  controller:
+                                      _model.dropDownValueController2 ??=
+                                          FormFieldController<String>(
+                                    _model.dropDownValue2 ??= '',
                                   ),
-                              minLines: 1,
-                              keyboardType: TextInputType.number,
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              enableInteractiveSelection: true,
-                              validator: _model
-                                  .dateObjectiveCreateUserTextControllerValidator
-                                  .asValidator(context),
-                            ),
+                                  options: List<String>.from(['Mês', 'Dia']),
+                                  optionLabels: [
+                                    FFLocalizations.of(context).getText(
+                                      'tjiam20o' /* Mês/Meses */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'rfnmgwgs' /* Dia/dias */,
+                                    )
+                                  ],
+                                  onChanged: (val) => safeSetState(
+                                      () => _model.dropDownValue2 = val),
+                                  width: 200.0,
+                                  height: 40.0,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 13.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                  hintText: FFLocalizations.of(context).getText(
+                                    'dxys5v3a' /* Tipo de período */,
+                                  ),
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                  elevation: 2.0,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  borderWidth: 0.0,
+                                  borderRadius: 8.0,
+                                  margin: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  hidesUnderline: true,
+                                  isOverButton: false,
+                                  isSearchable: false,
+                                  isMultiSelect: false,
+                                ),
+                              ),
+                            ].divide(SizedBox(width: 20.0)),
                           ),
                         ),
                         Padding(
@@ -585,16 +734,55 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: !((_model.dropDownValue != null &&
-                                        _model.dropDownValue != '') &&
+                            onPressed: !((_model.dropDownValue1 != null &&
+                                        _model.dropDownValue1 != '') &&
                                     (_model.objectiveCreateUserTextController
-                                                .text !=
-                                            '') &&
-                                    (_model.dateObjectiveCreateUserTextController
                                                 .text !=
                                             ''))
                                 ? null
                                 : () async {
+                                    _model.query2 =
+                                        await queryPerformanceRecordOnce(
+                                      queryBuilder: (performanceRecord) =>
+                                          performanceRecord.where(
+                                        'userID',
+                                        isEqualTo: currentUserReference,
+                                      ),
+                                      singleRecord: true,
+                                    ).then((s) => s.firstOrNull);
+                                    if (valueOrDefault<bool>(
+                                            currentUserDocument
+                                                ?.performanceStatus,
+                                            false) ==
+                                        false) {
+                                      await PerformanceRecord.collection
+                                          .doc()
+                                          .set(createPerformanceRecordData(
+                                            userID: currentUserReference,
+                                            userChallengerPerformance: 0,
+                                            userChallengerComplete: 0,
+                                            totalAmount: 1,
+                                            userObjectivePerformance: 1,
+                                            createTime: getCurrentTimestamp,
+                                          ));
+
+                                      await currentUserReference!
+                                          .update(createUserRecordData(
+                                        performanceStatus: true,
+                                      ));
+                                    } else {
+                                      await _model.query2!.reference.update({
+                                        ...mapToFirestore(
+                                          {
+                                            'totalAmount':
+                                                FieldValue.increment(1),
+                                            'userObjectivePerformance':
+                                                FieldValue.increment(1),
+                                          },
+                                        ),
+                                      });
+                                    }
+
                                     await UserObjectivesRecord.collection
                                         .doc()
                                         .set({
@@ -607,12 +795,12 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         descriptionObjectives: _model
                                             .detailsObjectiveCreateUserTextController
                                             .text,
-                                        dataPeriodObjective: int.tryParse(_model
-                                            .dateObjectiveCreateUserTextController
-                                            .text),
+                                        dataPeriodObjective:
+                                            _model.dropDownDatatimeValue,
                                         completed: false,
                                         documentObjectiveRef: _model
                                             .docReferenceOutput?.reference,
+                                        userObjetiveRef: currentUserReference,
                                       ),
                                       ...mapToFirestore(
                                         {
@@ -656,6 +844,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         ),
                                       },
                                     );
+
+                                    safeSetState(() {});
                                   },
                             text: FFLocalizations.of(context).getText(
                               'cq9brbnm' /* Criar objetivo */,

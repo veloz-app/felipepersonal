@@ -218,8 +218,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'My goals',
       'es': 'Mis metas',
     },
-    'af2zddr3': {
-      'pt': 'Treino\nalternativo',
+    'wehwka7u': {
+      'pt': 'Desempenho',
       'en': 'Alternative\ntraining',
       'es': 'Entrenamiento alternativo',
     },
@@ -227,6 +227,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'pt': 'Objetivos em andamento',
       'en': 'Ongoing goals',
       'es': 'Objetivos actuales',
+    },
+    'rk6ita2w': {
+      'pt': 'Você está participando de desafio',
+      'en': '',
+      'es': '',
     },
     'rpldig0x': {
       'pt': 'Home',
@@ -601,6 +606,69 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Hogar',
     },
   },
+  // performance
+  {
+    '10gk7o6i': {
+      'pt': 'Performance',
+      'en': 'Settings',
+      'es': 'Ajustes',
+    },
+    '8ddhg0ta': {
+      'pt': 'Alunos com mais performance',
+      'en': '',
+      'es': '',
+    },
+    '77w2sr9r': {
+      'pt': '1',
+      'en': '',
+      'es': '',
+    },
+    'k2ht8kqs': {
+      'pt': '2',
+      'en': '',
+      'es': '',
+    },
+    'ec4bp1lk': {
+      'pt': '3',
+      'en': '',
+      'es': '',
+    },
+    'xo6s8pal': {
+      'pt': '4',
+      'en': '',
+      'es': '',
+    },
+    '9mjujifa': {
+      'pt': '5',
+      'en': '',
+      'es': '',
+    },
+    'fb6aw4y8': {
+      'pt': 'Sua performance',
+      'en': '',
+      'es': '',
+    },
+    'a75d0gug': {
+      'pt': 'Participar do desafio',
+      'en': '',
+      'es': '',
+    },
+    'dvbsv9qt': {
+      'pt': 'Objetivo',
+      'en': '',
+      'es': '',
+    },
+    'c4s8na45': {
+      'pt': 'Objetivo completo',
+      'en': '',
+      'es': '',
+    },
+    'lv91c2eh': {
+      'pt': 'Home',
+      'en': 'Home',
+      'es': 'Hogar',
+    },
+  },
   // alternativeVideoDetails
   {
     'z2iskxwd': {
@@ -705,10 +773,185 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Final Goal',
       'es': 'Objetivo final',
     },
-    'gyvlig5q': {
-      'pt': 'Em quanto tempo',
-      'en': 'In how much time',
-      'es': '¿En cuanto tiempo?',
+    'zyobacl7': {
+      'pt': 'Selecionar o período',
+      'en': 'Select the objective type',
+      'es': 'Seleccione el tipo de objetivo',
+    },
+    '2ht8qrak': {
+      'pt': 'Search...',
+      'en': 'Search...',
+      'es': 'Buscar...',
+    },
+    'xv9i86ym': {
+      'pt': '1',
+      'en': '',
+      'es': '',
+    },
+    'oxdcfr6e': {
+      'pt': '2',
+      'en': '',
+      'es': '',
+    },
+    'vrbjqsrx': {
+      'pt': '3',
+      'en': '',
+      'es': '',
+    },
+    'gfkjyszv': {
+      'pt': '4',
+      'en': '',
+      'es': '',
+    },
+    '1p8if5e0': {
+      'pt': '5',
+      'en': '',
+      'es': '',
+    },
+    'jossghbc': {
+      'pt': '6',
+      'en': '',
+      'es': '',
+    },
+    '3zfarid3': {
+      'pt': '7',
+      'en': '',
+      'es': '',
+    },
+    '6b8qx218': {
+      'pt': '8',
+      'en': '',
+      'es': '',
+    },
+    'isez3rqt': {
+      'pt': '9',
+      'en': '',
+      'es': '',
+    },
+    'v37jmi69': {
+      'pt': '10',
+      'en': '',
+      'es': '',
+    },
+    '6jxb9yl7': {
+      'pt': '11',
+      'en': '',
+      'es': '',
+    },
+    '08cjtxa8': {
+      'pt': '12',
+      'en': '',
+      'es': '',
+    },
+    '0gq22iri': {
+      'pt': '13',
+      'en': '',
+      'es': '',
+    },
+    'zd4ywpzj': {
+      'pt': '14',
+      'en': '',
+      'es': '',
+    },
+    'eikcv0w9': {
+      'pt': '15',
+      'en': '',
+      'es': '',
+    },
+    'x8tcyaaz': {
+      'pt': '16',
+      'en': '',
+      'es': '',
+    },
+    '8lfvcc6x': {
+      'pt': '17',
+      'en': '',
+      'es': '',
+    },
+    '4wydx9c3': {
+      'pt': '18',
+      'en': '',
+      'es': '',
+    },
+    '6wg6sxlg': {
+      'pt': '19',
+      'en': '',
+      'es': '',
+    },
+    'rubaa9ck': {
+      'pt': '20',
+      'en': '',
+      'es': '',
+    },
+    'egdcin2j': {
+      'pt': '21',
+      'en': '',
+      'es': '',
+    },
+    'jvyftdoo': {
+      'pt': '22',
+      'en': '',
+      'es': '',
+    },
+    'm48tpyms': {
+      'pt': '23',
+      'en': '',
+      'es': '',
+    },
+    'ohfsrswc': {
+      'pt': '24',
+      'en': '',
+      'es': '',
+    },
+    'l3jgyb8t': {
+      'pt': '25',
+      'en': '',
+      'es': '',
+    },
+    'yigzat9c': {
+      'pt': '26',
+      'en': '',
+      'es': '',
+    },
+    'j75lp0ok': {
+      'pt': '27',
+      'en': '',
+      'es': '',
+    },
+    'yuet81ou': {
+      'pt': '28',
+      'en': '',
+      'es': '',
+    },
+    '6ikhm7kp': {
+      'pt': '29',
+      'en': '',
+      'es': '',
+    },
+    'bauutge1': {
+      'pt': '30',
+      'en': '',
+      'es': '',
+    },
+    'dxys5v3a': {
+      'pt': 'Tipo de período',
+      'en': 'Select the objective type',
+      'es': 'Seleccione el tipo de objetivo',
+    },
+    'vlz6r461': {
+      'pt': 'Search...',
+      'en': 'Search...',
+      'es': 'Buscar...',
+    },
+    'tjiam20o': {
+      'pt': 'Mês/Meses',
+      'en': '',
+      'es': '',
+    },
+    'rfnmgwgs': {
+      'pt': 'Dia/dias',
+      'en': '',
+      'es': '',
     },
     'ixe9lqe2': {
       'pt': 'Detalhes  (opcional)',
@@ -866,6 +1109,34 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   {
     '2he4mnor': {
       'pt': 'Tempo restante',
+      'en': '',
+      'es': '',
+    },
+  },
+  // bannerPrimaryAPP
+  {
+    'b875h4ev': {
+      'pt': 'Alterar imagem do banner home',
+      'en': 'Password recovery',
+      'es': 'Recuperación de contraseña',
+    },
+    'jcg8v1wv': {
+      'pt': 'Selecione para fazer alteração',
+      'en': 'Password recovery',
+      'es': 'Recuperación de contraseña',
+    },
+    'qpb1laig': {
+      'pt': '1',
+      'en': '',
+      'es': '',
+    },
+    'w3okb3p0': {
+      'pt': '2',
+      'en': '',
+      'es': '',
+    },
+    'oorxwj91': {
+      'pt': '3',
       'en': '',
       'es': '',
     },

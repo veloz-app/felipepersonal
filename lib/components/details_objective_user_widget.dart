@@ -99,7 +99,7 @@ class _DetailsObjectiveUserWidgetState
                   width: 413.5,
                   height: 327.5,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
                   ),
                   child: Padding(
@@ -171,8 +171,7 @@ class _DetailsObjectiveUserWidgetState
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 15.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,

@@ -162,11 +162,11 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'sethings': SethingsWidget(),
-      'alternativeTraining': AlternativeTrainingWidget(),
       'homepage': HomepageWidget(),
-      'tips': TipsWidget(),
+      'alternativeTraining': AlternativeTrainingWidget(),
       'objectives': ObjectivesWidget(),
+      'performance': PerformanceWidget(),
+      'sethings': SethingsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -188,11 +188,11 @@ class _NavBarPageState extends State<NavBarPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.settings,
+              Icons.home,
               size: 28.0,
             ),
             label: FFLocalizations.of(context).getText(
-              'yoyximw1' /* Home */,
+              'rpldig0x' /* Home */,
             ),
             tooltip: '',
           ),
@@ -207,32 +207,32 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 28.0,
-            ),
-            label: FFLocalizations.of(context).getText(
-              'rpldig0x' /* Home */,
-            ),
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.tips_and_updates_rounded,
-              size: 28.0,
-            ),
-            label: FFLocalizations.of(context).getText(
-              'dxy075n0' /* Home */,
-            ),
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
             icon: FaIcon(
               FontAwesomeIcons.dumbbell,
               size: 28.0,
             ),
             label: FFLocalizations.of(context).getText(
               '3o86079r' /* Home */,
+            ),
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.trophy,
+              size: 28.0,
+            ),
+            label: FFLocalizations.of(context).getText(
+              'lv91c2eh' /* Home */,
+            ),
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+              size: 28.0,
+            ),
+            label: FFLocalizations.of(context).getText(
+              'yoyximw1' /* Home */,
             ),
             tooltip: '',
           )

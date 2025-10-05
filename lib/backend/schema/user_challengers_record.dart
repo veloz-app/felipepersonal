@@ -30,11 +30,6 @@ class UserChallengersRecord extends FirestoreRecord {
   DocumentReference? get userRefChallenger => _userRefChallenger;
   bool hasUserRefChallenger() => _userRefChallenger != null;
 
-  // "docRefChallenger" field.
-  DocumentReference? _docRefChallenger;
-  DocumentReference? get docRefChallenger => _docRefChallenger;
-  bool hasDocRefChallenger() => _docRefChallenger != null;
-
   // "userStatus" field.
   bool? _userStatus;
   bool get userStatus => _userStatus ?? false;
@@ -45,7 +40,6 @@ class UserChallengersRecord extends FirestoreRecord {
     _endDateChallenger = snapshotData['endDateChallenger'] as DateTime?;
     _userRefChallenger =
         snapshotData['userRefChallenger'] as DocumentReference?;
-    _docRefChallenger = snapshotData['docRefChallenger'] as DocumentReference?;
     _userStatus = snapshotData['userStatus'] as bool?;
   }
 
@@ -87,7 +81,6 @@ Map<String, dynamic> createUserChallengersRecordData({
   DateTime? startDateChallenger,
   DateTime? endDateChallenger,
   DocumentReference? userRefChallenger,
-  DocumentReference? docRefChallenger,
   bool? userStatus,
 }) {
   final firestoreData = mapToFirestore(
@@ -95,7 +88,6 @@ Map<String, dynamic> createUserChallengersRecordData({
       'startDateChallenger': startDateChallenger,
       'endDateChallenger': endDateChallenger,
       'userRefChallenger': userRefChallenger,
-      'docRefChallenger': docRefChallenger,
       'userStatus': userStatus,
     }.withoutNulls,
   );
@@ -112,7 +104,6 @@ class UserChallengersRecordDocumentEquality
     return e1?.startDateChallenger == e2?.startDateChallenger &&
         e1?.endDateChallenger == e2?.endDateChallenger &&
         e1?.userRefChallenger == e2?.userRefChallenger &&
-        e1?.docRefChallenger == e2?.docRefChallenger &&
         e1?.userStatus == e2?.userStatus;
   }
 
@@ -121,7 +112,6 @@ class UserChallengersRecordDocumentEquality
         e?.startDateChallenger,
         e?.endDateChallenger,
         e?.userRefChallenger,
-        e?.docRefChallenger,
         e?.userStatus
       ]);
 

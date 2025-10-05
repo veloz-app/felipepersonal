@@ -129,8 +129,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: TipsWidget.routeName,
           path: TipsWidget.routePath,
-          builder: (context, params) =>
-              params.isEmpty ? NavBarPage(initialPage: 'tips') : TipsWidget(),
+          builder: (context, params) => TipsWidget(),
         ),
         FFRoute(
           name: EditAlternativeTrainingWidget.routeName,
@@ -176,6 +175,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: EstudioWidget.routeName,
           path: EstudioWidget.routePath,
           builder: (context, params) => EstudioWidget(),
+        ),
+        FFRoute(
+          name: PerformanceWidget.routeName,
+          path: PerformanceWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'performance')
+              : PerformanceWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

@@ -60,6 +60,16 @@ class UserRecord extends FirestoreRecord {
   String get subDisplayName => _subDisplayName ?? '';
   bool hasSubDisplayName() => _subDisplayName != null;
 
+  // "performanceStatus" field.
+  bool? _performanceStatus;
+  bool get performanceStatus => _performanceStatus ?? false;
+  bool hasPerformanceStatus() => _performanceStatus != null;
+
+  // "challengerStatus" field.
+  bool? _challengerStatus;
+  bool get challengerStatus => _challengerStatus ?? false;
+  bool hasChallengerStatus() => _challengerStatus != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -70,6 +80,8 @@ class UserRecord extends FirestoreRecord {
     _userAdm = snapshotData['userAdm'] as String?;
     _notificationCount = castToType<int>(snapshotData['notificationCount']);
     _subDisplayName = snapshotData['subDisplay_name'] as String?;
+    _performanceStatus = snapshotData['performanceStatus'] as bool?;
+    _challengerStatus = snapshotData['challengerStatus'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -115,6 +127,8 @@ Map<String, dynamic> createUserRecordData({
   String? userAdm,
   int? notificationCount,
   String? subDisplayName,
+  bool? performanceStatus,
+  bool? challengerStatus,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -127,6 +141,8 @@ Map<String, dynamic> createUserRecordData({
       'userAdm': userAdm,
       'notificationCount': notificationCount,
       'subDisplay_name': subDisplayName,
+      'performanceStatus': performanceStatus,
+      'challengerStatus': challengerStatus,
     }.withoutNulls,
   );
 
@@ -146,7 +162,9 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.userAdm == e2?.userAdm &&
         e1?.notificationCount == e2?.notificationCount &&
-        e1?.subDisplayName == e2?.subDisplayName;
+        e1?.subDisplayName == e2?.subDisplayName &&
+        e1?.performanceStatus == e2?.performanceStatus &&
+        e1?.challengerStatus == e2?.challengerStatus;
   }
 
   @override
@@ -159,7 +177,9 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.phoneNumber,
         e?.userAdm,
         e?.notificationCount,
-        e?.subDisplayName
+        e?.subDisplayName,
+        e?.performanceStatus,
+        e?.challengerStatus
       ]);
 
   @override

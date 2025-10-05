@@ -31,12 +31,6 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
           pageViewBannerController!.page != null
       ? pageViewBannerController!.page!.round()
       : 0;
-  // State field(s) for GridView widget.
-
-  PagingController<DocumentSnapshot?, UserObjectivesRecord>?
-      gridViewPagingController2;
-  Query? gridViewPagingQuery2;
-  List<StreamSubscription?> gridViewStreamSubscriptions2 = [];
 
   @override
   void initState(BuildContext context) {}
@@ -46,9 +40,6 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
     instantTimer?.cancel();
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
-
-    gridViewStreamSubscriptions2.forEach((s) => s?.cancel());
-    gridViewPagingController2?.dispose();
   }
 
   /// Additional helper methods.
@@ -77,40 +68,6 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
           queryBuilder: (_) => listViewPagingQuery ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,
-          controller: controller,
-          pageSize: 3,
-          isStream: true,
-        ),
-      );
-  }
-
-  PagingController<DocumentSnapshot?, UserObjectivesRecord>
-      setGridViewController2(
-    Query query, {
-    DocumentReference<Object?>? parent,
-  }) {
-    gridViewPagingController2 ??= _createGridViewController2(query, parent);
-    if (gridViewPagingQuery2 != query) {
-      gridViewPagingQuery2 = query;
-      gridViewPagingController2?.refresh();
-    }
-    return gridViewPagingController2!;
-  }
-
-  PagingController<DocumentSnapshot?, UserObjectivesRecord>
-      _createGridViewController2(
-    Query query,
-    DocumentReference<Object?>? parent,
-  ) {
-    final controller =
-        PagingController<DocumentSnapshot?, UserObjectivesRecord>(
-            firstPageKey: null);
-    return controller
-      ..addPageRequestListener(
-        (nextPageMarker) => queryUserObjectivesRecordPage(
-          queryBuilder: (_) => gridViewPagingQuery2 ??= query,
-          nextPageMarker: nextPageMarker,
-          streamSubscriptions: gridViewStreamSubscriptions2,
           controller: controller,
           pageSize: 3,
           isStream: true,

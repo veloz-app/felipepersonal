@@ -651,112 +651,94 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                       ),
                     ),
                   ),
-                  Flexible(
-                    child: Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 30.0, 0.0, 30.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                Function() _navigate = () {};
-                                var confirmDialogResponse =
-                                    await showDialog<bool>(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              content: Text(
-                                                  'Tem certeza que deseja excluir a conta?'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          false),
-                                                  child: Text('Não'),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext,
-                                                          true),
-                                                  child: Text('Sim'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ) ??
-                                        false;
-                                if (confirmDialogResponse) {
-                                  await authManager.deleteUser(context);
-                                  await Future.delayed(
-                                    Duration(
-                                      milliseconds: 1200,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        Function() _navigate = () {};
+                        var confirmDialogResponse = await showDialog<bool>(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  content: Text(
+                                      'Tem certeza que deseja excluir a conta?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(
+                                          alertDialogContext, false),
+                                      child: Text('Não'),
                                     ),
-                                  );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'A conta foi excluída com sucesso!',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                      duration: Duration(milliseconds: 2000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).primary,
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(
+                                          alertDialogContext, true),
+                                      child: Text('Sim'),
                                     ),
-                                  );
-
-                                  _navigate();
-                                  return;
-                                } else {
-                                  return;
-                                }
-
-                                _navigate();
+                                  ],
+                                );
                               },
-                              text: FFLocalizations.of(context).getText(
-                                '5yiy7783' /* Excluir conta */,
-                              ),
-                              options: FFButtonOptions(
-                                width: 150.0,
-                                height: 29.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0x72FFFFFF),
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      color: Colors.black,
-                                      fontSize: 13.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.normal,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
-                                    ),
-                                elevation: 0.0,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
+                            ) ??
+                            false;
+                        if (confirmDialogResponse) {
+                          await authManager.deleteUser(context);
+                          await Future.delayed(
+                            Duration(
+                              milliseconds: 1200,
                             ),
-                          ),
-                        ],
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'A conta foi excluída com sucesso!',
+                                style: TextStyle(
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 2000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).primary,
+                            ),
+                          );
+
+                          _navigate();
+                          return;
+                        } else {
+                          return;
+                        }
+
+                        _navigate();
+                      },
+                      text: FFLocalizations.of(context).getText(
+                        '5yiy7783' /* Excluir conta */,
+                      ),
+                      options: FFButtonOptions(
+                        width: 150.0,
+                        height: 20.2,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0x72FFFFFF),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  font: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.normal,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Colors.black,
+                                  fontSize: 13.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                        elevation: 0.0,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ),

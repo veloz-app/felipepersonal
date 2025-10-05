@@ -663,7 +663,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                   .solidThumbsUp,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .primary,
+                                                                  .tertiary,
                                                               size: 24.0,
                                                             ),
                                                             offIcon: FaIcon(
@@ -671,7 +671,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                   .thumbsUp,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText,
+                                                                  .tertiary,
                                                               size: 24.0,
                                                             ),
                                                           ),
@@ -701,6 +701,9 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .tertiary,
                                                                     fontSize:
                                                                         16.0,
                                                                     letterSpacing:
@@ -813,7 +816,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                   .favorite_sharp,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .primary,
+                                                                  .tertiary,
                                                               size: 24.0,
                                                             ),
                                                             offIcon: Icon(
@@ -821,7 +824,7 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                   .favorite_border,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .secondaryText,
+                                                                  .tertiary,
                                                               size: 24.0,
                                                             ),
                                                           ),
@@ -851,6 +854,9 @@ class _TipsWidgetState extends State<TipsWidget> {
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .tertiary,
                                                                     fontSize:
                                                                         16.0,
                                                                     letterSpacing:

@@ -14,3 +14,4 @@ export '/edit_alternative_training/edit_alternative_training_widget.dart'
 export '/objectives/objectives_widget.dart' show ObjectivesWidget;
 export '/objetives_a_d_m/objetives_a_d_m_widget.dart' show ObjetivesADMWidget;
 export '/estudio/estudio_widget.dart' show EstudioWidget;
+export '/performance/performance_widget.dart' show PerformanceWidget;

@@ -15,8 +15,8 @@ class CreateObjectiveUserModel
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  String? dropDownValue1;
+  FormFieldController<String>? dropDownValueController1;
   // Stores action output result for [Firestore Query - Query a collection] action in DropDown widget.
   ObjectivesRecord? docReferenceOutput;
   // State field(s) for objectiveCreateUser widget.
@@ -24,16 +24,19 @@ class CreateObjectiveUserModel
   TextEditingController? objectiveCreateUserTextController;
   String? Function(BuildContext, String?)?
       objectiveCreateUserTextControllerValidator;
-  // State field(s) for dateObjectiveCreateUser widget.
-  FocusNode? dateObjectiveCreateUserFocusNode;
-  TextEditingController? dateObjectiveCreateUserTextController;
-  String? Function(BuildContext, String?)?
-      dateObjectiveCreateUserTextControllerValidator;
+  // State field(s) for DropDownDatatime widget.
+  int? dropDownDatatimeValue;
+  FormFieldController<int>? dropDownDatatimeValueController;
+  // State field(s) for DropDown widget.
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValueController2;
   // State field(s) for detailsObjectiveCreateUser widget.
   FocusNode? detailsObjectiveCreateUserFocusNode;
   TextEditingController? detailsObjectiveCreateUserTextController;
   String? Function(BuildContext, String?)?
       detailsObjectiveCreateUserTextControllerValidator;
+  // Stores action output result for [Firestore Query - Query a collection] action in Criarobjetivo widget.
+  PerformanceRecord? query2;
 
   @override
   void initState(BuildContext context) {}
@@ -42,9 +45,6 @@ class CreateObjectiveUserModel
   void dispose() {
     objectiveCreateUserFocusNode?.dispose();
     objectiveCreateUserTextController?.dispose();
-
-    dateObjectiveCreateUserFocusNode?.dispose();
-    dateObjectiveCreateUserTextController?.dispose();
 
     detailsObjectiveCreateUserFocusNode?.dispose();
     detailsObjectiveCreateUserTextController?.dispose();

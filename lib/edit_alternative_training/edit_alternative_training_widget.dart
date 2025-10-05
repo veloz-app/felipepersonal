@@ -75,7 +75,7 @@ class _EditAlternativeTrainingWidgetState
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -741,9 +741,9 @@ um vídeo */
                               displayNameTraining:
                                   _model.titleVideoEditTextController.text,
                               description:
-                                  _model.detailVideoEditTextController.text,
+                                  _model.subtitleVideoEditTextController.text,
                               moreDetails:
-                                  widget.editDetailsAlternativeTraining,
+                                  _model.detailVideoEditTextController.text,
                               videoUrl: _model
                                   .uploadedFileUrl_uploadAlternativeVideoEdit,
                             ));

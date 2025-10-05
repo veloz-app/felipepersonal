@@ -125,7 +125,7 @@ class _EditObjectiveADMWidgetState extends State<EditObjectiveADMWidget> {
                   width: 413.5,
                   height: 352.79,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
                   ),
                   child: Padding(

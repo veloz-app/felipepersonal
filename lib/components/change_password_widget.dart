@@ -99,7 +99,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                   width: 413.5,
                   height: 263.51,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).info,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(22.0),
                   ),
                   child: Padding(

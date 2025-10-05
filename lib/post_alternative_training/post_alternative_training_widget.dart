@@ -813,7 +813,7 @@ um vídeo */
                                     displayNameTraining: _model
                                         .titleVideoCreateTextController.text,
                                     description: _model
-                                        .detailVideoCreateTextController.text,
+                                        .subtitleVideoCreateTextController.text,
                                     moreDetails: _model
                                         .detailVideoCreateTextController.text,
                                     videoUrl: _model
@@ -842,7 +842,7 @@ um vídeo */
                                     displayNameTraining: _model
                                         .titleVideoCreateTextController.text,
                                     description: _model
-                                        .detailVideoCreateTextController.text,
+                                        .subtitleVideoCreateTextController.text,
                                     moreDetails: _model
                                         .detailVideoCreateTextController.text,
                                     videoUrl: _model

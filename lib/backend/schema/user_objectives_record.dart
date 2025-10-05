@@ -55,6 +55,11 @@ class UserObjectivesRecord extends FirestoreRecord {
   DocumentReference? get documentObjectiveRef => _documentObjectiveRef;
   bool hasDocumentObjectiveRef() => _documentObjectiveRef != null;
 
+  // "userObjetiveRef" field.
+  DocumentReference? _userObjetiveRef;
+  DocumentReference? get userObjetiveRef => _userObjetiveRef;
+  bool hasUserObjetiveRef() => _userObjetiveRef != null;
+
   void _initializeFields() {
     _userID = snapshotData['userID'] as String?;
     _finalObjectives = castToType<double>(snapshotData['finalObjectives']);
@@ -65,6 +70,7 @@ class UserObjectivesRecord extends FirestoreRecord {
     _dataPeriodObjective = castToType<int>(snapshotData['dataPeriodObjective']);
     _documentObjectiveRef =
         snapshotData['documentObjectiveRef'] as DocumentReference?;
+    _userObjetiveRef = snapshotData['userObjetiveRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -110,6 +116,7 @@ Map<String, dynamic> createUserObjectivesRecordData({
   String? descriptionObjectives,
   int? dataPeriodObjective,
   DocumentReference? documentObjectiveRef,
+  DocumentReference? userObjetiveRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +128,7 @@ Map<String, dynamic> createUserObjectivesRecordData({
       'descriptionObjectives': descriptionObjectives,
       'dataPeriodObjective': dataPeriodObjective,
       'documentObjectiveRef': documentObjectiveRef,
+      'userObjetiveRef': userObjetiveRef,
     }.withoutNulls,
   );
 
@@ -140,7 +148,8 @@ class UserObjectivesRecordDocumentEquality
         e1?.completed == e2?.completed &&
         e1?.descriptionObjectives == e2?.descriptionObjectives &&
         e1?.dataPeriodObjective == e2?.dataPeriodObjective &&
-        e1?.documentObjectiveRef == e2?.documentObjectiveRef;
+        e1?.documentObjectiveRef == e2?.documentObjectiveRef &&
+        e1?.userObjetiveRef == e2?.userObjetiveRef;
   }
 
   @override
@@ -152,7 +161,8 @@ class UserObjectivesRecordDocumentEquality
         e?.completed,
         e?.descriptionObjectives,
         e?.dataPeriodObjective,
-        e?.documentObjectiveRef
+        e?.documentObjectiveRef,
+        e?.userObjetiveRef
       ]);
 
   @override
