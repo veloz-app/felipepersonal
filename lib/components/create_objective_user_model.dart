@@ -12,24 +12,28 @@ class CreateObjectiveUserModel
 
   DocumentReference? refObjective;
 
+  String? typeObjective;
+
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
-  // Stores action output result for [Firestore Query - Query a collection] action in DropDown widget.
+  // State field(s) for DropDownObjectiveSelect widget.
+  String? dropDownObjectiveSelectValue;
+  FormFieldController<String>? dropDownObjectiveSelectValueController;
+  // Stores action output result for [Firestore Query - Query a collection] action in DropDownObjectiveSelect widget.
   ObjectivesRecord? docReferenceOutput;
-  // State field(s) for objectiveCreateUser widget.
-  FocusNode? objectiveCreateUserFocusNode;
-  TextEditingController? objectiveCreateUserTextController;
+  // State field(s) for objectiveFinal widget.
+  FocusNode? objectiveFinalFocusNode;
+  TextEditingController? objectiveFinalTextController;
   String? Function(BuildContext, String?)?
-      objectiveCreateUserTextControllerValidator;
-  // State field(s) for DropDownDatatime widget.
-  int? dropDownDatatimeValue;
-  FormFieldController<int>? dropDownDatatimeValueController;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
+      objectiveFinalTextControllerValidator;
+  // State field(s) for DropDownTypePeriod widget.
+  String? dropDownTypePeriodValue;
+  FormFieldController<String>? dropDownTypePeriodValueController;
+  // State field(s) for objectivePeriod widget.
+  FocusNode? objectivePeriodFocusNode;
+  TextEditingController? objectivePeriodTextController;
+  String? Function(BuildContext, String?)?
+      objectivePeriodTextControllerValidator;
   // State field(s) for detailsObjectiveCreateUser widget.
   FocusNode? detailsObjectiveCreateUserFocusNode;
   TextEditingController? detailsObjectiveCreateUserTextController;
@@ -43,8 +47,11 @@ class CreateObjectiveUserModel
 
   @override
   void dispose() {
-    objectiveCreateUserFocusNode?.dispose();
-    objectiveCreateUserTextController?.dispose();
+    objectiveFinalFocusNode?.dispose();
+    objectiveFinalTextController?.dispose();
+
+    objectivePeriodFocusNode?.dispose();
+    objectivePeriodTextController?.dispose();
 
     detailsObjectiveCreateUserFocusNode?.dispose();
     detailsObjectiveCreateUserTextController?.dispose();

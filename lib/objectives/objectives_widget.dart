@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -42,6 +43,11 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.query1 = await queryUserObjectivesRecordOnce(
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      _model.currentProgressState = _model.query1!.progressObjetive;
+      _model.finalGoalValue = _model.query1!.finalObjectives;
       safeSetState(() {});
     });
   }
@@ -799,7 +805,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                         width:
                                                                             337.6,
                                                                         height:
-                                                                            59.5,
+                                                                            68.87,
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
@@ -808,9 +814,9 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                         child:
                                                                             Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              17.0,
+                                                                              14.0,
                                                                               0.0,
-                                                                              17.0,
+                                                                              14.0,
                                                                               0.0),
                                                                           child:
                                                                               Row(
@@ -855,7 +861,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                 ),
                                                                               ),
                                                                               Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 0.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                                                                                 child: InkWell(
                                                                                   splashColor: Colors.transparent,
                                                                                   focusColor: Colors.transparent,
@@ -898,7 +904,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                 ),
                                                                               ),
                                                                               Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 0.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                                                                                 child: InkWell(
                                                                                   splashColor: Colors.transparent,
                                                                                   focusColor: Colors.transparent,
@@ -928,8 +934,8 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                       await containerPerformanceRecord!.reference.update({
                                                                                         ...mapToFirestore(
                                                                                           {
-                                                                                            'userChallengerPerformance': FieldValue.increment(-1),
                                                                                             'totalAmount': FieldValue.increment(-1),
+                                                                                            'userObjectivePerformance': FieldValue.increment(-1),
                                                                                           },
                                                                                         ),
                                                                                       });
@@ -976,41 +982,123 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                 ),
                                                                               ),
                                                                               Expanded(
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      FFLocalizations.of(context).getText(
-                                                                                        'ewabpoja' /* Objetivo final */,
+                                                                                child: Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 4.0),
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: FlutterFlowTheme.of(context).tertiary,
+                                                                                          borderRadius: BorderRadius.circular(6.0),
+                                                                                        ),
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsets.all(3.0),
+                                                                                          child: Text(
+                                                                                            FFLocalizations.of(context).getText(
+                                                                                              'ewabpoja' /* Objetivo */,
+                                                                                            ),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  font: GoogleFonts.montserrat(
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                  ),
+                                                                                                  color: FlutterFlowTheme.of(context).info,
+                                                                                                  fontSize: 10.0,
+                                                                                                  letterSpacing: 0.0,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                ),
+                                                                                          ),
+                                                                                        ),
                                                                                       ),
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            font: GoogleFonts.montserrat(
-                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                      Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                                                                        child: Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                          children: [
+                                                                                            Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  FFLocalizations.of(context).getText(
+                                                                                                    'bje5ef8y' /* Final */,
+                                                                                                  ),
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.montserrat(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                                        fontSize: 12.0,
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  '${formatNumber(
+                                                                                                    listViewUserObjectivesRecord.finalObjectives,
+                                                                                                    formatType: FormatType.custom,
+                                                                                                    format: '#',
+                                                                                                    locale: '',
+                                                                                                  )} ${containerObjectivesRecord.typeObjective}',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.montserrat(
+                                                                                                          fontWeight: FontWeight.w600,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                                        fontSize: 13.0,
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FontWeight.w600,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
                                                                                             ),
-                                                                                            color: FlutterFlowTheme.of(context).primary,
-                                                                                            fontSize: 12.0,
-                                                                                            letterSpacing: 0.0,
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                          ),
-                                                                                    ),
-                                                                                    Text(
-                                                                                      '${listViewUserObjectivesRecord.finalObjectives.toString()}${containerObjectivesRecord.typeObjective}',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            font: GoogleFonts.montserrat(
-                                                                                              fontWeight: FontWeight.w600,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  FFLocalizations.of(context).getText(
+                                                                                                    '6sevf2ii' /* Atual */,
+                                                                                                  ),
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.montserrat(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                                        fontSize: 12.0,
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  '${(_model.currentProgressState * _model.finalGoalValue).toStringAsFixed(1)} ${containerObjectivesRecord.typeObjective}',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.montserrat(
+                                                                                                          fontWeight: FontWeight.w600,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                                        fontSize: 13.0,
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FontWeight.w600,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
                                                                                             ),
-                                                                                            color: FlutterFlowTheme.of(context).primary,
-                                                                                            fontSize: 18.0,
-                                                                                            letterSpacing: 0.0,
-                                                                                            fontWeight: FontWeight.w600,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                          ),
-                                                                                    ),
-                                                                                  ],
+                                                                                          ],
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                               InkWell(
@@ -1027,11 +1115,14 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                         },
                                                                                       ),
                                                                                     });
+                                                                                    _model.currentProgressState = ((_model.currentProgressState - (_model.finalGoalValue * 0.05)) * 100).round() / 100;
+                                                                                    safeSetState(() {});
                                                                                     return;
                                                                                   } else {
                                                                                     await listViewUserObjectivesRecord.reference.update(createUserObjectivesRecordData(
                                                                                       progressObjetive: 0.0,
                                                                                     ));
+                                                                                    return;
                                                                                   }
                                                                                 },
                                                                                 child: FaIcon(
@@ -1057,6 +1148,8 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                             },
                                                                                           ),
                                                                                         });
+                                                                                        _model.currentProgressState = _model.currentProgressState + 0.05;
+                                                                                        safeSetState(() {});
                                                                                         return;
                                                                                       } else {
                                                                                         await showDialog(

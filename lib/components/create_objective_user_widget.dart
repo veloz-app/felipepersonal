@@ -10,6 +10,7 @@ import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'create_objective_user_model.dart';
 export 'create_objective_user_model.dart';
@@ -36,8 +37,11 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
     super.initState();
     _model = createModel(context, () => CreateObjectiveUserModel());
 
-    _model.objectiveCreateUserTextController ??= TextEditingController();
-    _model.objectiveCreateUserFocusNode ??= FocusNode();
+    _model.objectiveFinalTextController ??= TextEditingController();
+    _model.objectiveFinalFocusNode ??= FocusNode();
+
+    _model.objectivePeriodTextController ??= TextEditingController();
+    _model.objectivePeriodFocusNode ??= FocusNode();
 
     _model.detailsObjectiveCreateUserTextController ??= TextEditingController();
     _model.detailsObjectiveCreateUserFocusNode ??= FocusNode();
@@ -145,17 +149,20 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                 );
                               }
                               List<ObjectivesRecord>
-                                  dropDownObjectivesRecordList = snapshot.data!;
+                                  dropDownObjectiveSelectObjectivesRecordList =
+                                  snapshot.data!;
 
                               return FlutterFlowDropDown<String>(
-                                controller: _model.dropDownValueController1 ??=
+                                controller: _model
+                                        .dropDownObjectiveSelectValueController ??=
                                     FormFieldController<String>(null),
-                                options: dropDownObjectivesRecordList
-                                    .map((e) => e.nameObjective)
-                                    .toList(),
+                                options:
+                                    dropDownObjectiveSelectObjectivesRecordList
+                                        .map((e) => e.nameObjective)
+                                        .toList(),
                                 onChanged: (val) async {
-                                  safeSetState(
-                                      () => _model.dropDownValue1 = val);
+                                  safeSetState(() => _model
+                                      .dropDownObjectiveSelectValue = val);
                                   unawaited(
                                     () async {
                                       _model.docReferenceOutput =
@@ -163,7 +170,8 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         queryBuilder: (objectivesRecord) =>
                                             objectivesRecord.where(
                                           'name_objective',
-                                          isEqualTo: _model.dropDownValue1,
+                                          isEqualTo: _model
+                                              .dropDownObjectiveSelectValue,
                                         ),
                                         singleRecord: true,
                                       ).then((s) => s.firstOrNull);
@@ -203,7 +211,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                 elevation: 2.0,
                                 borderColor:
                                     FlutterFlowTheme.of(context).primaryText,
-                                borderWidth: 0.0,
+                                borderWidth: 1.0,
                                 borderRadius: 8.0,
                                 margin: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 12.0, 0.0),
@@ -218,71 +226,373 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 13.0, 0.0, 0.0),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: TextFormField(
-                                    controller: _model
-                                        .objectiveCreateUserTextController,
-                                    focusNode:
-                                        _model.objectiveCreateUserFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.objectiveCreateUserTextController',
-                                      Duration(milliseconds: 100),
-                                      () => safeSetState(() {}),
-                                    ),
-                                    autofocus: false,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
+                            if ((_model.dropDownObjectiveSelectValue !=
+                                    'Melhorar alimentação') &&
+                                (_model.dropDownObjectiveSelectValue !=
+                                    'Dormir melhor') &&
+                                (_model.dropDownObjectiveSelectValue != null &&
+                                    _model.dropDownObjectiveSelectValue != ''))
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 13.0, 0.0, 0.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: TextFormField(
+                                      controller:
+                                          _model.objectiveFinalTextController,
+                                      focusNode: _model.objectiveFinalFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.objectiveFinalTextController',
+                                        Duration(milliseconds: 100),
+                                        () => safeSetState(() {}),
+                                      ),
+                                      autofocus: false,
+                                      textCapitalization:
+                                          TextCapitalization.none,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        labelText: valueOrDefault<String>(
+                                          () {
+                                            if (_model
+                                                    .dropDownObjectiveSelectValue ==
+                                                'Perder peso') {
+                                              return 'Kg';
+                                            } else if (_model
+                                                    .dropDownObjectiveSelectValue ==
+                                                'Ganhar massa muscular') {
+                                              return 'Kg';
+                                            } else if (_model
+                                                    .dropDownObjectiveSelectValue ==
+                                                'Beber mais água') {
+                                              return 'Litros';
+                                            } else if (_model
+                                                    .dropDownObjectiveSelectValue ==
+                                                'Caminhar') {
+                                              return 'Km';
+                                            } else if (_model
+                                                    .dropDownObjectiveSelectValue ==
+                                                'Dormir melhor') {
+                                              return 'Noites';
+                                            } else {
+                                              return 'Objetivo Final';
+                                            }
+                                          }(),
+                                          'Objetivo Final',
+                                        ),
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                        alignLabelWithHint: false,
+                                        hintText: () {
+                                          if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Caminhar') {
+                                            return 'Defina quantos km por dia';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Beber mais água') {
+                                            return 'Defina quantos litros por dia';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Ganhar massa muscular') {
+                                            return 'Defina quantos kg no total';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Perder peso') {
+                                            return 'Defina quantos kg no total';
+                                          } else {
+                                            return '';
+                                          }
+                                        }(),
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.montserrat(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
                                           .override(
                                             font: GoogleFonts.montserrat(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium
+                                                      .bodyMedium
                                                       .fontWeight,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium
+                                                      .bodyMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium
+                                                    .bodyMedium
                                                     .fontWeight,
                                             fontStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium
+                                                    .bodyMedium
                                                     .fontStyle,
                                           ),
-                                      hintText:
-                                          FFLocalizations.of(context).getText(
-                                        'oqle9b69' /* Objetivo Final */,
+                                      minLines: 1,
+                                      keyboardType: TextInputType.number,
+                                      cursorColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      enableInteractiveSelection: true,
+                                      validator: _model
+                                          .objectiveFinalTextControllerValidator
+                                          .asValidator(context),
+                                      inputFormatters: [
+                                        if (!isAndroid && !isiOS)
+                                          TextInputFormatter.withFunction(
+                                              (oldValue, newValue) {
+                                            return TextEditingValue(
+                                              selection: newValue.selection,
+                                              text: newValue.text
+                                                  .toCapitalization(
+                                                      TextCapitalization.none),
+                                            );
+                                          }),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ].divide(SizedBox(
+                              width: _model.dropDownObjectiveSelectValue ==
+                                      'Caminhada'
+                                  ? 20.0
+                                  : 0.0)),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 13.0, 0.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(
+                                child: FlutterFlowDropDown<String>(
+                                  controller: _model
+                                          .dropDownTypePeriodValueController ??=
+                                      FormFieldController<String>(
+                                    _model.dropDownTypePeriodValue ??= '',
+                                  ),
+                                  options: List<String>.from(['Mês', 'Dia']),
+                                  optionLabels: [
+                                    FFLocalizations.of(context).getText(
+                                      'tjiam20o' /* Mês/Meses */,
+                                    ),
+                                    FFLocalizations.of(context).getText(
+                                      'rfnmgwgs' /* Dia/dias */,
+                                    )
+                                  ],
+                                  onChanged: (val) => safeSetState(() =>
+                                      _model.dropDownTypePeriodValue = val),
+                                  width: 200.0,
+                                  height: 40.0,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 13.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
+                                  hintText: FFLocalizations.of(context).getText(
+                                    'dxys5v3a' /* Tipo de período */,
+                                  ),
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 24.0,
+                                  ),
+                                  elevation: 2.0,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  borderWidth: 1.0,
+                                  borderRadius: 8.0,
+                                  margin: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  hidesUnderline: true,
+                                  isOverButton: false,
+                                  isSearchable: false,
+                                  isMultiSelect: false,
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller:
+                                        _model.objectivePeriodTextController,
+                                    focusNode: _model.objectivePeriodFocusNode,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.objectivePeriodTextController',
+                                      Duration(milliseconds: 100),
+                                      () => safeSetState(() {}),
+                                    ),
+                                    autofocus: false,
+                                    textCapitalization: TextCapitalization.none,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelText: () {
+                                        if (_model.dropDownTypePeriodValue ==
+                                            'Dia') {
+                                          return 'Dia/dias';
+                                        } else if (_model
+                                                .dropDownTypePeriodValue ==
+                                            'Mês') {
+                                          return 'Mês/meses';
+                                        } else {
+                                          return 'Defina o período';
+                                        }
+                                      }(),
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
                                           .override(
                                             font: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w600,
+                                              fontWeight: FontWeight.w500,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize:
+                                                _model.dropDownTypePeriodValue !=
+                                                            null &&
+                                                        _model.dropDownTypePeriodValue !=
+                                                            ''
+                                                    ? 14.0
+                                                    : 12.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                      alignLabelWithHint: true,
+                                      hintText: valueOrDefault<String>(
+                                        'Quantos ${() {
+                                          if (_model.dropDownTypePeriodValue ==
+                                              'Dia') {
+                                            return 'dias?';
+                                          } else if (_model
+                                                  .dropDownTypePeriodValue ==
+                                              'Mês') {
+                                            return 'meses?';
+                                          } else {
+                                            return '';
+                                          }
+                                        }()}',
+                                        'Defina o período',
+                                      ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
                                                       .fontStyle,
                                             ),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w500,
                                             fontStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium
+                                                    .bodyMedium
                                                     .fontStyle,
                                           ),
                                       enabledBorder: OutlineInputBorder(
@@ -328,10 +638,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         .bodyMedium
                                         .override(
                                           font: GoogleFonts.montserrat(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontWeight,
+                                            fontWeight: FontWeight.w500,
                                             fontStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -340,10 +647,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
                                           letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
+                                          fontWeight: FontWeight.w500,
                                           fontStyle:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -355,255 +659,21 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         .primaryText,
                                     enableInteractiveSelection: true,
                                     validator: _model
-                                        .objectiveCreateUserTextControllerValidator
+                                        .objectivePeriodTextControllerValidator
                                         .asValidator(context),
+                                    inputFormatters: [
+                                      if (!isAndroid && !isiOS)
+                                        TextInputFormatter.withFunction(
+                                            (oldValue, newValue) {
+                                          return TextEditingValue(
+                                            selection: newValue.selection,
+                                            text: newValue.text
+                                                .toCapitalization(
+                                                    TextCapitalization.none),
+                                          );
+                                        }),
+                                    ],
                                   ),
-                                ),
-                              ),
-                            ),
-                          ].divide(SizedBox(width: 20.0)),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 13.0, 0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Flexible(
-                                child: FlutterFlowDropDown<int>(
-                                  controller:
-                                      _model.dropDownDatatimeValueController ??=
-                                          FormFieldController<int>(
-                                    _model.dropDownDatatimeValue ??= 1,
-                                  ),
-                                  options: List<int>.from([
-                                    0,
-                                    1,
-                                    2,
-                                    3,
-                                    4,
-                                    5,
-                                    6,
-                                    7,
-                                    8,
-                                    9,
-                                    10,
-                                    11,
-                                    12,
-                                    13,
-                                    14,
-                                    15,
-                                    16,
-                                    17,
-                                    18,
-                                    19,
-                                    20,
-                                    21,
-                                    22,
-                                    23,
-                                    24,
-                                    25,
-                                    26,
-                                    27,
-                                    28,
-                                    29
-                                  ]),
-                                  optionLabels: [
-                                    FFLocalizations.of(context).getText(
-                                      'xv9i86ym' /* 1 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'oxdcfr6e' /* 2 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'vrbjqsrx' /* 3 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'gfkjyszv' /* 4 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '1p8if5e0' /* 5 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'jossghbc' /* 6 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '3zfarid3' /* 7 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '6b8qx218' /* 8 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'isez3rqt' /* 9 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'v37jmi69' /* 10 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '6jxb9yl7' /* 11 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '08cjtxa8' /* 12 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '0gq22iri' /* 13 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'zd4ywpzj' /* 14 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'eikcv0w9' /* 15 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'x8tcyaaz' /* 16 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '8lfvcc6x' /* 17 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '4wydx9c3' /* 18 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '6wg6sxlg' /* 19 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'rubaa9ck' /* 20 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'egdcin2j' /* 21 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'jvyftdoo' /* 22 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'm48tpyms' /* 23 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'ohfsrswc' /* 24 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'l3jgyb8t' /* 25 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'yigzat9c' /* 26 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'j75lp0ok' /* 27 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'yuet81ou' /* 28 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      '6ikhm7kp' /* 29 */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'bauutge1' /* 30 */,
-                                    )
-                                  ],
-                                  onChanged: (val) => safeSetState(
-                                      () => _model.dropDownDatatimeValue = val),
-                                  width: 200.0,
-                                  height: 40.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w500,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                  hintText: FFLocalizations.of(context).getText(
-                                    'zyobacl7' /* Selecionar o período */,
-                                  ),
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  borderWidth: 0.0,
-                                  borderRadius: 8.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 0.0, 12.0, 0.0),
-                                  hidesUnderline: true,
-                                  isOverButton: false,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
-                                ),
-                              ),
-                              Flexible(
-                                child: FlutterFlowDropDown<String>(
-                                  controller:
-                                      _model.dropDownValueController2 ??=
-                                          FormFieldController<String>(
-                                    _model.dropDownValue2 ??= '',
-                                  ),
-                                  options: List<String>.from(['Mês', 'Dia']),
-                                  optionLabels: [
-                                    FFLocalizations.of(context).getText(
-                                      'tjiam20o' /* Mês/Meses */,
-                                    ),
-                                    FFLocalizations.of(context).getText(
-                                      'rfnmgwgs' /* Dia/dias */,
-                                    )
-                                  ],
-                                  onChanged: (val) => safeSetState(
-                                      () => _model.dropDownValue2 = val),
-                                  width: 200.0,
-                                  height: 40.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.montserrat(
-                                          fontWeight: FontWeight.w500,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                  hintText: FFLocalizations.of(context).getText(
-                                    'dxys5v3a' /* Tipo de período */,
-                                  ),
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  borderWidth: 0.0,
-                                  borderRadius: 8.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 0.0, 12.0, 0.0),
-                                  hidesUnderline: true,
-                                  isOverButton: false,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
                                 ),
                               ),
                             ].divide(SizedBox(width: 20.0)),
@@ -625,6 +695,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                 () => safeSetState(() {}),
                               ),
                               autofocus: false,
+                              textInputAction: TextInputAction.done,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -648,13 +719,13 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           .fontStyle,
                                     ),
                                 hintText: FFLocalizations.of(context).getText(
-                                  'ixe9lqe2' /* Detalhes  (opcional) */,
+                                  'ixe9lqe2' /* Detalhes (opcional) */,
                                 ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
                                       font: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.w500,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .fontStyle,
@@ -663,7 +734,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           .primaryText,
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontStyle,
@@ -734,9 +805,22 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: !((_model.dropDownValue1 != null &&
-                                        _model.dropDownValue1 != '') &&
-                                    (_model.objectiveCreateUserTextController
+                            onPressed: !((_model
+                                                .dropDownObjectiveSelectValue !=
+                                            null &&
+                                        _model
+                                                .dropDownObjectiveSelectValue !=
+                                            '') &&
+                                    ((_model.objectiveFinalTextController
+                                                    .text !=
+                                                '') ||
+                                        (_model.dropDownObjectiveSelectValue ==
+                                            'Caminhada') ||
+                                        (_model.dropDownObjectiveSelectValue ==
+                                            'Dormir melhor')) &&
+                                    (_model.dropDownTypePeriodValue != null &&
+                                        _model.dropDownTypePeriodValue != '') &&
+                                    (_model.objectivePeriodTextController
                                                 .text !=
                                             ''))
                                 ? null
@@ -789,18 +873,21 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                       ...createUserObjectivesRecordData(
                                         userID: currentUserUid,
                                         finalObjectives: double.tryParse(_model
-                                            .objectiveCreateUserTextController
-                                            .text),
+                                            .objectiveFinalTextController.text),
                                         progressObjetive: 0.0,
                                         descriptionObjectives: _model
                                             .detailsObjectiveCreateUserTextController
                                             .text,
-                                        dataPeriodObjective:
-                                            _model.dropDownDatatimeValue,
+                                        dataPeriodObjective: int.tryParse(_model
+                                            .objectivePeriodTextController
+                                            .text),
                                         completed: false,
                                         documentObjectiveRef: _model
                                             .docReferenceOutput?.reference,
                                         userObjetiveRef: currentUserReference,
+                                        typePeriod:
+                                            _model.dropDownTypePeriodValue,
+                                        typeObjective: _model.typeObjective,
                                       ),
                                       ...mapToFirestore(
                                         {
@@ -809,6 +896,45 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         },
                                       ),
                                     });
+                                    _model.typeObjective = () {
+                                      if (_model.dropDownObjectiveSelectValue ==
+                                          'Melhorar Alimentação') {
+                                        return (_model
+                                                    .objectivePeriodTextController
+                                                    .text !=
+                                                '1'
+                                            ? 'dias'
+                                            : 'dia');
+                                      } else if (_model
+                                              .dropDownObjectiveSelectValue ==
+                                          'Ganhar massa muscular') {
+                                        return 'kg';
+                                      } else if (_model
+                                              .dropDownObjectiveSelectValue ==
+                                          'Perder peso') {
+                                        return 'kg';
+                                      } else if (_model
+                                              .dropDownObjectiveSelectValue ==
+                                          'Beber mais água') {
+                                        return 'L';
+                                      } else if (_model
+                                              .dropDownObjectiveSelectValue ==
+                                          'Caminhar') {
+                                        return 'km';
+                                      } else if (_model
+                                              .dropDownObjectiveSelectValue ==
+                                          'Dormir melhor') {
+                                        return (_model
+                                                    .objectivePeriodTextController
+                                                    .text !=
+                                                '1'
+                                            ? 'dias'
+                                            : 'dia');
+                                      } else {
+                                        return '';
+                                      }
+                                    }();
+                                    safeSetState(() {});
                                     Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(

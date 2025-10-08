@@ -545,7 +545,17 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Mis metas',
     },
     'ewabpoja': {
-      'pt': 'Objetivo final',
+      'pt': 'Objetivo',
+      'en': 'Final goal',
+      'es': 'Objetivo final',
+    },
+    'bje5ef8y': {
+      'pt': 'Final',
+      'en': 'Final goal',
+      'es': 'Objetivo final',
+    },
+    '6sevf2ii': {
+      'pt': 'Atual',
       'en': 'Final goal',
       'es': 'Objetivo final',
     },
@@ -768,171 +778,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Search...',
       'es': 'Buscar...',
     },
-    'oqle9b69': {
-      'pt': 'Objetivo Final',
-      'en': 'Final Goal',
-      'es': 'Objetivo final',
-    },
-    'zyobacl7': {
-      'pt': 'Selecionar o período',
-      'en': 'Select the objective type',
-      'es': 'Seleccione el tipo de objetivo',
-    },
-    '2ht8qrak': {
-      'pt': 'Search...',
-      'en': 'Search...',
-      'es': 'Buscar...',
-    },
-    'xv9i86ym': {
-      'pt': '1',
-      'en': '',
-      'es': '',
-    },
-    'oxdcfr6e': {
-      'pt': '2',
-      'en': '',
-      'es': '',
-    },
-    'vrbjqsrx': {
-      'pt': '3',
-      'en': '',
-      'es': '',
-    },
-    'gfkjyszv': {
-      'pt': '4',
-      'en': '',
-      'es': '',
-    },
-    '1p8if5e0': {
-      'pt': '5',
-      'en': '',
-      'es': '',
-    },
-    'jossghbc': {
-      'pt': '6',
-      'en': '',
-      'es': '',
-    },
-    '3zfarid3': {
-      'pt': '7',
-      'en': '',
-      'es': '',
-    },
-    '6b8qx218': {
-      'pt': '8',
-      'en': '',
-      'es': '',
-    },
-    'isez3rqt': {
-      'pt': '9',
-      'en': '',
-      'es': '',
-    },
-    'v37jmi69': {
-      'pt': '10',
-      'en': '',
-      'es': '',
-    },
-    '6jxb9yl7': {
-      'pt': '11',
-      'en': '',
-      'es': '',
-    },
-    '08cjtxa8': {
-      'pt': '12',
-      'en': '',
-      'es': '',
-    },
-    '0gq22iri': {
-      'pt': '13',
-      'en': '',
-      'es': '',
-    },
-    'zd4ywpzj': {
-      'pt': '14',
-      'en': '',
-      'es': '',
-    },
-    'eikcv0w9': {
-      'pt': '15',
-      'en': '',
-      'es': '',
-    },
-    'x8tcyaaz': {
-      'pt': '16',
-      'en': '',
-      'es': '',
-    },
-    '8lfvcc6x': {
-      'pt': '17',
-      'en': '',
-      'es': '',
-    },
-    '4wydx9c3': {
-      'pt': '18',
-      'en': '',
-      'es': '',
-    },
-    '6wg6sxlg': {
-      'pt': '19',
-      'en': '',
-      'es': '',
-    },
-    'rubaa9ck': {
-      'pt': '20',
-      'en': '',
-      'es': '',
-    },
-    'egdcin2j': {
-      'pt': '21',
-      'en': '',
-      'es': '',
-    },
-    'jvyftdoo': {
-      'pt': '22',
-      'en': '',
-      'es': '',
-    },
-    'm48tpyms': {
-      'pt': '23',
-      'en': '',
-      'es': '',
-    },
-    'ohfsrswc': {
-      'pt': '24',
-      'en': '',
-      'es': '',
-    },
-    'l3jgyb8t': {
-      'pt': '25',
-      'en': '',
-      'es': '',
-    },
-    'yigzat9c': {
-      'pt': '26',
-      'en': '',
-      'es': '',
-    },
-    'j75lp0ok': {
-      'pt': '27',
-      'en': '',
-      'es': '',
-    },
-    'yuet81ou': {
-      'pt': '28',
-      'en': '',
-      'es': '',
-    },
-    '6ikhm7kp': {
-      'pt': '29',
-      'en': '',
-      'es': '',
-    },
-    'bauutge1': {
-      'pt': '30',
-      'en': '',
-      'es': '',
-    },
     'dxys5v3a': {
       'pt': 'Tipo de período',
       'en': 'Select the objective type',
@@ -954,7 +799,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     'ixe9lqe2': {
-      'pt': 'Detalhes  (opcional)',
+      'pt': 'Detalhes (opcional)',
       'en': 'Details (optional)',
       'es': 'Detalles (opcional)',
     },

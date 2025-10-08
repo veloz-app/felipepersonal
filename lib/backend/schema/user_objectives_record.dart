@@ -20,11 +20,6 @@ class UserObjectivesRecord extends FirestoreRecord {
   String get userID => _userID ?? '';
   bool hasUserID() => _userID != null;
 
-  // "finalObjectives" field.
-  double? _finalObjectives;
-  double get finalObjectives => _finalObjectives ?? 0.0;
-  bool hasFinalObjectives() => _finalObjectives != null;
-
   // "progressObjetive" field.
   double? _progressObjetive;
   double get progressObjetive => _progressObjetive ?? 0.0;
@@ -60,9 +55,28 @@ class UserObjectivesRecord extends FirestoreRecord {
   DocumentReference? get userObjetiveRef => _userObjetiveRef;
   bool hasUserObjetiveRef() => _userObjetiveRef != null;
 
+  // "typePeriod" field.
+  String? _typePeriod;
+  String get typePeriod => _typePeriod ?? '';
+  bool hasTypePeriod() => _typePeriod != null;
+
+  // "finalObjectives" field.
+  double? _finalObjectives;
+  double get finalObjectives => _finalObjectives ?? 0.0;
+  bool hasFinalObjectives() => _finalObjectives != null;
+
+  // "typeObjective" field.
+  String? _typeObjective;
+  String get typeObjective => _typeObjective ?? '';
+  bool hasTypeObjective() => _typeObjective != null;
+
+  // "docID" field.
+  String? _docID;
+  String get docID => _docID ?? '';
+  bool hasDocID() => _docID != null;
+
   void _initializeFields() {
     _userID = snapshotData['userID'] as String?;
-    _finalObjectives = castToType<double>(snapshotData['finalObjectives']);
     _progressObjetive = castToType<double>(snapshotData['progressObjetive']);
     _startDate = snapshotData['startDate'] as DateTime?;
     _completed = snapshotData['completed'] as bool?;
@@ -71,6 +85,10 @@ class UserObjectivesRecord extends FirestoreRecord {
     _documentObjectiveRef =
         snapshotData['documentObjectiveRef'] as DocumentReference?;
     _userObjetiveRef = snapshotData['userObjetiveRef'] as DocumentReference?;
+    _typePeriod = snapshotData['typePeriod'] as String?;
+    _finalObjectives = castToType<double>(snapshotData['finalObjectives']);
+    _typeObjective = snapshotData['typeObjective'] as String?;
+    _docID = snapshotData['docID'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -109,7 +127,6 @@ class UserObjectivesRecord extends FirestoreRecord {
 
 Map<String, dynamic> createUserObjectivesRecordData({
   String? userID,
-  double? finalObjectives,
   double? progressObjetive,
   DateTime? startDate,
   bool? completed,
@@ -117,11 +134,14 @@ Map<String, dynamic> createUserObjectivesRecordData({
   int? dataPeriodObjective,
   DocumentReference? documentObjectiveRef,
   DocumentReference? userObjetiveRef,
+  String? typePeriod,
+  double? finalObjectives,
+  String? typeObjective,
+  String? docID,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'userID': userID,
-      'finalObjectives': finalObjectives,
       'progressObjetive': progressObjetive,
       'startDate': startDate,
       'completed': completed,
@@ -129,6 +149,10 @@ Map<String, dynamic> createUserObjectivesRecordData({
       'dataPeriodObjective': dataPeriodObjective,
       'documentObjectiveRef': documentObjectiveRef,
       'userObjetiveRef': userObjetiveRef,
+      'typePeriod': typePeriod,
+      'finalObjectives': finalObjectives,
+      'typeObjective': typeObjective,
+      'docID': docID,
     }.withoutNulls,
   );
 
@@ -142,27 +166,33 @@ class UserObjectivesRecordDocumentEquality
   @override
   bool equals(UserObjectivesRecord? e1, UserObjectivesRecord? e2) {
     return e1?.userID == e2?.userID &&
-        e1?.finalObjectives == e2?.finalObjectives &&
         e1?.progressObjetive == e2?.progressObjetive &&
         e1?.startDate == e2?.startDate &&
         e1?.completed == e2?.completed &&
         e1?.descriptionObjectives == e2?.descriptionObjectives &&
         e1?.dataPeriodObjective == e2?.dataPeriodObjective &&
         e1?.documentObjectiveRef == e2?.documentObjectiveRef &&
-        e1?.userObjetiveRef == e2?.userObjetiveRef;
+        e1?.userObjetiveRef == e2?.userObjetiveRef &&
+        e1?.typePeriod == e2?.typePeriod &&
+        e1?.finalObjectives == e2?.finalObjectives &&
+        e1?.typeObjective == e2?.typeObjective &&
+        e1?.docID == e2?.docID;
   }
 
   @override
   int hash(UserObjectivesRecord? e) => const ListEquality().hash([
         e?.userID,
-        e?.finalObjectives,
         e?.progressObjetive,
         e?.startDate,
         e?.completed,
         e?.descriptionObjectives,
         e?.dataPeriodObjective,
         e?.documentObjectiveRef,
-        e?.userObjetiveRef
+        e?.userObjetiveRef,
+        e?.typePeriod,
+        e?.finalObjectives,
+        e?.typeObjective,
+        e?.docID
       ]);
 
   @override
