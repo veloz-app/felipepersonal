@@ -441,13 +441,17 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      13.0,
+                                                                      9.0,
                                                                       0.0,
                                                                       0.0,
                                                                       0.0),
                                                           child: Text(
-                                                            rowUserRecord
-                                                                .displayName,
+                                                            valueOrDefault<
+                                                                String>(
+                                                              rowUserRecord
+                                                                  .displayName,
+                                                              'Nome',
+                                                            ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -464,7 +468,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                                         .fontStyle,
                                                                   ),
                                                                   fontSize:
-                                                                      12.0,
+                                                                      11.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight: FlutterFlowTheme.of(
@@ -480,7 +484,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        width: 118.71,
+                                                        width: 128.61,
                                                         height: 24.2,
                                                         decoration:
                                                             BoxDecoration(),
@@ -499,7 +503,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          5.0,
+                                                                          4.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
@@ -525,7 +529,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                                             .fontStyle,
                                                                       ),
                                                                       fontSize:
-                                                                          12.0,
+                                                                          11.0,
                                                                       letterSpacing:
                                                                           0.0,
                                                                       fontWeight: FlutterFlowTheme.of(
@@ -559,7 +563,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          5.0,
+                                                                          4.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
@@ -585,7 +589,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                                             .fontStyle,
                                                                       ),
                                                                       fontSize:
-                                                                          12.0,
+                                                                          11.0,
                                                                       letterSpacing:
                                                                           0.0,
                                                                       fontWeight: FlutterFlowTheme.of(
@@ -619,7 +623,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          5.0,
+                                                                          4.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
@@ -645,7 +649,7 @@ class _PerformanceWidgetState extends State<PerformanceWidget> {
                                                                             .fontStyle,
                                                                       ),
                                                                       fontSize:
-                                                                          12.0,
+                                                                          11.0,
                                                                       letterSpacing:
                                                                           0.0,
                                                                       fontWeight: FlutterFlowTheme.of(

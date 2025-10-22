@@ -25,9 +25,21 @@ class CompleteObjectivesRecord extends FirestoreRecord {
   String get namObjectiveComplete => _namObjectiveComplete ?? '';
   bool hasNamObjectiveComplete() => _namObjectiveComplete != null;
 
+  // "UserObjetivesRef" field.
+  DocumentReference? _userObjetivesRef;
+  DocumentReference? get userObjetivesRef => _userObjetivesRef;
+  bool hasUserObjetivesRef() => _userObjetivesRef != null;
+
+  // "ObjetivesRef" field.
+  DocumentReference? _objetivesRef;
+  DocumentReference? get objetivesRef => _objetivesRef;
+  bool hasObjetivesRef() => _objetivesRef != null;
+
   void _initializeFields() {
     _userID = snapshotData['userID'] as String?;
     _namObjectiveComplete = snapshotData['namObjectiveComplete'] as String?;
+    _userObjetivesRef = snapshotData['UserObjetivesRef'] as DocumentReference?;
+    _objetivesRef = snapshotData['ObjetivesRef'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -68,11 +80,15 @@ class CompleteObjectivesRecord extends FirestoreRecord {
 Map<String, dynamic> createCompleteObjectivesRecordData({
   String? userID,
   String? namObjectiveComplete,
+  DocumentReference? userObjetivesRef,
+  DocumentReference? objetivesRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'userID': userID,
       'namObjectiveComplete': namObjectiveComplete,
+      'UserObjetivesRef': userObjetivesRef,
+      'ObjetivesRef': objetivesRef,
     }.withoutNulls,
   );
 
@@ -86,12 +102,18 @@ class CompleteObjectivesRecordDocumentEquality
   @override
   bool equals(CompleteObjectivesRecord? e1, CompleteObjectivesRecord? e2) {
     return e1?.userID == e2?.userID &&
-        e1?.namObjectiveComplete == e2?.namObjectiveComplete;
+        e1?.namObjectiveComplete == e2?.namObjectiveComplete &&
+        e1?.userObjetivesRef == e2?.userObjetivesRef &&
+        e1?.objetivesRef == e2?.objetivesRef;
   }
 
   @override
-  int hash(CompleteObjectivesRecord? e) =>
-      const ListEquality().hash([e?.userID, e?.namObjectiveComplete]);
+  int hash(CompleteObjectivesRecord? e) => const ListEquality().hash([
+        e?.userID,
+        e?.namObjectiveComplete,
+        e?.userObjetivesRef,
+        e?.objetivesRef
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is CompleteObjectivesRecord;

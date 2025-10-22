@@ -76,6 +76,30 @@ class FFAppState extends ChangeNotifier {
     _IsTimerRunning = value;
     prefs.setBool('ff_IsTimerRunning', value);
   }
+
+  double _progressPercent = 0.0;
+  double get progressPercent => _progressPercent;
+  set progressPercent(double value) {
+    _progressPercent = value;
+  }
+
+  double _currentDistanceKm = 0.0;
+  double get currentDistanceKm => _currentDistanceKm;
+  set currentDistanceKm(double value) {
+    _currentDistanceKm = value;
+  }
+
+  double _finalTargetKm = 0.0;
+  double get finalTargetKm => _finalTargetKm;
+  set finalTargetKm(double value) {
+    _finalTargetKm = value;
+  }
+
+  double _progressState = 0.0;
+  double get progressState => _progressState;
+  set progressState(double value) {
+    _progressState = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

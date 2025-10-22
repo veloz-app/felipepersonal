@@ -92,6 +92,11 @@ class AlternativeTrainingRecord extends FirestoreRecord {
   DocumentReference? get refChallengerTotal => _refChallengerTotal;
   bool hasRefChallengerTotal() => _refChallengerTotal != null;
 
+  // "DurationTotal" field.
+  String? _durationTotal;
+  String get durationTotal => _durationTotal ?? '';
+  bool hasDurationTotal() => _durationTotal != null;
+
   void _initializeFields() {
     _displayNameTraining = snapshotData['display_name_training'] as String?;
     _description = snapshotData['description'] as String?;
@@ -109,6 +114,7 @@ class AlternativeTrainingRecord extends FirestoreRecord {
     _chellengerEndDate = snapshotData['chellengerEndDate'] as DateTime?;
     _refChallengerTotal =
         snapshotData['refChallengerTotal'] as DocumentReference?;
+    _durationTotal = snapshotData['DurationTotal'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -159,6 +165,7 @@ Map<String, dynamic> createAlternativeTrainingRecordData({
   DateTime? challengerStartDate,
   DateTime? chellengerEndDate,
   DocumentReference? refChallengerTotal,
+  String? durationTotal,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -174,6 +181,7 @@ Map<String, dynamic> createAlternativeTrainingRecordData({
       'challengerStartDate': challengerStartDate,
       'chellengerEndDate': chellengerEndDate,
       'refChallengerTotal': refChallengerTotal,
+      'DurationTotal': durationTotal,
     }.withoutNulls,
   );
 
@@ -201,7 +209,8 @@ class AlternativeTrainingRecordDocumentEquality
         e1?.durationMs == e2?.durationMs &&
         e1?.challengerStartDate == e2?.challengerStartDate &&
         e1?.chellengerEndDate == e2?.chellengerEndDate &&
-        e1?.refChallengerTotal == e2?.refChallengerTotal;
+        e1?.refChallengerTotal == e2?.refChallengerTotal &&
+        e1?.durationTotal == e2?.durationTotal;
   }
 
   @override
@@ -220,7 +229,8 @@ class AlternativeTrainingRecordDocumentEquality
         e?.durationMs,
         e?.challengerStartDate,
         e?.chellengerEndDate,
-        e?.refChallengerTotal
+        e?.refChallengerTotal,
+        e?.durationTotal
       ]);
 
   @override

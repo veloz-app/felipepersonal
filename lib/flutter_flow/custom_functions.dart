@@ -45,3 +45,13 @@ String formatTimeDifference(DateTime? endDate) {
   // 6. Retorna o formato final: "Xd HH:MM:SS"
   return '${days}d $formattedHours:$formattedMinutes:$formattedSeconds';
 }
+
+double? calculateDistance(
+  double percentage,
+  double finalValueKm,
+) {
+  double calculateDistance(double percentage, double finalValueKm) {
+    // Garantir que a porcentagem seja tratada como um número entre 0 e 1 (por isso a divisão por 100)
+    return (percentage / 100.0) * finalValueKm;
+  }
+}

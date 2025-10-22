@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 class ObjectivesModel extends FlutterFlowModel<ObjectivesWidget> {
   ///  Local state fields for this page.
 
-  double currentProgressState = 0.0;
+  bool isUpdating = false;
 
-  double finalGoalValue = 1.0;
+  double? progressState;
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Firestore Query - Query a collection] action in objectives widget.
-  UserObjectivesRecord? query1;
+  // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
+  UserObjectivesRecord? query11;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   int? contagem;
 

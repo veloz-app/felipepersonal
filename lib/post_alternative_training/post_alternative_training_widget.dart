@@ -344,7 +344,8 @@ class _PostAlternativeTrainingWidgetState
                         259200000,
                         345600000,
                         432000000,
-                        604800000
+                        604800000,
+                        3600000
                       ]),
                       optionLabels: [
                         FFLocalizations.of(context).getText(
@@ -364,6 +365,9 @@ class _PostAlternativeTrainingWidgetState
                         ),
                         FFLocalizations.of(context).getText(
                           'hljdamgg' /* 1 semana */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'm2c5qa5h' /* 1 hora */,
                         )
                       ],
                       onChanged: (val) async {
@@ -806,6 +810,15 @@ um vídeo */
                                 _model.confirmImageCoverUpdate = false;
                                 safeSetState(() {});
 
+                                await currentUserReference!.update({
+                                  ...mapToFirestore(
+                                    {
+                                      'notificationCount':
+                                          FieldValue.increment(1),
+                                    },
+                                  ),
+                                });
+
                                 var alternativeTrainingRecordReference =
                                     AlternativeTrainingRecord.collection.doc();
                                 await alternativeTrainingRecordReference.set({
@@ -827,6 +840,28 @@ um vídeo */
                                         functions.calculateDeadline(
                                             _model.durationAdmMs),
                                     refChallengerTotal: currentUserReference,
+                                    durationTotal: () {
+                                      if (_model.dropDownValue == 86400000) {
+                                        return '1 dia';
+                                      } else if (_model.dropDownValue ==
+                                          172800000) {
+                                        return '2 dias';
+                                      } else if (_model.dropDownValue ==
+                                          259200000) {
+                                        return '3 dias';
+                                      } else if (_model.dropDownValue ==
+                                          345600000) {
+                                        return '4 dias';
+                                      } else if (_model.dropDownValue ==
+                                          432000000) {
+                                        return '5 dias';
+                                      } else if (_model.dropDownValue ==
+                                          604800000) {
+                                        return '1 semana';
+                                      } else {
+                                        return '1 hora';
+                                      }
+                                    }(),
                                   ),
                                   ...mapToFirestore(
                                     {
@@ -856,6 +891,28 @@ um vídeo */
                                         functions.calculateDeadline(
                                             _model.durationAdmMs),
                                     refChallengerTotal: currentUserReference,
+                                    durationTotal: () {
+                                      if (_model.dropDownValue == 86400000) {
+                                        return '1 dia';
+                                      } else if (_model.dropDownValue ==
+                                          172800000) {
+                                        return '2 dias';
+                                      } else if (_model.dropDownValue ==
+                                          259200000) {
+                                        return '3 dias';
+                                      } else if (_model.dropDownValue ==
+                                          345600000) {
+                                        return '4 dias';
+                                      } else if (_model.dropDownValue ==
+                                          432000000) {
+                                        return '5 dias';
+                                      } else if (_model.dropDownValue ==
+                                          604800000) {
+                                        return '1 semana';
+                                      } else {
+                                        return '1 hora';
+                                      }
+                                    }(),
                                   ),
                                   ...mapToFirestore(
                                     {
@@ -866,10 +923,8 @@ um vídeo */
 
                                 await NotificationRecord.collection.doc().set({
                                   ...createNotificationRecordData(
-                                    notificationType:
-                                        'publicou um vídeo alternativo',
+                                    notificationType: 'publicou um desafio',
                                     idNotification: '',
-                                    statusNotification: false,
                                     imageCoverUrl: _model
                                         .uploadedFileUrl_uploadImageCOverNotification,
                                   ),

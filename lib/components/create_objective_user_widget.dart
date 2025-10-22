@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
+import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -443,67 +444,71 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Flexible(
-                                child: FlutterFlowDropDown<String>(
-                                  controller: _model
-                                          .dropDownTypePeriodValueController ??=
-                                      FormFieldController<String>(
-                                    _model.dropDownTypePeriodValue ??= '',
-                                  ),
-                                  options: List<String>.from(['Mês', 'Dia']),
-                                  optionLabels: [
-                                    FFLocalizations.of(context).getText(
-                                      'tjiam20o' /* Mês/Meses */,
+                              if (_model.dropDownObjectiveSelectValue !=
+                                  'Dormir melhor')
+                                Flexible(
+                                  child: FlutterFlowDropDown<String>(
+                                    controller: _model
+                                            .dropDownTypePeriodValueController ??=
+                                        FormFieldController<String>(
+                                      _model.dropDownTypePeriodValue ??= '',
                                     ),
-                                    FFLocalizations.of(context).getText(
-                                      'rfnmgwgs' /* Dia/dias */,
-                                    )
-                                  ],
-                                  onChanged: (val) => safeSetState(() =>
-                                      _model.dropDownTypePeriodValue = val),
-                                  width: 200.0,
-                                  height: 40.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.montserrat(
+                                    options: List<String>.from(['Mês', 'Dia']),
+                                    optionLabels: [
+                                      FFLocalizations.of(context).getText(
+                                        'tjiam20o' /* Mês/Meses */,
+                                      ),
+                                      FFLocalizations.of(context).getText(
+                                        'rfnmgwgs' /* Dia/dias */,
+                                      )
+                                    ],
+                                    onChanged: (val) => safeSetState(() =>
+                                        _model.dropDownTypePeriodValue = val),
+                                    width: 200.0,
+                                    height: 40.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.montserrat(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 13.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                           fontStyle:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 13.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                  hintText: FFLocalizations.of(context).getText(
-                                    'dxys5v3a' /* Tipo de período */,
-                                  ),
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: FlutterFlowTheme.of(context)
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      'dxys5v3a' /* Tipo de período */,
+                                    ),
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 24.0,
+                                    ),
+                                    elevation: 2.0,
+                                    borderColor: FlutterFlowTheme.of(context)
                                         .primaryText,
-                                    size: 24.0,
+                                    borderWidth: 1.0,
+                                    borderRadius: 8.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        12.0, 0.0, 12.0, 0.0),
+                                    hidesUnderline: true,
+                                    isOverButton: false,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
                                   ),
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  borderWidth: 1.0,
-                                  borderRadius: 8.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 0.0, 12.0, 0.0),
-                                  hidesUnderline: true,
-                                  isOverButton: false,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
                                 ),
-                              ),
                               Expanded(
                                 child: Container(
                                   width: double.infinity,
@@ -561,7 +566,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           ),
                                       alignLabelWithHint: true,
                                       hintText: valueOrDefault<String>(
-                                        'Quantos ${() {
+                                        '${_model.dropDownObjectiveSelectValue == 'Dormir melhor' ? 'Quantas ' : 'Quantos '}${() {
                                           if (_model.dropDownTypePeriodValue ==
                                               'Dia') {
                                             return 'dias?';
@@ -569,6 +574,10 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                                   .dropDownTypePeriodValue ==
                                               'Mês') {
                                             return 'meses?';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Dormir melhor') {
+                                            return 'noites';
                                           } else {
                                             return '';
                                           }
@@ -676,7 +685,14 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(width: 20.0)),
+                            ].divide(SizedBox(
+                                width: valueOrDefault<double>(
+                              _model.dropDownObjectiveSelectValue !=
+                                      'Dormir melhor'
+                                  ? 20.0
+                                  : 0.0,
+                              0.0,
+                            ))),
                           ),
                         ),
                         Padding(
@@ -805,17 +821,15 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: !((_model
-                                                .dropDownObjectiveSelectValue !=
+                            onPressed: !((_model.dropDownObjectiveSelectValue !=
                                             null &&
-                                        _model
-                                                .dropDownObjectiveSelectValue !=
+                                        _model.dropDownObjectiveSelectValue !=
                                             '') &&
                                     ((_model.objectiveFinalTextController
                                                     .text !=
                                                 '') ||
                                         (_model.dropDownObjectiveSelectValue ==
-                                            'Caminhada') ||
+                                            'Melhorar alimentação') ||
                                         (_model.dropDownObjectiveSelectValue ==
                                             'Dormir melhor')) &&
                                     (_model.dropDownTypePeriodValue != null &&
@@ -872,8 +886,25 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         .set({
                                       ...createUserObjectivesRecordData(
                                         userID: currentUserUid,
-                                        finalObjectives: double.tryParse(_model
-                                            .objectiveFinalTextController.text),
+                                        finalObjectives: () {
+                                          if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Dormir melhor') {
+                                            return double.tryParse(_model
+                                                .objectivePeriodTextController
+                                                .text);
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Melhorar alimentação') {
+                                            return double.tryParse(_model
+                                                .objectivePeriodTextController
+                                                .text);
+                                          } else {
+                                            return double.tryParse(_model
+                                                .objectiveFinalTextController
+                                                .text);
+                                          }
+                                        }(),
                                         progressObjetive: 0.0,
                                         descriptionObjectives: _model
                                             .detailsObjectiveCreateUserTextController
@@ -887,7 +918,56 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         userObjetiveRef: currentUserReference,
                                         typePeriod:
                                             _model.dropDownTypePeriodValue,
-                                        typeObjective: _model.typeObjective,
+                                        typeObjective: () {
+                                          if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Ganhar massa muscular') {
+                                            return 'Kg';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Caminhar') {
+                                            return 'Km';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Melhorar alimentação') {
+                                            return (_model
+                                                        .objectiveFinalTextController
+                                                        .text ==
+                                                    '1'
+                                                ? 'Dia'
+                                                : 'Dias');
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Dormir melhor') {
+                                            return 'Noites';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Perder peso') {
+                                            return 'Kg';
+                                          } else if (_model
+                                                  .dropDownObjectiveSelectValue ==
+                                              'Beber mais água') {
+                                            return (_model
+                                                        .objectiveFinalTextController
+                                                        .text ==
+                                                    '1'
+                                                ? 'Litro'
+                                                : 'Litros');
+                                          } else {
+                                            return '';
+                                          }
+                                        }(),
+                                        docRef: random_data.randomString(
+                                          20,
+                                          20,
+                                          true,
+                                          true,
+                                          false,
+                                        ),
+                                        progressPercent: 0.0,
+                                        currentDistanceKm: 0.0,
+                                        nameObjetive:
+                                            _model.dropDownObjectiveSelectValue,
                                       ),
                                       ...mapToFirestore(
                                         {
@@ -896,9 +976,11 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                         },
                                       ),
                                     });
+                                    FFAppState().expandedIndex = -1;
+                                    safeSetState(() {});
                                     _model.typeObjective = () {
                                       if (_model.dropDownObjectiveSelectValue ==
-                                          'Melhorar Alimentação') {
+                                          'Melhorar alimentação') {
                                         return (_model
                                                     .objectivePeriodTextController
                                                     .text !=

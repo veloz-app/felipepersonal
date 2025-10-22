@@ -15,6 +15,8 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Firestore Query - Query a collection] action in homepage widget.
+  AlternativeTrainingRecord? queryOFF;
   InstantTimer? instantTimer;
   // State field(s) for ListView widget.
 

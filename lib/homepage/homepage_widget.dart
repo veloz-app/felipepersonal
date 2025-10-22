@@ -10,6 +10,7 @@ import '/flutter_flow/instant_timer.dart';
 import '/index.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -45,6 +46,23 @@ class _HomepageWidgetState extends State<HomepageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.queryOFF = await queryAlternativeTrainingRecordOnce(
+        queryBuilder: (alternativeTrainingRecord) =>
+            alternativeTrainingRecord.where(
+          'chellengerEndDate',
+          isLessThan: getCurrentTimestamp,
+        ),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+
+      await _model.queryOFF!.reference.update({
+        ...mapToFirestore(
+          {
+            'challengesReference':
+                FieldValue.arrayRemove([currentUserReference]),
+          },
+        ),
+      });
       safeSetState(() {});
       _model.pageVeiwNext = 1;
       safeSetState(() {});
@@ -325,9 +343,15 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       await listViewNotificationRecord.reference
-                                          .update(createNotificationRecordData(
-                                        statusNotification: true,
-                                      ));
+                                          .update({
+                                        ...mapToFirestore(
+                                          {
+                                            'userReferenceNotification':
+                                                FieldValue.arrayUnion(
+                                                    [currentUserReference]),
+                                          },
+                                        ),
+                                      });
                                       if (listViewNotificationRecord
                                               .notificationType ==
                                           'publicou um vídeo alternativo') {
@@ -401,7 +425,9 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: listViewNotificationRecord
-                                                        .statusNotification ==
+                                                        .userReferenceNotification
+                                                        .contains(
+                                                            currentUserReference) ==
                                                     false
                                                 ? FlutterFlowTheme.of(context)
                                                     .primary
@@ -454,7 +480,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                               .bodyMedium
                                                                               .fontStyle,
                                                                         ),
-                                                                        color: listViewNotificationRecord.statusNotification ==
+                                                                        color: listViewNotificationRecord.userReferenceNotification.contains(currentUserReference) ==
                                                                                 false
                                                                             ? FlutterFlowTheme.of(context).info
                                                                             : FlutterFlowTheme.of(context).primary,
@@ -484,7 +510,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                               .bodyMedium
                                                                               .fontStyle,
                                                                         ),
-                                                                        color: listViewNotificationRecord.statusNotification ==
+                                                                        color: listViewNotificationRecord.userReferenceNotification.contains(currentUserReference) ==
                                                                                 false
                                                                             ? FlutterFlowTheme.of(context).info
                                                                             : FlutterFlowTheme.of(context).primary,
@@ -565,7 +591,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                                                           .bodyMedium
                                                                           .fontStyle,
                                                                     ),
-                                                                    color: listViewNotificationRecord.statusNotification ==
+                                                                    color: listViewNotificationRecord.userReferenceNotification.contains(currentUserReference) ==
                                                                             false
                                                                         ? FlutterFlowTheme.of(context)
                                                                             .info

@@ -16,16 +16,21 @@ class EditObjectiveUserModel extends FlutterFlowModel<EditObjectiveUserWidget> {
   TextEditingController? objectiveCreateUserTextController;
   String? Function(BuildContext, String?)?
       objectiveCreateUserTextControllerValidator;
-  // State field(s) for editObjectiveFinal widget.
-  FocusNode? editObjectiveFinalFocusNode;
-  TextEditingController? editObjectiveFinalTextController;
+  // State field(s) for FinalObjectiveUser widget.
+  FocusNode? finalObjectiveUserFocusNode;
+  TextEditingController? finalObjectiveUserTextController;
   String? Function(BuildContext, String?)?
-      editObjectiveFinalTextControllerValidator;
+      finalObjectiveUserTextControllerValidator;
   // State field(s) for editObjectiveDateUser widget.
-  FocusNode? editObjectiveDateUserFocusNode;
-  TextEditingController? editObjectiveDateUserTextController;
+  FocusNode? editObjectiveDateUserFocusNode1;
+  TextEditingController? editObjectiveDateUserTextController1;
   String? Function(BuildContext, String?)?
-      editObjectiveDateUserTextControllerValidator;
+      editObjectiveDateUserTextController1Validator;
+  // State field(s) for editObjectiveDateUser widget.
+  FocusNode? editObjectiveDateUserFocusNode2;
+  TextEditingController? editObjectiveDateUserTextController2;
+  String? Function(BuildContext, String?)?
+      editObjectiveDateUserTextController2Validator;
   // State field(s) for editDetailsObjectiveUser widget.
   FocusNode? editDetailsObjectiveUserFocusNode;
   TextEditingController? editDetailsObjectiveUserTextController;
@@ -40,11 +45,14 @@ class EditObjectiveUserModel extends FlutterFlowModel<EditObjectiveUserWidget> {
     objectiveCreateUserFocusNode?.dispose();
     objectiveCreateUserTextController?.dispose();
 
-    editObjectiveFinalFocusNode?.dispose();
-    editObjectiveFinalTextController?.dispose();
+    finalObjectiveUserFocusNode?.dispose();
+    finalObjectiveUserTextController?.dispose();
 
-    editObjectiveDateUserFocusNode?.dispose();
-    editObjectiveDateUserTextController?.dispose();
+    editObjectiveDateUserFocusNode1?.dispose();
+    editObjectiveDateUserTextController1?.dispose();
+
+    editObjectiveDateUserFocusNode2?.dispose();
+    editObjectiveDateUserTextController2?.dispose();
 
     editDetailsObjectiveUserFocusNode?.dispose();
     editDetailsObjectiveUserTextController?.dispose();

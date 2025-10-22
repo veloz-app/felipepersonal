@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'estudio_widget.dart' show EstudioWidget;
+import 'challenger_done_widget.dart' show ChallengerDoneWidget;
 import 'package:flutter/material.dart';
 
-class EstudioModel extends FlutterFlowModel<EstudioWidget> {
+class ChallengerDoneModel extends FlutterFlowModel<ChallengerDoneWidget> {
   @override
   void initState(BuildContext context) {}
 

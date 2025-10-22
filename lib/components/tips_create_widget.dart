@@ -412,7 +412,6 @@ class _TipsCreateWidgetState extends State<TipsCreateWidget> {
                                             notificationType:
                                                 'publicou uma dica',
                                             idNotification: '',
-                                            statusNotification: false,
                                             imageCoverUrl:
                                                 'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FIcone%20notifica%C3%A7%C3%A3o.png?alt=media&token=c1d29a66-4e2d-4ef9-a64c-375907c222bc',
                                           ),

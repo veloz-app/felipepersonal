@@ -79,17 +79,13 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 60.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.asset(
-                            'assets/images/Logtipo_icone_v2_dourado.png',
-                            width: 118.2,
-                            height: 107.0,
-                            fit: BoxFit.contain,
-                          ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/Logtipo_icone_v2_dourado.png',
+                          width: 114.2,
+                          height: 93.47,
+                          fit: BoxFit.contain,
                         ),
                       ),
                       Container(

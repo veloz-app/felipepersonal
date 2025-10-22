@@ -397,6 +397,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
       'es': '',
     },
+    'm2c5qa5h': {
+      'pt': '1 hora',
+      'en': '',
+      'es': '',
+    },
     'pk3ugkyv': {
       'pt': 'Detalhes',
       'en': 'Details',
@@ -588,29 +593,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': 'Objetivos existentes',
     },
     'i9vp6jzm': {
-      'pt': 'Home',
-      'en': 'Home',
-      'es': 'Hogar',
-    },
-  },
-  // estudio
-  {
-    '71qa1ueb': {
-      'pt': 'Page Title',
-      'en': '',
-      'es': '',
-    },
-    '69erhqnr': {
-      'pt': 'Hello World',
-      'en': '',
-      'es': '',
-    },
-    'p7ydh5ub': {
-      'pt': 'Hello World',
-      'en': '',
-      'es': '',
-    },
-    'esg5e5gn': {
       'pt': 'Home',
       'en': 'Home',
       'es': 'Hogar',
@@ -880,10 +862,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Objective type',
       'es': 'Tipo de objetivo',
     },
-    'xyp9kryv': {
-      'pt': 'Objetivo Final',
-      'en': 'Final Goal',
-      'es': 'Objetivo final',
+    'fgmarpxa': {
+      'pt': 'Em quanto tempo',
+      'en': 'In how much time',
+      'es': '¿En cuanto tiempo?',
     },
     'a5wg6rki': {
       'pt': 'Em quanto tempo',
@@ -982,6 +964,67 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'oorxwj91': {
       'pt': '3',
+      'en': '',
+      'es': '',
+    },
+  },
+  // challengerDone
+  {
+    'kgdwnpqk': {
+      'pt': 'Desafios finalizados',
+      'en': 'More details',
+      'es': 'Más detalles',
+    },
+  },
+  // userDetailsCompleteObjectives
+  {
+    'bdqe5ddk': {
+      'pt': 'Mais detalhes',
+      'en': 'More details',
+      'es': 'Más detalles',
+    },
+    'ntmhihxr': {
+      'pt': 'Objetivo concluídos',
+      'en': 'More details',
+      'es': 'Más detalles',
+    },
+    '438xc0ij': {
+      'pt': 'Tipo de Objetivo: ',
+      'en': '',
+      'es': '',
+    },
+    'v2lw0xy8': {
+      'pt': 'Objetivo final: ',
+      'en': '',
+      'es': '',
+    },
+    'urmhfj8g': {
+      'pt': ' ',
+      'en': '',
+      'es': '',
+    },
+    'rqssb42z': {
+      'pt': ' por dia',
+      'en': '',
+      'es': '',
+    },
+    'q7uvprf7': {
+      'pt': 'Período: ',
+      'en': '',
+      'es': '',
+    },
+    'cc0fw7cf': {
+      'pt': ' ',
+      'en': '',
+      'es': '',
+    },
+    'pa5a5p7k': {
+      'pt': 'Detalhes: ',
+      'en': '',
+      'es': '',
+    },
+    'li4xp8uq': {
+      'pt': 'Completo',
       'en': '',
       'es': '',
     },

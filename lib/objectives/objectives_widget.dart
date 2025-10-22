@@ -2,10 +2,10 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/create_objective_user_widget.dart';
 import '/components/custon_dialog_congratilation_widget.dart';
-import '/components/details_objective_user_widget.dart';
 import '/components/edit_objective_user_widget.dart';
 import '/components/enpty_field_completed_widget.dart';
 import '/components/itemlist_enpty_widget.dart';
+import '/components/user_details_complete_objectives_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -43,11 +43,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.query1 = await queryUserObjectivesRecordOnce(
-        singleRecord: true,
-      ).then((s) => s.firstOrNull);
-      _model.currentProgressState = _model.query1!.progressObjetive;
-      _model.finalGoalValue = _model.query1!.finalObjectives;
+      FFAppState().expandedIndex = -1;
       safeSetState(() {});
     });
   }
@@ -250,11 +246,41 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
+                                  var _shouldSetState = false;
                                   FFAppState().expandedIndex = listViewIndex ==
                                           FFAppState().expandedIndex
                                       ? -1
                                       : listViewIndex;
                                   safeSetState(() {});
+                                  if (listViewIndex == listViewIndex) {
+                                    _model.query11 =
+                                        await queryUserObjectivesRecordOnce(
+                                      queryBuilder: (userObjectivesRecord) =>
+                                          userObjectivesRecord.where(
+                                        'userID',
+                                        isEqualTo: currentUserReference?.id,
+                                      ),
+                                      singleRecord: true,
+                                    ).then((s) => s.firstOrNull);
+                                    _shouldSetState = true;
+                                    FFAppState().finalTargetKm =
+                                        listViewUserObjectivesRecord
+                                            .finalObjectives;
+                                    FFAppState().currentDistanceKm =
+                                        listViewUserObjectivesRecord
+                                            .currentDistanceKm;
+                                    FFAppState().progressPercent =
+                                        listViewUserObjectivesRecord
+                                            .progressPercent;
+                                    safeSetState(() {});
+                                    if (_shouldSetState) safeSetState(() {});
+                                    return;
+                                  } else {
+                                    if (_shouldSetState) safeSetState(() {});
+                                    return;
+                                  }
+
+                                  if (_shouldSetState) safeSetState(() {});
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6.0),
@@ -805,7 +831,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                         width:
                                                                             337.6,
                                                                         height:
-                                                                            68.87,
+                                                                            73.31,
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
@@ -814,9 +840,9 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                         child:
                                                                             Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              14.0,
+                                                                              11.0,
                                                                               0.0,
-                                                                              14.0,
+                                                                              11.0,
                                                                               0.0),
                                                                           child:
                                                                               Row(
@@ -844,9 +870,8 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                           padding: MediaQuery.viewInsetsOf(context),
                                                                                           child: Container(
                                                                                             height: MediaQuery.sizeOf(context).height * 0.55,
-                                                                                            child: DetailsObjectiveUserWidget(
-                                                                                              detailsObjectiveUser: listViewUserObjectivesRecord.descriptionObjectives,
-                                                                                              paramRefObjective: listViewUserObjectivesRecord.documentObjectiveRef!,
+                                                                                            child: UserDetailsCompleteObjectivesWidget(
+                                                                                              paramRefUserObjective: listViewUserObjectivesRecord.reference,
                                                                                             ),
                                                                                           ),
                                                                                         ),
@@ -889,6 +914,9 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                                 detailsObjectiveUser: listViewUserObjectivesRecord.descriptionObjectives,
                                                                                                 paramRefObjectiveUser: listViewUserObjectivesRecord.reference,
                                                                                                 paramRefObjectiveName: listViewUserObjectivesRecord.documentObjectiveRef!,
+                                                                                                typePeriod: listViewUserObjectivesRecord.typePeriod,
+                                                                                                nameObjetive: listViewUserObjectivesRecord.nameObjetive,
+                                                                                                typeObjective: listViewUserObjectivesRecord.typeObjective,
                                                                                               ),
                                                                                             ),
                                                                                           ),
@@ -983,10 +1011,10 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                               ),
                                                                               Expanded(
                                                                                 child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(3.0, 3.0, 0.0, 4.0),
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(3.0, 0.0, 0.0, 0.0),
                                                                                   child: Column(
                                                                                     mainAxisSize: MainAxisSize.max,
-                                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                                                     children: [
                                                                                       Container(
                                                                                         decoration: BoxDecoration(
@@ -1005,7 +1033,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                   ),
                                                                                                   color: FlutterFlowTheme.of(context).info,
-                                                                                                  fontSize: 10.0,
+                                                                                                  fontSize: 9.0,
                                                                                                   letterSpacing: 0.0,
                                                                                                   fontWeight: FontWeight.w500,
                                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -1013,89 +1041,125 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                           ),
                                                                                         ),
                                                                                       ),
-                                                                                      Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                                                          children: [
-                                                                                            Column(
-                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                              children: [
-                                                                                                Text(
-                                                                                                  FFLocalizations.of(context).getText(
-                                                                                                    'bje5ef8y' /* Final */,
-                                                                                                  ),
-                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                        font: GoogleFonts.montserrat(
-                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                        ),
-                                                                                                        color: FlutterFlowTheme.of(context).primary,
-                                                                                                        fontSize: 12.0,
-                                                                                                        letterSpacing: 0.0,
+                                                                                      Row(
+                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                        children: [
+                                                                                          Column(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                FFLocalizations.of(context).getText(
+                                                                                                  'bje5ef8y' /* Final */,
+                                                                                                ),
+                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                      font: GoogleFonts.montserrat(
                                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                       ),
-                                                                                                ),
-                                                                                                Text(
-                                                                                                  '${formatNumber(
-                                                                                                    listViewUserObjectivesRecord.finalObjectives,
-                                                                                                    formatType: FormatType.custom,
-                                                                                                    format: '#',
-                                                                                                    locale: '',
-                                                                                                  )} ${containerObjectivesRecord.typeObjective}',
-                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                        font: GoogleFonts.montserrat(
-                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                        ),
-                                                                                                        color: FlutterFlowTheme.of(context).primary,
-                                                                                                        fontSize: 13.0,
-                                                                                                        letterSpacing: 0.0,
+                                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                                      fontSize: 11.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                    ),
+                                                                                              ),
+                                                                                              Text(
+                                                                                                '${formatNumber(
+                                                                                                  listViewUserObjectivesRecord.finalObjectives,
+                                                                                                  formatType: FormatType.custom,
+                                                                                                  format: '#',
+                                                                                                  locale: '',
+                                                                                                )} ${containerObjectivesRecord.typeObjective}',
+                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                      font: GoogleFonts.montserrat(
                                                                                                         fontWeight: FontWeight.w600,
                                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                       ),
+                                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                                      fontSize: 12.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FontWeight.w600,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                          Column(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                FFLocalizations.of(context).getText(
+                                                                                                  '6sevf2ii' /* Atual */,
                                                                                                 ),
-                                                                                              ],
-                                                                                            ),
-                                                                                            Column(
-                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                              children: [
-                                                                                                Text(
-                                                                                                  FFLocalizations.of(context).getText(
-                                                                                                    '6sevf2ii' /* Atual */,
-                                                                                                  ),
-                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                        font: GoogleFonts.montserrat(
-                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                        ),
-                                                                                                        color: FlutterFlowTheme.of(context).primary,
-                                                                                                        fontSize: 12.0,
-                                                                                                        letterSpacing: 0.0,
+                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                      font: GoogleFonts.montserrat(
                                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                       ),
-                                                                                                ),
-                                                                                                Text(
-                                                                                                  '${(_model.currentProgressState * _model.finalGoalValue).toStringAsFixed(1)} ${containerObjectivesRecord.typeObjective}',
-                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                        font: GoogleFonts.montserrat(
-                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                        ),
-                                                                                                        color: FlutterFlowTheme.of(context).primary,
-                                                                                                        fontSize: 13.0,
-                                                                                                        letterSpacing: 0.0,
+                                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                                      fontSize: 11.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                    ),
+                                                                                              ),
+                                                                                              Text(
+                                                                                                '${() {
+                                                                                                  if (containerObjectivesRecord.nameObjective == 'Dormir melhor') {
+                                                                                                    return formatNumber(
+                                                                                                      listViewUserObjectivesRecord.currentDistanceKm,
+                                                                                                      formatType: FormatType.custom,
+                                                                                                      format: '#',
+                                                                                                      locale: '',
+                                                                                                    );
+                                                                                                  } else if (containerObjectivesRecord.nameObjective == 'Melhorar alimentação') {
+                                                                                                    return formatNumber(
+                                                                                                      listViewUserObjectivesRecord.currentDistanceKm,
+                                                                                                      formatType: FormatType.custom,
+                                                                                                      format: '#',
+                                                                                                      locale: '',
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    return formatNumber(
+                                                                                                      listViewUserObjectivesRecord.currentDistanceKm,
+                                                                                                      formatType: FormatType.custom,
+                                                                                                      format: '0.0',
+                                                                                                      locale: '',
+                                                                                                    );
+                                                                                                  }
+                                                                                                }()} ${() {
+                                                                                                  if (containerObjectivesRecord.nameObjective == 'Dormir melhor') {
+                                                                                                    return valueOrDefault<String>(
+                                                                                                      listViewUserObjectivesRecord.currentDistanceKm >= 1.5 ? 'Noites' : 'Noite',
+                                                                                                      'type',
+                                                                                                    );
+                                                                                                  } else if (containerObjectivesRecord.nameObjective == 'Melhorar alimentação') {
+                                                                                                    return valueOrDefault<String>(
+                                                                                                      listViewUserObjectivesRecord.currentDistanceKm >= 1.5 ? 'Dias' : 'Dia',
+                                                                                                      'type',
+                                                                                                    );
+                                                                                                  } else {
+                                                                                                    return listViewUserObjectivesRecord.typeObjective;
+                                                                                                  }
+                                                                                                }()}',
+                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                      font: GoogleFonts.montserrat(
                                                                                                         fontWeight: FontWeight.w600,
                                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                       ),
-                                                                                                ),
-                                                                                              ],
-                                                                                            ),
-                                                                                          ],
-                                                                                        ),
+                                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                                      fontSize: 12.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FontWeight.w600,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ],
                                                                                       ),
                                                                                     ],
                                                                                   ),
@@ -1107,16 +1171,35 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                 hoverColor: Colors.transparent,
                                                                                 highlightColor: Colors.transparent,
                                                                                 onTap: () async {
-                                                                                  if (listViewUserObjectivesRecord.progressObjetive >= 0.05) {
+                                                                                  _model.progressState = listViewUserObjectivesRecord.progressObjetive;
+                                                                                  safeSetState(() {});
+                                                                                  if (_model.progressState! >= 0.05) {
+                                                                                    _model.progressState = _model.progressState! + -0.05;
+                                                                                    safeSetState(() {});
+
                                                                                     await listViewUserObjectivesRecord.reference.update({
+                                                                                      ...createUserObjectivesRecordData(
+                                                                                        progressObjetive: _model.progressState,
+                                                                                      ),
                                                                                       ...mapToFirestore(
                                                                                         {
-                                                                                          'progressObjetive': FieldValue.increment(-(0.05)),
+                                                                                          'progressPercent': FieldValue.increment(-5.0),
                                                                                         },
                                                                                       ),
                                                                                     });
-                                                                                    _model.currentProgressState = ((_model.currentProgressState - (_model.finalGoalValue * 0.05)) * 100).round() / 100;
-                                                                                    safeSetState(() {});
+                                                                                    if (FFAppState().progressPercent > 0.0) {
+                                                                                      FFAppState().progressPercent = FFAppState().progressPercent + -5.0;
+                                                                                      safeSetState(() {});
+                                                                                      FFAppState().currentDistanceKm = FFAppState().progressPercent / 100 * FFAppState().finalTargetKm;
+                                                                                      safeSetState(() {});
+
+                                                                                      await listViewUserObjectivesRecord.reference.update(createUserObjectivesRecordData(
+                                                                                        currentDistanceKm: FFAppState().currentDistanceKm,
+                                                                                      ));
+                                                                                    } else {
+                                                                                      return;
+                                                                                    }
+
                                                                                     return;
                                                                                   } else {
                                                                                     await listViewUserObjectivesRecord.reference.update(createUserObjectivesRecordData(
@@ -1128,30 +1211,65 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                 child: FaIcon(
                                                                                   FontAwesomeIcons.minusCircle,
                                                                                   color: FlutterFlowTheme.of(context).primary,
-                                                                                  size: 32.0,
+                                                                                  size: 39.0,
                                                                                 ),
                                                                               ),
                                                                               Builder(
                                                                                 builder: (context) => Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                                                                                   child: InkWell(
                                                                                     splashColor: Colors.transparent,
                                                                                     focusColor: Colors.transparent,
                                                                                     hoverColor: Colors.transparent,
                                                                                     highlightColor: Colors.transparent,
                                                                                     onTap: () async {
-                                                                                      if (listViewUserObjectivesRecord.progressObjetive <= 0.95) {
-                                                                                        await listViewUserObjectivesRecord.reference.update({
-                                                                                          ...mapToFirestore(
-                                                                                            {
-                                                                                              'progressObjetive': FieldValue.increment(0.05),
-                                                                                            },
-                                                                                          ),
-                                                                                        });
-                                                                                        _model.currentProgressState = _model.currentProgressState + 0.05;
-                                                                                        safeSetState(() {});
-                                                                                        return;
+                                                                                      _model.progressState = listViewUserObjectivesRecord.progressObjetive;
+                                                                                      safeSetState(() {});
+                                                                                      if (_model.progressState! <= 0.94) {
+                                                                                        if (_model.isUpdating == false) {
+                                                                                          _model.progressState = _model.progressState! + 0.05;
+                                                                                          safeSetState(() {});
+
+                                                                                          await listViewUserObjectivesRecord.reference.update({
+                                                                                            ...createUserObjectivesRecordData(
+                                                                                              progressObjetive: _model.progressState,
+                                                                                            ),
+                                                                                            ...mapToFirestore(
+                                                                                              {
+                                                                                                'progressPercent': FieldValue.increment(5.0),
+                                                                                              },
+                                                                                            ),
+                                                                                          });
+                                                                                          FFAppState().progressPercent = FFAppState().progressPercent + 5.0;
+                                                                                          safeSetState(() {});
+                                                                                          FFAppState().currentDistanceKm = FFAppState().progressPercent / 100 * FFAppState().finalTargetKm;
+                                                                                          safeSetState(() {});
+
+                                                                                          await listViewUserObjectivesRecord.reference.update(createUserObjectivesRecordData(
+                                                                                            currentDistanceKm: FFAppState().currentDistanceKm,
+                                                                                          ));
+                                                                                          _model.isUpdating = true;
+                                                                                          safeSetState(() {});
+                                                                                          await Future.delayed(
+                                                                                            Duration(
+                                                                                              milliseconds: 600,
+                                                                                            ),
+                                                                                          );
+                                                                                          _model.isUpdating = false;
+                                                                                          safeSetState(() {});
+                                                                                          return;
+                                                                                        } else {
+                                                                                          return;
+                                                                                        }
                                                                                       } else {
+                                                                                        if (listViewUserObjectivesRecord.progressPercent > 1.0) {
+                                                                                          await listViewUserObjectivesRecord.reference.update(createUserObjectivesRecordData(
+                                                                                            progressPercent: 1.0,
+                                                                                          ));
+                                                                                        } else {
+                                                                                          return;
+                                                                                        }
+
                                                                                         await showDialog(
                                                                                           context: context,
                                                                                           builder: (dialogContext) {
@@ -1208,6 +1326,8 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                         await CompleteObjectivesRecord.collection.doc().set(createCompleteObjectivesRecordData(
                                                                                               userID: listViewUserObjectivesRecord.userID,
                                                                                               namObjectiveComplete: containerObjectivesRecord.nameObjective,
+                                                                                              userObjetivesRef: listViewUserObjectivesRecord.reference,
+                                                                                              objetivesRef: containerObjectivesRecord.reference,
                                                                                             ));
                                                                                         return;
                                                                                       }
@@ -1215,7 +1335,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                     child: FaIcon(
                                                                                       FontAwesomeIcons.plusCircle,
                                                                                       color: FlutterFlowTheme.of(context).primary,
-                                                                                      size: 35.0,
+                                                                                      size: 39.0,
                                                                                     ),
                                                                                   ),
                                                                                 ),
@@ -1250,260 +1370,323 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                     ),
                     Container(
                       width: 374.4,
-                      height: 181.3,
+                      height: 187.91,
                       decoration: BoxDecoration(),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              '3ml816kp' /* Objetivos concluídos */,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.montserrat(
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              FFLocalizations.of(context).getText(
+                                '3ml816kp' /* Objetivos concluídos */,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 18.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 16.0, 0.0, 0.0),
-                              child:
-                                  StreamBuilder<List<CompleteObjectivesRecord>>(
-                                stream: queryCompleteObjectivesRecord(
-                                  queryBuilder: (completeObjectivesRecord) =>
-                                      completeObjectivesRecord.where(
-                                    'userID',
-                                    isEqualTo: currentUserUid,
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 16.0, 0.0, 0.0),
+                                child: StreamBuilder<
+                                    List<CompleteObjectivesRecord>>(
+                                  stream: queryCompleteObjectivesRecord(
+                                    queryBuilder: (completeObjectivesRecord) =>
+                                        completeObjectivesRecord.where(
+                                      'userID',
+                                      isEqualTo: currentUserUid,
+                                    ),
                                   ),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }
-                                  List<CompleteObjectivesRecord>
-                                      gridViewCompleteObjectivesRecordList =
-                                      snapshot.data!;
-                                  if (gridViewCompleteObjectivesRecordList
-                                      .isEmpty) {
-                                    return EnptyFieldCompletedWidget();
-                                  }
-
-                                  return GridView.builder(
-                                    padding: EdgeInsets.zero,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 6,
-                                      crossAxisSpacing: 10.0,
-                                      mainAxisSpacing: 10.0,
-                                      childAspectRatio: 1.0,
-                                    ),
-                                    scrollDirection: Axis.vertical,
-                                    itemCount:
-                                        gridViewCompleteObjectivesRecordList
-                                            .length,
-                                    itemBuilder: (context, gridViewIndex) {
-                                      final gridViewCompleteObjectivesRecord =
-                                          gridViewCompleteObjectivesRecordList[
-                                              gridViewIndex];
-                                      return Builder(
-                                        builder: (context) {
-                                          if (gridViewCompleteObjectivesRecord
-                                                  .namObjectiveComplete ==
-                                              'Perder peso') {
-                                            return Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.weight,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 24.0,
-                                              ),
-                                            );
-                                          } else if (gridViewCompleteObjectivesRecord
-                                                  .namObjectiveComplete ==
-                                              'Beber mais água') {
-                                            return Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Icon(
-                                                Icons.water_drop,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 27.0,
-                                              ),
-                                            );
-                                          } else if (gridViewCompleteObjectivesRecord
-                                                  .namObjectiveComplete ==
-                                              'Dormir melhor') {
-                                            return Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.solidMoon,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 28.0,
-                                              ),
-                                            );
-                                          } else if (gridViewCompleteObjectivesRecord
-                                                  .namObjectiveComplete ==
-                                              'Caminhar') {
-                                            return Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Icon(
-                                                Icons.directions_walk_outlined,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 28.0,
-                                              ),
-                                            );
-                                          } else if (gridViewCompleteObjectivesRecord
-                                                  .namObjectiveComplete ==
-                                              'Melhorar alimentação') {
-                                            return Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Icon(
-                                                Icons.local_dining,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 28.0,
-                                              ),
-                                            );
-                                          } else if (gridViewCompleteObjectivesRecord
-                                                  .namObjectiveComplete ==
-                                              'Ganhar massa muscular') {
-                                            return Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.dumbbell,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 25.0,
-                                              ),
-                                            );
-                                          } else {
-                                            return Container(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.solidStar,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                size: 25.0,
-                                              ),
-                                            );
-                                          }
-                                        },
                                       );
-                                    },
-                                  );
-                                },
+                                    }
+                                    List<CompleteObjectivesRecord>
+                                        gridViewCompleteObjectivesRecordList =
+                                        snapshot.data!;
+                                    if (gridViewCompleteObjectivesRecordList
+                                        .isEmpty) {
+                                      return EnptyFieldCompletedWidget();
+                                    }
+
+                                    return GridView.builder(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 6,
+                                        crossAxisSpacing: 10.0,
+                                        mainAxisSpacing: 10.0,
+                                        childAspectRatio: 1.0,
+                                      ),
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          gridViewCompleteObjectivesRecordList
+                                              .length,
+                                      itemBuilder: (context, gridViewIndex) {
+                                        final gridViewCompleteObjectivesRecord =
+                                            gridViewCompleteObjectivesRecordList[
+                                                gridViewIndex];
+                                        return InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: Container(
+                                                      height: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .height *
+                                                          0.55,
+                                                      child:
+                                                          UserDetailsCompleteObjectivesWidget(
+                                                        paramRefUserObjective:
+                                                            gridViewCompleteObjectivesRecord
+                                                                .userObjetivesRef!,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          },
+                                          child: Builder(
+                                            builder: (context) {
+                                              if (gridViewCompleteObjectivesRecord
+                                                      .namObjectiveComplete ==
+                                                  'Perder peso') {
+                                                return Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.weight,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 24.0,
+                                                  ),
+                                                );
+                                              } else if (gridViewCompleteObjectivesRecord
+                                                      .namObjectiveComplete ==
+                                                  'Beber mais água') {
+                                                return Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Icon(
+                                                    Icons.water_drop,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 27.0,
+                                                  ),
+                                                );
+                                              } else if (gridViewCompleteObjectivesRecord
+                                                      .namObjectiveComplete ==
+                                                  'Dormir melhor') {
+                                                return Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.solidMoon,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 28.0,
+                                                  ),
+                                                );
+                                              } else if (gridViewCompleteObjectivesRecord
+                                                      .namObjectiveComplete ==
+                                                  'Caminhar') {
+                                                return Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Icon(
+                                                    Icons
+                                                        .directions_walk_outlined,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 28.0,
+                                                  ),
+                                                );
+                                              } else if (gridViewCompleteObjectivesRecord
+                                                      .namObjectiveComplete ==
+                                                  'Melhorar alimentação') {
+                                                return Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: Icon(
+                                                    Icons.local_dining,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 28.0,
+                                                  ),
+                                                );
+                                              } else if (gridViewCompleteObjectivesRecord
+                                                      .namObjectiveComplete ==
+                                                  'Ganhar massa muscular') {
+                                                return Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.dumbbell,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 25.0,
+                                                  ),
+                                                );
+                                              } else {
+                                                return Container(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 0.0),
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.solidStar,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    size: 25.0,
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
@@ -1516,107 +1699,91 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 12.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      _model.contagem =
-                                          await queryUserObjectivesRecordCount(
-                                        queryBuilder: (userObjectivesRecord) =>
-                                            userObjectivesRecord
-                                                .where(
-                                                  'completed',
-                                                  isEqualTo: false,
-                                                )
-                                                .where(
-                                                  'userObjetiveRef',
-                                                  isEqualTo:
-                                                      currentUserReference,
-                                                ),
-                                      );
-                                      if (_model.contagem.toString() == '3') {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text('Atenção'),
-                                              content: Text(
-                                                  'Você atingiu o número maxímo de objetivos ao mesmo tempo. '),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      } else {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          context: context,
-                                          builder: (context) {
-                                            return GestureDetector(
-                                              onTap: () {
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                                FocusManager
-                                                    .instance.primaryFocus
-                                                    ?.unfocus();
-                                              },
-                                              child: Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: Container(
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.55,
-                                                  child:
-                                                      CreateObjectiveUserWidget(),
-                                                ),
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    _model.contagem =
+                                        await queryUserObjectivesRecordCount(
+                                      queryBuilder: (userObjectivesRecord) =>
+                                          userObjectivesRecord
+                                              .where(
+                                                'completed',
+                                                isEqualTo: false,
+                                              )
+                                              .where(
+                                                'userObjetiveRef',
+                                                isEqualTo: currentUserReference,
                                               ),
-                                            );
-                                          },
-                                        ).then((value) => safeSetState(() {}));
-                                      }
-
-                                      safeSetState(() {});
-                                    },
-                                    text: FFLocalizations.of(context).getText(
-                                      't4kna2wd' /* Criar um objetivo */,
-                                    ),
-                                    options: FFButtonOptions(
-                                      width: double.infinity,
-                                      height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 16.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            font: GoogleFonts.montserrat(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
+                                    );
+                                    if (_model.contagem.toString() == '3') {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: Text('Atenção'),
+                                            content: Text(
+                                                'Você atingiu o número maxímo de objetivos ao mesmo tempo. '),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        enableDrag: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: Container(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.55,
+                                                child:
+                                                    CreateObjectiveUserWidget(),
+                                              ),
                                             ),
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
+                                          );
+                                        },
+                                      ).then((value) => safeSetState(() {}));
+
+                                      FFAppState().finalTargetKm = 0.0;
+                                      FFAppState().currentDistanceKm = 0.0;
+                                      FFAppState().progressPercent = 0.0;
+                                      safeSetState(() {});
+                                    }
+
+                                    safeSetState(() {});
+                                  },
+                                  text: FFLocalizations.of(context).getText(
+                                    't4kna2wd' /* Criar um objetivo */,
+                                  ),
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 40.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.montserrat(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -1626,9 +1793,19 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                     .titleSmall
                                                     .fontStyle,
                                           ),
-                                      elevation: 0.0,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
                               ],
@@ -1639,7 +1816,7 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                     ),
                     Container(
                       width: double.infinity,
-                      height: 48.3,
+                      height: 25.09,
                       decoration: BoxDecoration(),
                     ),
                   ],

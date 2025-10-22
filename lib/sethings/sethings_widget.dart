@@ -269,26 +269,31 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                         }
 
                         if (currentUserPhoto == '') {
-                          await currentUserReference!
-                              .update(createUserRecordData(
-                            photoUrl: _model.uploadedFileUrl_uploadUserImage,
-                          ));
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                '',
-                                style: TextStyle(
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16.0,
+                          if (_model.uploadedFileUrl_uploadUserImage != '') {
+                            await currentUserReference!
+                                .update(createUserRecordData(
+                              photoUrl: _model.uploadedFileUrl_uploadUserImage,
+                            ));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  '',
+                                  style: TextStyle(
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.0,
+                                  ),
                                 ),
+                                duration: Duration(milliseconds: 1600),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).primary,
                               ),
-                              duration: Duration(milliseconds: 1600),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).primary,
-                            ),
-                          );
-                          return;
+                            );
+                            return;
+                          } else {
+                            return;
+                          }
                         } else {
                           if (_model.isDataUploading_uploadUserImage) {
                             await currentUserReference!
@@ -438,7 +443,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'aten5lxh' /* Selecionar idioma do aplicativ... */,
@@ -529,7 +534,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                       } else {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 25.0, 0.0, 6.0),
+                              0.0, 20.0, 0.0, 6.0),
                           child: Text(
                             FFLocalizations.of(context).getText(
                               'ni9e2f58' /* Ativar modo dark */,
@@ -572,7 +577,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         '8gl3shmx' /* Clique nesse botão para altera... */,
@@ -653,7 +658,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 21.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         Function() _navigate = () {};
@@ -744,7 +749,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 21.0, 0.0, 0.0),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         '0u4w0oh4' /* Versão do aplicativo 1.0 */,
@@ -770,25 +775,12 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                           ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 29.0),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'qgz3o18n' /* Desenvolvido por Veloz aplicat... */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.montserrat(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: 12.0,
-                            letterSpacing: 0.0,
+                  Text(
+                    FFLocalizations.of(context).getText(
+                      'qgz3o18n' /* Desenvolvido por Veloz aplicat... */,
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.montserrat(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .fontWeight,
@@ -796,7 +788,15 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                                 .bodyMedium
                                 .fontStyle,
                           ),
-                    ),
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          fontSize: 12.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
                   ),
                 ],
               ),

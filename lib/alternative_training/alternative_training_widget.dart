@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/alternative_video_details_widget.dart';
+import '/components/challenger_done_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
@@ -106,24 +107,68 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                   context.pop();
                 },
               ),
-              title: Text(
-                FFLocalizations.of(context).getText(
-                  'ryd5vvtx' /* Desafios */,
-                ),
-                style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      font: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontStyle,
-                      ),
-                      color: Colors.white,
-                      fontSize: 17.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+              title: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    FFLocalizations.of(context).getText(
+                      'ryd5vvtx' /* Desafios */,
                     ),
+                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                          font: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .fontStyle,
+                          ),
+                          color: Colors.white,
+                          fontSize: 17.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
+                        ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(23.0, 0.0, 0.0, 6.0),
+                    child: FlutterFlowIconButton(
+                      borderRadius: 8.0,
+                      buttonSize: 40.0,
+                      fillColor: FlutterFlowTheme.of(context).primary,
+                      icon: Icon(
+                        Icons.comment_outlined,
+                        color: FlutterFlowTheme.of(context).info,
+                        size: 29.0,
+                      ),
+                      onPressed: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          context: context,
+                          builder: (context) {
+                            return GestureDetector(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              },
+                              child: Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: Container(
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.55,
+                                  child: ChallengerDoneWidget(),
+                                ),
+                              ),
+                            );
+                          },
+                        ).then((value) => safeSetState(() {}));
+                      },
+                    ),
+                  ),
+                ],
               ),
               actions: [
                 Visibility(
@@ -131,7 +176,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                       valueOrDefault(currentUserDocument?.userAdm, '') == '1',
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 21.0, 18.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 21.0, 14.0),
                     child: AuthUserStreamWidget(
                       builder: (context) => InkWell(
                         splashColor: Colors.transparent,
@@ -217,9 +262,12 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                       child: StreamBuilder<List<AlternativeTrainingRecord>>(
                         stream: queryAlternativeTrainingRecord(
                           queryBuilder: (alternativeTrainingRecord) =>
-                              alternativeTrainingRecord.orderBy(
-                                  'timeStamp_training',
-                                  descending: true),
+                              alternativeTrainingRecord
+                                  .where(
+                                    'chellengerEndDate',
+                                    isGreaterThan: getCurrentTimestamp,
+                                  )
+                                  .orderBy('chellengerEndDate'),
                           limit: 8,
                         ),
                         builder: (context, snapshot) {
@@ -1069,7 +1117,7 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                                       callback:
                                                                           (timer) async {
                                                                         _model.tempoRestanteString =
-                                                                            functions.formatTimeDifference(alternativeTrainingUserChallengersRecord?.endDateChallenger);
+                                                                            functions.formatTimeDifference(listViewAlternativeTrainingRecord.chellengerEndDate);
                                                                       },
                                                                       startImmediately:
                                                                           true,
@@ -1156,8 +1204,8 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                                             child:
                                                                                 Text(
                                                                               valueOrDefault<String>(
-                                                                                _model.tempoRestanteString,
-                                                                                'Tempo',
+                                                                                functions.formatTimeDifference(listViewAlternativeTrainingRecord.chellengerEndDate),
+                                                                                'timer',
                                                                               ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     font: GoogleFonts.montserrat(
@@ -1375,7 +1423,6 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                                                         startDateChallenger: getCurrentTimestamp,
                                                                                         userRefChallenger: currentUserReference,
                                                                                         userStatus: true,
-                                                                                        endDateChallenger: functions.calculateDeadline(listViewAlternativeTrainingRecord.durationMs),
                                                                                       ));
                                                                                   return;
                                                                                 } else {

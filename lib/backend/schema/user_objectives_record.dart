@@ -70,10 +70,25 @@ class UserObjectivesRecord extends FirestoreRecord {
   String get typeObjective => _typeObjective ?? '';
   bool hasTypeObjective() => _typeObjective != null;
 
-  // "docID" field.
-  String? _docID;
-  String get docID => _docID ?? '';
-  bool hasDocID() => _docID != null;
+  // "docRef" field.
+  String? _docRef;
+  String get docRef => _docRef ?? '';
+  bool hasDocRef() => _docRef != null;
+
+  // "progressPercent" field.
+  double? _progressPercent;
+  double get progressPercent => _progressPercent ?? 0.0;
+  bool hasProgressPercent() => _progressPercent != null;
+
+  // "currentDistanceKm" field.
+  double? _currentDistanceKm;
+  double get currentDistanceKm => _currentDistanceKm ?? 0.0;
+  bool hasCurrentDistanceKm() => _currentDistanceKm != null;
+
+  // "nameObjetive" field.
+  String? _nameObjetive;
+  String get nameObjetive => _nameObjetive ?? '';
+  bool hasNameObjetive() => _nameObjetive != null;
 
   void _initializeFields() {
     _userID = snapshotData['userID'] as String?;
@@ -88,7 +103,10 @@ class UserObjectivesRecord extends FirestoreRecord {
     _typePeriod = snapshotData['typePeriod'] as String?;
     _finalObjectives = castToType<double>(snapshotData['finalObjectives']);
     _typeObjective = snapshotData['typeObjective'] as String?;
-    _docID = snapshotData['docID'] as String?;
+    _docRef = snapshotData['docRef'] as String?;
+    _progressPercent = castToType<double>(snapshotData['progressPercent']);
+    _currentDistanceKm = castToType<double>(snapshotData['currentDistanceKm']);
+    _nameObjetive = snapshotData['nameObjetive'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -137,7 +155,10 @@ Map<String, dynamic> createUserObjectivesRecordData({
   String? typePeriod,
   double? finalObjectives,
   String? typeObjective,
-  String? docID,
+  String? docRef,
+  double? progressPercent,
+  double? currentDistanceKm,
+  String? nameObjetive,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -152,7 +173,10 @@ Map<String, dynamic> createUserObjectivesRecordData({
       'typePeriod': typePeriod,
       'finalObjectives': finalObjectives,
       'typeObjective': typeObjective,
-      'docID': docID,
+      'docRef': docRef,
+      'progressPercent': progressPercent,
+      'currentDistanceKm': currentDistanceKm,
+      'nameObjetive': nameObjetive,
     }.withoutNulls,
   );
 
@@ -176,7 +200,10 @@ class UserObjectivesRecordDocumentEquality
         e1?.typePeriod == e2?.typePeriod &&
         e1?.finalObjectives == e2?.finalObjectives &&
         e1?.typeObjective == e2?.typeObjective &&
-        e1?.docID == e2?.docID;
+        e1?.docRef == e2?.docRef &&
+        e1?.progressPercent == e2?.progressPercent &&
+        e1?.currentDistanceKm == e2?.currentDistanceKm &&
+        e1?.nameObjetive == e2?.nameObjetive;
   }
 
   @override
@@ -192,7 +219,10 @@ class UserObjectivesRecordDocumentEquality
         e?.typePeriod,
         e?.finalObjectives,
         e?.typeObjective,
-        e?.docID
+        e?.docRef,
+        e?.progressPercent,
+        e?.currentDistanceKm,
+        e?.nameObjetive
       ]);
 
   @override

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -25,11 +26,6 @@ class NotificationRecord extends FirestoreRecord {
   String get idNotification => _idNotification ?? '';
   bool hasIdNotification() => _idNotification != null;
 
-  // "statusNotification" field.
-  bool? _statusNotification;
-  bool get statusNotification => _statusNotification ?? false;
-  bool hasStatusNotification() => _statusNotification != null;
-
   // "timeStamp_notification" field.
   DateTime? _timeStampNotification;
   DateTime? get timeStampNotification => _timeStampNotification;
@@ -40,13 +36,20 @@ class NotificationRecord extends FirestoreRecord {
   String get imageCoverUrl => _imageCoverUrl ?? '';
   bool hasImageCoverUrl() => _imageCoverUrl != null;
 
+  // "userReferenceNotification" field.
+  List<DocumentReference>? _userReferenceNotification;
+  List<DocumentReference> get userReferenceNotification =>
+      _userReferenceNotification ?? const [];
+  bool hasUserReferenceNotification() => _userReferenceNotification != null;
+
   void _initializeFields() {
     _notificationType = snapshotData['notificationType'] as String?;
     _idNotification = snapshotData['idNotification'] as String?;
-    _statusNotification = snapshotData['statusNotification'] as bool?;
     _timeStampNotification =
         snapshotData['timeStamp_notification'] as DateTime?;
     _imageCoverUrl = snapshotData['imageCover_url'] as String?;
+    _userReferenceNotification =
+        getDataList(snapshotData['userReferenceNotification']);
   }
 
   static CollectionReference get collection =>
@@ -86,7 +89,6 @@ class NotificationRecord extends FirestoreRecord {
 Map<String, dynamic> createNotificationRecordData({
   String? notificationType,
   String? idNotification,
-  bool? statusNotification,
   DateTime? timeStampNotification,
   String? imageCoverUrl,
 }) {
@@ -94,7 +96,6 @@ Map<String, dynamic> createNotificationRecordData({
     <String, dynamic>{
       'notificationType': notificationType,
       'idNotification': idNotification,
-      'statusNotification': statusNotification,
       'timeStamp_notification': timeStampNotification,
       'imageCover_url': imageCoverUrl,
     }.withoutNulls,
@@ -109,20 +110,22 @@ class NotificationRecordDocumentEquality
 
   @override
   bool equals(NotificationRecord? e1, NotificationRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.notificationType == e2?.notificationType &&
         e1?.idNotification == e2?.idNotification &&
-        e1?.statusNotification == e2?.statusNotification &&
         e1?.timeStampNotification == e2?.timeStampNotification &&
-        e1?.imageCoverUrl == e2?.imageCoverUrl;
+        e1?.imageCoverUrl == e2?.imageCoverUrl &&
+        listEquality.equals(
+            e1?.userReferenceNotification, e2?.userReferenceNotification);
   }
 
   @override
   int hash(NotificationRecord? e) => const ListEquality().hash([
         e?.notificationType,
         e?.idNotification,
-        e?.statusNotification,
         e?.timeStampNotification,
-        e?.imageCoverUrl
+        e?.imageCoverUrl,
+        e?.userReferenceNotification
       ]);
 
   @override
