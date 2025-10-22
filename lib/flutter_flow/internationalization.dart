@@ -655,6 +655,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
       'es': '',
     },
+    'x7m2eawr': {
+      'pt': 'Limpar ranking  de performance',
+      'en': '',
+      'es': '',
+    },
     'lv91c2eh': {
       'pt': 'Home',
       'en': 'Home',

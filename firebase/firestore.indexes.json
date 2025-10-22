@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "alternativeTraining",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "chellengerStatus",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "chellengerEndDate",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }

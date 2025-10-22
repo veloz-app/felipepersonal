@@ -47,19 +47,25 @@ class _HomepageWidgetState extends State<HomepageWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.queryOFF = await queryAlternativeTrainingRecordOnce(
-        queryBuilder: (alternativeTrainingRecord) =>
-            alternativeTrainingRecord.where(
-          'chellengerEndDate',
-          isLessThan: getCurrentTimestamp,
-        ),
+        queryBuilder: (alternativeTrainingRecord) => alternativeTrainingRecord
+            .where(
+              'chellengerEndDate',
+              isLessThan: getCurrentTimestamp,
+            )
+            .where(
+              'chellengerStatus',
+              isEqualTo: true,
+            ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
 
       await _model.queryOFF!.reference.update({
+        ...createAlternativeTrainingRecordData(
+          chellengerStatus: false,
+        ),
         ...mapToFirestore(
           {
-            'challengesReference':
-                FieldValue.arrayRemove([currentUserReference]),
+            'challengesReference': FieldValue.delete(),
           },
         ),
       });
@@ -354,7 +360,7 @@ class _HomepageWidgetState extends State<HomepageWidget>
                                       });
                                       if (listViewNotificationRecord
                                               .notificationType ==
-                                          'publicou um vídeo alternativo') {
+                                          'publicou um desafio') {
                                         context.pushNamed(
                                             AlternativeTrainingWidget
                                                 .routeName);

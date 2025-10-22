@@ -959,45 +959,56 @@ class _ObjectivesWidgetState extends State<ObjectivesWidget> {
                                                                                         ) ??
                                                                                         false;
                                                                                     if (confirmDialogResponse) {
-                                                                                      await containerPerformanceRecord!.reference.update({
-                                                                                        ...mapToFirestore(
-                                                                                          {
-                                                                                            'totalAmount': FieldValue.increment(-1),
-                                                                                            'userObjectivePerformance': FieldValue.increment(-1),
-                                                                                          },
-                                                                                        ),
-                                                                                      });
-                                                                                      await listViewUserObjectivesRecord.reference.delete();
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(
-                                                                                        SnackBar(
-                                                                                          content: Text(
-                                                                                            'Objetivo excluído com sucesso!',
-                                                                                            style: TextStyle(
-                                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                                      await Future.wait([
+                                                                                        Future(() async {
+                                                                                          if (containerPerformanceRecord!.userObjectivePerformance >= 1) {
+                                                                                            await containerPerformanceRecord.reference.update({
+                                                                                              ...mapToFirestore(
+                                                                                                {
+                                                                                                  'totalAmount': FieldValue.increment(-1),
+                                                                                                  'userObjectivePerformance': FieldValue.increment(-1),
+                                                                                                },
+                                                                                              ),
+                                                                                            });
+                                                                                            return;
+                                                                                          } else {
+                                                                                            return;
+                                                                                          }
+                                                                                        }),
+                                                                                        Future(() async {
+                                                                                          await listViewUserObjectivesRecord.reference.delete();
+                                                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                                                            SnackBar(
+                                                                                              content: Text(
+                                                                                                'Objetivo excluído com sucesso!',
+                                                                                                style: TextStyle(
+                                                                                                  color: FlutterFlowTheme.of(context).primary,
+                                                                                                ),
+                                                                                              ),
+                                                                                              duration: Duration(milliseconds: 1600),
+                                                                                              backgroundColor: FlutterFlowTheme.of(context).secondary,
                                                                                             ),
-                                                                                          ),
-                                                                                          duration: Duration(milliseconds: 1600),
-                                                                                          backgroundColor: FlutterFlowTheme.of(context).secondary,
-                                                                                        ),
-                                                                                      );
-                                                                                      await Future.delayed(
-                                                                                        Duration(
-                                                                                          milliseconds: 1200,
-                                                                                        ),
-                                                                                      );
+                                                                                          );
+                                                                                          await Future.delayed(
+                                                                                            Duration(
+                                                                                              milliseconds: 1200,
+                                                                                            ),
+                                                                                          );
 
-                                                                                      context.pushNamed(
-                                                                                        ObjectivesWidget.routeName,
-                                                                                        extra: <String, dynamic>{
-                                                                                          kTransitionInfoKey: TransitionInfo(
-                                                                                            hasTransition: true,
-                                                                                            transitionType: PageTransitionType.fade,
-                                                                                            duration: Duration(milliseconds: 0),
-                                                                                          ),
-                                                                                        },
-                                                                                      );
+                                                                                          context.pushNamed(
+                                                                                            ObjectivesWidget.routeName,
+                                                                                            extra: <String, dynamic>{
+                                                                                              kTransitionInfoKey: TransitionInfo(
+                                                                                                hasTransition: true,
+                                                                                                transitionType: PageTransitionType.fade,
+                                                                                                duration: Duration(milliseconds: 0),
+                                                                                              ),
+                                                                                            },
+                                                                                          );
 
-                                                                                      return;
+                                                                                          return;
+                                                                                        }),
+                                                                                      ]);
                                                                                     } else {
                                                                                       return;
                                                                                     }

@@ -70,6 +70,11 @@ class UserRecord extends FirestoreRecord {
   bool get challengerStatus => _challengerStatus ?? false;
   bool hasChallengerStatus() => _challengerStatus != null;
 
+  // "lastDatePerformanceClear" field.
+  DateTime? _lastDatePerformanceClear;
+  DateTime? get lastDatePerformanceClear => _lastDatePerformanceClear;
+  bool hasLastDatePerformanceClear() => _lastDatePerformanceClear != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -82,6 +87,8 @@ class UserRecord extends FirestoreRecord {
     _subDisplayName = snapshotData['subDisplay_name'] as String?;
     _performanceStatus = snapshotData['performanceStatus'] as bool?;
     _challengerStatus = snapshotData['challengerStatus'] as bool?;
+    _lastDatePerformanceClear =
+        snapshotData['lastDatePerformanceClear'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -129,6 +136,7 @@ Map<String, dynamic> createUserRecordData({
   String? subDisplayName,
   bool? performanceStatus,
   bool? challengerStatus,
+  DateTime? lastDatePerformanceClear,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -143,6 +151,7 @@ Map<String, dynamic> createUserRecordData({
       'subDisplay_name': subDisplayName,
       'performanceStatus': performanceStatus,
       'challengerStatus': challengerStatus,
+      'lastDatePerformanceClear': lastDatePerformanceClear,
     }.withoutNulls,
   );
 
@@ -164,7 +173,8 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e1?.notificationCount == e2?.notificationCount &&
         e1?.subDisplayName == e2?.subDisplayName &&
         e1?.performanceStatus == e2?.performanceStatus &&
-        e1?.challengerStatus == e2?.challengerStatus;
+        e1?.challengerStatus == e2?.challengerStatus &&
+        e1?.lastDatePerformanceClear == e2?.lastDatePerformanceClear;
   }
 
   @override
@@ -179,7 +189,8 @@ class UserRecordDocumentEquality implements Equality<UserRecord> {
         e?.notificationCount,
         e?.subDisplayName,
         e?.performanceStatus,
-        e?.challengerStatus
+        e?.challengerStatus,
+        e?.lastDatePerformanceClear
       ]);
 
   @override

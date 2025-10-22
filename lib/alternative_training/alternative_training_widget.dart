@@ -1330,22 +1330,28 @@ class _AlternativeTrainingWidgetState extends State<AlternativeTrainingWidget> {
                                                                                         },
                                                                                       ),
                                                                                     });
+                                                                                    return;
                                                                                   }),
                                                                                   Future(() async {
                                                                                     await alternativeTrainingUserChallengersRecord!.reference.delete();
+                                                                                    return;
                                                                                   }),
                                                                                   Future(() async {
-                                                                                    await conditionalBuilderPerformanceRecord!.reference.update({
-                                                                                      ...mapToFirestore(
-                                                                                        {
-                                                                                          'totalAmount': FieldValue.increment(-1),
-                                                                                          'userChallengerPerformance': FieldValue.increment(-1),
-                                                                                        },
-                                                                                      ),
-                                                                                    });
+                                                                                    if (conditionalBuilderPerformanceRecord!.userChallengerPerformance >= 1) {
+                                                                                      await conditionalBuilderPerformanceRecord.reference.update({
+                                                                                        ...mapToFirestore(
+                                                                                          {
+                                                                                            'totalAmount': FieldValue.increment(-1),
+                                                                                            'userChallengerPerformance': FieldValue.increment(-1),
+                                                                                          },
+                                                                                        ),
+                                                                                      });
+                                                                                      return;
+                                                                                    } else {
+                                                                                      return;
+                                                                                    }
                                                                                   }),
                                                                                 ]);
-                                                                                return;
                                                                               } else {
                                                                                 return;
                                                                               }
