@@ -46,54 +46,63 @@ class _HomepageWidgetState extends State<HomepageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.queryOFF = await queryAlternativeTrainingRecordOnce(
-        queryBuilder: (alternativeTrainingRecord) => alternativeTrainingRecord
-            .where(
-              'chellengerEndDate',
-              isLessThan: getCurrentTimestamp,
-            )
-            .where(
-              'chellengerStatus',
-              isEqualTo: true,
-            ),
-        singleRecord: true,
-      ).then((s) => s.firstOrNull);
+      await Future.wait([
+        Future(() async {
+          safeSetState(() {});
+          _model.pageVeiwNext = 1;
+          safeSetState(() {});
+          _model.instantTimer = InstantTimer.periodic(
+            duration: Duration(milliseconds: 3000),
+            callback: (timer) async {
+              if (_model.pageVeiwNext! >= _model.pageViewTotal) {
+                _model.pageVeiwNext = 1;
+                safeSetState(() {});
+                await _model.pageViewBannerController?.animateToPage(
+                  0,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.ease,
+                );
+                return;
+              } else {
+                await _model.pageViewBannerController?.nextPage(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                );
+                _model.pageVeiwNext = _model.pageVeiwNext! + 1;
+                safeSetState(() {});
+                return;
+              }
+            },
+            startImmediately: true,
+          );
+        }),
+        Future(() async {
+          _model.queryOFF = await queryAlternativeTrainingRecordOnce(
+            queryBuilder: (alternativeTrainingRecord) =>
+                alternativeTrainingRecord
+                    .where(
+                      'chellengerEndDate',
+                      isLessThan: getCurrentTimestamp,
+                    )
+                    .where(
+                      'chellengerStatus',
+                      isEqualTo: true,
+                    ),
+            singleRecord: true,
+          ).then((s) => s.firstOrNull);
 
-      await _model.queryOFF!.reference.update({
-        ...createAlternativeTrainingRecordData(
-          chellengerStatus: false,
-        ),
-        ...mapToFirestore(
-          {
-            'challengesReference': FieldValue.delete(),
-          },
-        ),
-      });
-      safeSetState(() {});
-      _model.pageVeiwNext = 1;
-      safeSetState(() {});
-      _model.instantTimer = InstantTimer.periodic(
-        duration: Duration(milliseconds: 3000),
-        callback: (timer) async {
-          if (_model.pageVeiwNext! >= _model.pageViewTotal) {
-            _model.pageVeiwNext = 1;
-            safeSetState(() {});
-            await _model.pageViewBannerController?.animateToPage(
-              0,
-              duration: Duration(milliseconds: 500),
-              curve: Curves.ease,
-            );
-          } else {
-            await _model.pageViewBannerController?.nextPage(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.ease,
-            );
-            _model.pageVeiwNext = _model.pageVeiwNext! + 1;
-            safeSetState(() {});
-          }
-        },
-        startImmediately: true,
-      );
+          await _model.queryOFF!.reference.update({
+            ...createAlternativeTrainingRecordData(
+              chellengerStatus: false,
+            ),
+            ...mapToFirestore(
+              {
+                'challengesReference': FieldValue.delete(),
+              },
+            ),
+          });
+        }),
+      ]);
     });
 
     animationsMap.addAll({

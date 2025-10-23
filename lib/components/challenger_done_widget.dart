@@ -105,7 +105,7 @@ class _ChallengerDoneWidgetState extends State<ChallengerDoneWidget> {
                                   'chellengerEndDate',
                                   isLessThan: getCurrentTimestamp,
                                 )
-                                .orderBy('chellengerEndDate'),
+                                .orderBy('chellengerEndDate', descending: true),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.

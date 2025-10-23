@@ -251,6 +251,7 @@ class _BannerPrimaryAPPWidgetState extends State<BannerPrimaryAPPWidget> {
                                     context: context,
                                     maxWidth: 1000.00,
                                     maxHeight: 1000.00,
+                                    imageQuality: 28,
                                     allowPhoto: true,
                                   );
                                   if (selectedMedia != null &&
@@ -308,36 +309,45 @@ class _BannerPrimaryAPPWidgetState extends State<BannerPrimaryAPPWidget> {
                                   if (containerBannerAPPRecord?.image1 ==
                                           null ||
                                       containerBannerAPPRecord?.image1 == '') {
-                                    await containerBannerAPPRecord!.reference
-                                        .update(createBannerAPPRecordData(
-                                      image1:
-                                          _model.uploadedFileUrl_uploadImage1,
-                                    ));
-                                    await Future.delayed(
-                                      Duration(
-                                        milliseconds: 4000,
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Imagem alterada com sucesso',
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.0,
-                                          ),
+                                    if (_model.uploadedFileUrl_uploadImage1 !=
+                                            '') {
+                                      await containerBannerAPPRecord!.reference
+                                          .update(createBannerAPPRecordData(
+                                        image1:
+                                            _model.uploadedFileUrl_uploadImage1,
+                                      ));
+                                      await Future.delayed(
+                                        Duration(
+                                          milliseconds: 4000,
                                         ),
-                                        duration: Duration(milliseconds: 1500),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                      ),
-                                    );
-                                    return;
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Imagem alterada com sucesso',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 1500),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      return;
+                                    } else {
+                                      return;
+                                    }
                                   } else {
-                                    if (_model.isDataUploading_uploadImage1) {
+                                    if (_model.uploadedFileUrl_uploadImage1 !=
+                                            '') {
                                       await containerBannerAPPRecord!.reference
                                           .update(createBannerAPPRecordData(
                                         image1:
@@ -474,43 +484,12 @@ class _BannerPrimaryAPPWidgetState extends State<BannerPrimaryAPPWidget> {
                                             null ||
                                         containerBannerAPPRecord?.image2 ==
                                             '') {
-                                      await containerBannerAPPRecord!.reference
-                                          .update(createBannerAPPRecordData(
-                                        image1:
-                                            _model.uploadedFileUrl_uploadImage2,
-                                      ));
-                                      await Future.delayed(
-                                        Duration(
-                                          milliseconds: 4000,
-                                        ),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Imagem alterada com sucesso',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16.0,
-                                            ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 1500),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                      return;
-                                    } else {
-                                      if (_model.isDataUploading_uploadImage2) {
+                                      if (_model.uploadedFileUrl_uploadImage2 !=
+                                              '') {
                                         await containerBannerAPPRecord!
                                             .reference
                                             .update(createBannerAPPRecordData(
-                                          image1: _model
+                                          image2: _model
                                               .uploadedFileUrl_uploadImage2,
                                         ));
                                         await Future.delayed(
@@ -542,7 +521,40 @@ class _BannerPrimaryAPPWidgetState extends State<BannerPrimaryAPPWidget> {
                                       } else {
                                         return;
                                       }
-                                    }
+                                    } else {
+                                      await containerBannerAPPRecord!
+                                          .reference
+                                          .update(createBannerAPPRecordData(
+                                        image2: _model
+                                            .uploadedFileUrl_uploadImage2,
+                                      ));
+                                      await Future.delayed(
+                                        Duration(
+                                          milliseconds: 4000,
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Imagem alterada com sucesso',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 1500),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      return;
+                                                                        }
                                   },
                                   child: Container(
                                     width: 300.0,
@@ -645,43 +657,12 @@ class _BannerPrimaryAPPWidgetState extends State<BannerPrimaryAPPWidget> {
                                             null ||
                                         containerBannerAPPRecord?.image3 ==
                                             '') {
-                                      await containerBannerAPPRecord!.reference
-                                          .update(createBannerAPPRecordData(
-                                        image1:
-                                            _model.uploadedFileUrl_uploadImage3,
-                                      ));
-                                      await Future.delayed(
-                                        Duration(
-                                          milliseconds: 4000,
-                                        ),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Imagem alterada com sucesso',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16.0,
-                                            ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 1500),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                      return;
-                                    } else {
-                                      if (_model.isDataUploading_uploadImage3) {
+                                      if (_model.uploadedFileUrl_uploadImage3 !=
+                                              '') {
                                         await containerBannerAPPRecord!
                                             .reference
                                             .update(createBannerAPPRecordData(
-                                          image1: _model
+                                          image3: _model
                                               .uploadedFileUrl_uploadImage3,
                                         ));
                                         await Future.delayed(
@@ -713,7 +694,40 @@ class _BannerPrimaryAPPWidgetState extends State<BannerPrimaryAPPWidget> {
                                       } else {
                                         return;
                                       }
-                                    }
+                                    } else {
+                                      await containerBannerAPPRecord!
+                                          .reference
+                                          .update(createBannerAPPRecordData(
+                                        image3: _model
+                                            .uploadedFileUrl_uploadImage3,
+                                      ));
+                                      await Future.delayed(
+                                        Duration(
+                                          milliseconds: 4000,
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Imagem alterada com sucesso',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 1500),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      return;
+                                                                        }
                                   },
                                   child: Container(
                                     width: 300.0,
@@ -731,7 +745,7 @@ class _BannerPrimaryAPPWidgetState extends State<BannerPrimaryAPPWidget> {
                                                           ?.image3 !=
                                                       ''
                                               ? containerBannerAPPRecord?.image3
-                                              : 'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2Ffoto%20perfil.png?alt=media&token=9d7b8b04-2679-4933-afbf-3499aaf9ff5d',
+                                              : 'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FuploadobjectiveADM.png?alt=media&token=60678bc2-14fa-47e2-8fbc-9ba12376693b',
                                           'https://firebasestorage.googleapis.com/v0/b/felipe-personal-3b85a.firebasestorage.app/o/app%2FuploadobjectiveADM.png?alt=media&token=60678bc2-14fa-47e2-8fbc-9ba12376693b',
                                         ),
                                         width: double.infinity,

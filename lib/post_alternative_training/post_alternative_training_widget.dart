@@ -345,7 +345,11 @@ class _PostAlternativeTrainingWidgetState
                         345600000,
                         432000000,
                         604800000,
-                        3600000
+                        1209600000,
+                        1814400000,
+                        2592000000,
+                        5184000000,
+                        7776000000
                       ]),
                       optionLabels: [
                         FFLocalizations.of(context).getText(
@@ -367,7 +371,19 @@ class _PostAlternativeTrainingWidgetState
                           'hljdamgg' /* 1 semana */,
                         ),
                         FFLocalizations.of(context).getText(
-                          'm2c5qa5h' /* 1 hora */,
+                          'm2c5qa5h' /* 2 semanas */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'wofvyy6d' /* 3 semanas */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'x4q9ajeh' /* 1 mês */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'ryk49bps' /* 2 meses */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          '6indgnmh' /* 3 meses */,
                         )
                       ],
                       onChanged: (val) async {

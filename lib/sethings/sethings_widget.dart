@@ -277,7 +277,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  '',
+                                  'Imagem ajustada com sucesso!',
                                   style: TextStyle(
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
@@ -295,7 +295,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                             return;
                           }
                         } else {
-                          if (_model.isDataUploading_uploadUserImage) {
+                          if (_model.uploadedFileUrl_uploadUserImage != '') {
                             await currentUserReference!
                                 .update(createUserRecordData(
                               photoUrl: _model.uploadedFileUrl_uploadUserImage,
@@ -303,7 +303,7 @@ class _SethingsWidgetState extends State<SethingsWidget> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  '',
+                                  'Imagem ajustada com sucesso!',
                                   style: TextStyle(
                                     color:
                                         FlutterFlowTheme.of(context).secondary,

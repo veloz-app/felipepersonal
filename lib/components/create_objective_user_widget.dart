@@ -534,6 +534,10 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                                 .dropDownTypePeriodValue ==
                                             'Mês') {
                                           return 'Mês/meses';
+                                        } else if (_model
+                                                .dropDownObjectiveSelectValue ==
+                                            'Dormir melhor') {
+                                          return 'Noites';
                                         } else {
                                           return 'Defina o período';
                                         }
@@ -577,7 +581,7 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                                           } else if (_model
                                                   .dropDownObjectiveSelectValue ==
                                               'Dormir melhor') {
-                                            return 'noites';
+                                            return 'noites?';
                                           } else {
                                             return '';
                                           }
@@ -821,22 +825,27 @@ class _CreateObjectiveUserWidgetState extends State<CreateObjectiveUserWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: !((_model.dropDownObjectiveSelectValue !=
-                                            null &&
+                            onPressed: !((_model.dropDownObjectiveSelectValue != null &&
                                         _model.dropDownObjectiveSelectValue !=
                                             '') &&
-                                    ((_model.objectiveFinalTextController
-                                                    .text !=
-                                                '') ||
-                                        (_model.dropDownObjectiveSelectValue ==
-                                            'Melhorar alimentação') ||
-                                        (_model.dropDownObjectiveSelectValue ==
-                                            'Dormir melhor')) &&
-                                    (_model.dropDownTypePeriodValue != null &&
-                                        _model.dropDownTypePeriodValue != '') &&
-                                    (_model.objectivePeriodTextController
-                                                .text !=
-                                            ''))
+                                    (_model.dropDownObjectiveSelectValue == 'Melhorar alimentação'
+                                        ? ((_model.dropDownTypePeriodValue != null && _model.dropDownTypePeriodValue != '') &&
+                                            (_model.objectivePeriodTextController.text !=
+                                                    ''))
+                                        : true) &&
+                                    (_model.dropDownObjectiveSelectValue == 'Dormir melhor'
+                                        ? (_model.objectivePeriodTextController.text !=
+                                                '')
+                                        : true) &&
+                                    ((_model.dropDownObjectiveSelectValue != 'Dormir melhor') &&
+                                            (_model.dropDownObjectiveSelectValue !=
+                                                'Melhorar alimentação')
+                                        ? ((_model.objectiveFinalTextController.text != '') &&
+                                            (_model.dropDownTypePeriodValue != null &&
+                                                _model.dropDownTypePeriodValue !=
+                                                    '') &&
+                                            (_model.objectivePeriodTextController.text != ''))
+                                        : true))
                                 ? null
                                 : () async {
                                     _model.query2 =

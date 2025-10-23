@@ -398,7 +398,27 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'es': '',
     },
     'm2c5qa5h': {
-      'pt': '1 hora',
+      'pt': '2 semanas',
+      'en': '',
+      'es': '',
+    },
+    'wofvyy6d': {
+      'pt': '3 semanas',
+      'en': '',
+      'es': '',
+    },
+    'x4q9ajeh': {
+      'pt': '1 mês',
+      'en': '',
+      'es': '',
+    },
+    'ryk49bps': {
+      'pt': '2 meses',
+      'en': '',
+      'es': '',
+    },
+    '6indgnmh': {
+      'pt': '3 meses',
       'en': '',
       'es': '',
     },
